@@ -114,7 +114,7 @@ Regras: um botão primário por área. O texto começa com verbo e diz o resulta
 **Cabeçalho.** Marca "♡ Conecta Doações" em primary, itens de menu por perfil, item atual com fundo primary-soft, link "Ajuda" com ícone help e saudação à direita.
 - Doador: Início, ONGs, Minhas doações, Perfil.
 - ONG: Painel, Necessidades, Doações recebidas, Perfil da ONG.
-- Administrador: Painel, Aprovações, Moderação.
+- Administrador: Painel, Aprovações, Campanhas, Usuários.
 
 **Cards.** Card de ONG (inicial em quadrado primary-soft, nome, cidade com pin, selo "ONG verificada", descrição, itens urgentes e botão "Ver necessidades"). Card de resumo (número grande, rótulo e link). Resumo da doação (tabela de rótulo e valor). Campanha emergencial (fundo accent-soft, selo EMERGÊNCIA em accent, barra de progresso e botão "Ver campanha").
 

@@ -90,15 +90,17 @@ Tela nova, exigida por Web. Sem login.
 - Botões: "Cancelar" e "Salvar necessidade".
 - Coluna lateral: pré-visualização "Cobertor de casal · Cobertores · 50 unidades · URGENTE · Campanha: Enchente em Vila Velha" com botão "Quero doar", e a dica "Itens urgentes aparecem no topo da busca e na tela inicial dos doadores."
 
-## Administrador (menu: Painel, Aprovações, Moderação)
+## Administrador (menu: Painel, Aprovações, Campanhas, Usuários)
 
-As telas 11 a 13 são novas, por exigência de Web (3 telas por perfil). Seguem os mesmos componentes das demais.
+As telas 11 a 14 são novas, por exigência de Web (3 telas por perfil, aqui 4). Seguem os mesmos componentes das demais. Os 3 relatórios do painel são os mesmos indicadores do relatório de Banco de Dados.
 
 ### 11. Painel e relatórios
-- "Olá, Administrador! Painel da plataforma".
-- 4 cards de resumo: 300 ONGs cadastradas, 5 ONGs aguardando aprovação (Ver aprovações), 2 campanhas pendentes, 48 doações recebidas no mês.
-- Relatório "Doações por categoria no mês": barras horizontais de progresso por categoria (Alimentos, Roupas, Higiene, Cobertores...).
+- "Olá, Administrador! Painel da plataforma" e subtítulo "Resumo e relatórios dos últimos 6 meses".
+- 4 cards de resumo: 300 ONGs cadastradas (Ver usuários), 5 ONGs aguardando aprovação (Ver aprovações), 2 campanhas pendentes (Analisar), 48 doações recebidas no mês.
+- Relatório "Doações recebidas por mês": gráfico de barras de junho a novembro de 2026 (31, 36, 29, 41, 44, 48), com o valor sobre cada barra.
 - Tabela "Aguardando análise" com 4 itens recentes (ONG ou campanha, data, ação "Analisar").
+- Relatório "Demanda por categoria e prioridade": tabela com itens recebidos de itens solicitados, em Urgente e Normal, e o percentual atendido por categoria.
+- Relatório "Média mensal por categoria": barras de progresso por categoria (Alimentos 14,0; Roupas 8,7; Higiene 6,3...) e "Média geral: 38,2 doações por mês".
 
 ### 12. Aprovação de ONGs e campanhas
 - Breadcrumb "Painel > Aprovações", título "Aprovação de ONGs e campanhas".
@@ -107,15 +109,21 @@ As telas 11 a 13 são novas, por exigência de Web (3 telas por perfil). Seguem 
 - Detalhe da ONG selecionada (descrição, endereço, contato, representante) e botões "Recusar" e "Aprovar ONG".
 - Alerta de sucesso ao aprovar: "ONG aprovada! Ela já aparece com o selo 'ONG verificada'."
 
-### 13. Moderação de necessidades
-- Breadcrumb "Painel > Moderação", título "Moderação de necessidades".
-- Busca "Buscar item ou ONG", seletores "Categoria: Todas", "Situação: Ativas".
-- Tabela: Item, ONG, Categoria, Quantidade, Prioridade, Atualizado em e Ação ("Remover").
-- Diálogo "Remover necessidade?": "A ONG será avisada. Informe o motivo da remoção." com campo "Motivo*", botões Cancelar e Remover (perigo).
+### 13. Campanhas emergenciais
+- Breadcrumb "Painel > Campanhas", título "Campanhas emergenciais" e botão primário "+ Nova campanha".
+- Abas com contador: Todas (24), Ativas (6), Pendentes (2), Encerradas (16). Busca "Buscar campanha ou cidade" e seletor "Tipo: Todos".
+- Tabela: Campanha, Tipo, Cidade, Itens recebidos (ex.: "1.300 de 2.000"), Período, Situação (selo Ativa, Pendente ou Encerrada) e Ações ("Editar" e "Encerrar" nas ativas, "Editar" e "Analisar" nas pendentes, "Reabrir" nas encerradas). "Analisar" leva à tela 12.
+- Diálogo "Encerrar campanha?": "A campanha deixa de aparecer para os doadores. As doações já registradas continuam valendo." Botões Cancelar e Encerrar campanha (perigo).
+
+### 14. Usuários
+- Breadcrumb "Painel > Usuários", título "Usuários da plataforma" e subtítulo "Doadores, ONGs e administradores cadastrados. Bloqueie quem descumprir as regras de uso."
+- Abas com contador: Todos (5.000), Doadores (4.697), ONGs (300), Administradores (3). Busca "Buscar por nome ou e-mail" e seletor "Situação: Todas".
+- Tabela: Nome, E-mail, Perfil, Cidade, Cadastro, Situação (selo Ativo ou Bloqueado) e Ação ("Bloquear" ou "Desbloquear"; administradores não têm ação).
+- Diálogo "Bloquear usuário?": "O usuário não poderá entrar nem registrar doações. Você pode desbloquear o acesso depois." Botões Cancelar e Bloquear usuário (perigo).
 
 ## Fluxos que o protótipo deve ligar
 
 - Doador: 01 Entrar → 02 Início → 03 ONGs → 04 Perfil da ONG → 05 Registrar doação → 06 Minhas doações.
 - ONG: 01 Entrar → 07 Painel → 08 Gerenciar necessidades → 10 Cadastrar necessidade → 08. De 07 também para 09 Doações recebidas.
-- Administrador: 01 Entrar → 11 Painel → 12 Aprovações → 13 Moderação.
+- Administrador: 01 Entrar → 11 Painel → 12 Aprovações → 13 Campanhas → 14 Usuários. O menu liga as 4 telas entre si.
 - Público: 00 Apresentação → 01 Entrar ou 03 ONGs como visitante.
