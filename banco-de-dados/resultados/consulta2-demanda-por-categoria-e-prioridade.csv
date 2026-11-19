@@ -1,0 +1,17 @@
+categoria,prioridade,necessidades,qtd_solicitada,qtd_recebida,qtd_pendente,pct_atendido
+Alimentos,normal,589,58680,39175,19505,66.8
+Alimentos,urgente,208,22750,13592,9158,59.7
+Calçados,normal,209,21760,11405,10355,52.4
+Calçados,urgente,70,6870,3538,3332,51.5
+Cobertores,normal,184,19920,14531,5389,72.9
+Cobertores,urgente,69,7680,5084,2596,66.2
+Higiene,normal,371,37510,21634,15876,57.7
+Higiene,urgente,114,11360,6718,4642,59.1
+Material escolar,normal,212,21470,12980,8490,60.5
+Material escolar,urgente,87,7500,5460,2040,72.8
+Móveis,normal,146,16280,8978,7302,55.1
+Móveis,urgente,36,4370,2219,2151,50.8
+Roupas,normal,332,35840,22116,13724,61.7
+Roupas,urgente,110,11310,7387,3923,65.3
+Água,normal,198,21030,11339,9691,53.9
+Água,urgente,65,6430,3720,2710,57.9
