@@ -27,6 +27,7 @@ CREATE TABLE usuario (
     perfil         VARCHAR(10)  NOT NULL,
     id_cidade      INTEGER      NOT NULL REFERENCES cidade (id_cidade),
     data_cadastro  DATE         NOT NULL DEFAULT CURRENT_DATE,
+    ativo          BOOLEAN      NOT NULL DEFAULT TRUE,
     CONSTRAINT ck_usuario_perfil CHECK (perfil IN ('doador', 'ong', 'admin'))
 );
 

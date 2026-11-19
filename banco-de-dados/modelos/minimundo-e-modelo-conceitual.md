@@ -4,7 +4,7 @@
 
 A plataforma **Conecta Doações** aproxima pessoas que querem doar de ONGs e campanhas que precisam de doações.
 
-Qualquer pessoa que usa a plataforma é um **usuário**, com nome, e-mail, senha, telefone, cidade e data de cadastro. Cada usuário tem um **perfil**: doador, representante de ONG ou administrador. As cidades são cadastradas com nome e UF.
+Qualquer pessoa que usa a plataforma é um **usuário**, com nome, e-mail, senha, telefone, cidade e data de cadastro. O administrador pode bloquear o acesso de um usuário, que fica marcado como inativo. Cada usuário tem um **perfil**: doador, representante de ONG ou administrador. As cidades são cadastradas com nome e UF.
 
 Cada **ONG** é cadastrada por um usuário de perfil ONG, que é o seu representante. A ONG tem nome, CNPJ, descrição, endereço, cidade, horário de atendimento, telefone e e-mail de contato. Ela informa se aceita retirada das doações no endereço do doador. O administrador confirma a ONG, que passa a ter o selo "ONG verificada".
 
@@ -20,7 +20,7 @@ O doador pesquisa as necessidades e registra uma **doação** para uma necessida
 |---|---|
 | Cidade | **id_cidade**, nome, uf |
 | Categoria | **id_categoria**, nome |
-| Usuário | **id_usuario**, nome, email, senha_hash, telefone, perfil, data_cadastro |
+| Usuário | **id_usuario**, nome, email, senha_hash, telefone, perfil, data_cadastro, ativo |
 | ONG | **id_ong**, nome, cnpj, descricao, endereco, horario_atendimento, telefone, email_contato, aceita_retirada, verificada, data_cadastro |
 | Campanha | **id_campanha**, titulo, descricao, tipo, meta_itens, data_inicio, data_fim, status |
 | Necessidade | **id_necessidade**, item, descricao, quantidade, unidade, prioridade, precisa_ate, situacao, data_cadastro, data_atualizacao |
