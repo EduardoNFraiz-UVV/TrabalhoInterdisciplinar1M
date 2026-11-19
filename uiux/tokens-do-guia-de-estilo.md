@@ -27,6 +27,7 @@ Valores extraídos de `guia-de-estilo.png`. São a referência única para o Fig
 | Estados | warning-soft | #FCEFD6 |
 | Estados | success | #1C6B3A |
 | Estados | success-soft | #DFF1E5 |
+| Estados | success-action (só no link "Concluir" da tela 8) | #2E7D32 |
 | Estados | danger | #B3261E |
 | Estados | danger-soft | #FBE4E1 |
 | Estados | danger-hover | #8F1E18 |
