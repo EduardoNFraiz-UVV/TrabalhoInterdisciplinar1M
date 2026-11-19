@@ -57,7 +57,10 @@ Tela nova, exigida por Web. Sem login.
 - Título "Minhas doações" e alerta de sucesso "Doação registrada com sucesso! A ONG Lar Esperança foi avisada."
 - Filtros por status com contador: Todas (5), Oferecidas (2), Aceitas (1), Recebidas (2) e busca "Buscar por ONG ou item".
 - Tabela: Data, ONG, Item, Quantidade, Status (selo) e Ação ("Ver detalhes", "Cancelar" apenas quando Oferecida). Linhas: 05/10/2026 Lar Esperança, Cobertores de casal, 5 un., Oferecida; 01/10/2026 Casa da Criança, Leite em pó, 4 latas, Aceita; 20/09/2026 Abrigo Sol, Fraldas G, 3 pct., Recebida; 10/09/2026 Instituto Saber, Cadernos, 10 un., Recebida; 02/09/2026 Lar Esperança, Sabonete, 12 un., Oferecida.
-- Detalhe: "Status da doação" em 3 passos (Oferecida, Aceita pela ONG, Recebida), "Entrega prevista: 15/10/2026 · Rua das Flores, 120 · (27) 3333-0000", "Aguardando a ONG aceitar a doação (geralmente em até 2 dias)" e botão "Falar com a ONG".
+- Detalhes da doação (aparecem ao clicar em "Ver detalhes"): acompanhamento em 3 passos (Oferecida, Aceita pela ONG, Recebida) e duas colunas de informações.
+  - Sua doação: ONG (Lar Esperança), Item (Cobertores de casal), Quantidade (5 un.), Observação (“cobertores novos, ainda na embalagem”) e Registrada em (05/10/2026).
+  - Entrega e contato: Forma de entrega (Vou levar até a ONG), Data prevista (15/10/2026), Endereço (Rua das Flores, 120 - Centro, Vila Velha), Horário (Seg a sex, 8h às 17h) e Contato ((27) 3333-0000 · contato@laresperanca.org).
+  - Rodapé: "Aguardando a ONG aceitar a doação (geralmente em até 2 dias)" e botão "Falar com a ONG".
 
 ## ONG (menu: Painel, Necessidades, Doações recebidas, Perfil da ONG)
 
@@ -71,8 +74,8 @@ Tela nova, exigida por Web. Sem login.
 ### 08. Gerenciar necessidades (CRUD), wireframe 08
 - Breadcrumb "Painel > Necessidades", título "Gerenciar necessidades" e botão primário "+ Nova necessidade".
 - Busca "Buscar item", seletores "Categoria: Todas", "Prioridade: Todas", "Situação: Ativas".
-- Tabela: Item, Categoria, Quantidade, Prometido, Prioridade, Atualizado em e Ações (Editar, Excluir). Linhas: Cobertores de casal 50/20 URGENTE 03/10/2026; Fraldas geriátricas G 40/10 URGENTE 03/10/2026; Leite integral 60/0 URGENTE 28/09/2026; Sabonete 100/45 Normal 20/09/2026; Agasalhos tam. M/G 30/5 Normal 15/09/2026; Arroz 5 kg 20/18 Normal 10/09/2026.
-- Diálogo de confirmação "Excluir necessidade?": "'Arroz 5 kg' tem 18 pacotes prometidos por doadores. Eles serão avisados. Você pode marcar como concluída em vez de excluir." Botões: Cancelar, Marcar concluída, Excluir (perigo).
+- Tabela: Item, Categoria, Quantidade, Prometido, Prioridade, Atualizado em e Ações (Editar, Concluir, Excluir). "Concluir" marca a necessidade como concluída direto na linha, sem passar pelo diálogo. Linhas: Cobertores de casal 50/20 URGENTE 03/10/2026; Fraldas geriátricas G 40/10 URGENTE 03/10/2026; Leite integral 60/0 URGENTE 28/09/2026; Sabonete 100/45 Normal 20/09/2026; Agasalhos tam. M/G 30/5 Normal 15/09/2026; Arroz 5 kg 20/18 Normal 10/09/2026.
+- Diálogo de confirmação "Excluir necessidade?": "'Arroz 5 kg' tem 18 pacotes prometidos por doadores. Eles serão avisados. Você pode marcar como concluída em vez de excluir." Botões: Cancelar, Marcar concluída, Excluir (perigo). O diálogo é um caminho alternativo ao "Concluir" da linha, oferecido quando a ONG tenta excluir um item com doações prometidas.
 
 ### 09. Doações recebidas, wireframe 09
 - Breadcrumb "Painel > Doações recebidas", título "Doações oferecidas à ONG".
