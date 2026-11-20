@@ -67,9 +67,11 @@ Tela nova, exigida por Web. Sem login.
 ### 07. Painel da ONG, wireframe 07
 - "Olá, Mariana! Painel do Lar Esperança" e "Perfil 80% completo · Complete para aumentar a confiança dos doadores".
 - 3 cards de resumo: 6 Necessidades cadastradas (Gerenciar), 3 Doações pendentes (Ver pendentes), 14 Recebidas no mês (Ver histórico).
-- Ações rápidas: "+ Cadastrar necessidade", "Gerenciar necessidades", "Ver doações recebidas", "Editar perfil da ONG".
+- Ações rápidas: "+ Cadastrar necessidade", "Gerenciar necessidades", "Ver doações recebidas", "Solicitar campanha", "Editar perfil da ONG".
 - Tabela de últimas doações (Data, Doador, Item, Qtd., Status): 05/10 Lucas S. Cobertores de casal 5 un. Oferecida; 04/10 Ana P. Fraldas G 6 pct. Oferecida; 03/10 João M. Leite integral 12 L Aceita; 01/10 Carla R. Sabonete 20 un. Recebida.
 - Card com 3 barras de progresso: Cobertores de casal 20 de 50, Fraldas geriátricas G 10 de 40, Leite integral 0 de 60 L.
+- Card "Campanhas solicitadas" na coluna lateral, com o nome e o selo de situação: Seca em Linhares (Pendente) e Enchente em Vila Velha (Ativa).
+- Diálogo "Solicitar campanha emergencial", exibido ao clicar em "Solicitar campanha": "Descreva a situação. O administrador analisa o pedido antes de a campanha aparecer para os doadores." Campos Título da campanha*, Tipo* (lista: enchente, deslizamento, seca, incêndio, outro), Cidade afetada*, Meta de itens* e Descrição*. Botões Cancelar e "Enviar para aprovação". A campanha nasce com situação "Pendente".
 
 ### 08. Gerenciar necessidades (CRUD), wireframe 08
 - Breadcrumb "Painel > Necessidades", título "Gerenciar necessidades" e botão primário "+ Nova necessidade".
@@ -104,15 +106,16 @@ As telas 11 a 14 são novas, por exigência de Web (3 telas por perfil, aqui 4).
 
 ### 12. Aprovação de ONGs e campanhas
 - Breadcrumb "Painel > Aprovações", título "Aprovação de ONGs e campanhas".
-- Abas: ONGs pendentes (5), Campanhas pendentes (2).
+- Abas: ONGs pendentes (5), Campanhas pendentes (2). As campanhas pendentes são as solicitadas por ONGs; "Aprovar" torna a campanha ativa.
 - Tabela de ONGs: Nome, CNPJ, Cidade, Cadastrada em, Ações ("Aprovar", "Recusar"). Exemplos: Projeto Recomeço, Associação Mãos Amigas, Casa Girassol.
 - Detalhe da ONG selecionada (descrição, endereço, contato, representante) e botões "Recusar" e "Aprovar ONG".
 - Alerta de sucesso ao aprovar: "ONG aprovada! Ela já aparece com o selo 'ONG verificada'."
 
 ### 13. Campanhas emergenciais
+- Quem cria: a ONG solicita pelo painel dela (tela 07) e a campanha nasce pendente; o administrador também pode criar direto aqui, e ela já nasce ativa. Só campanhas ativas aparecem para os doadores.
 - Breadcrumb "Painel > Campanhas", título "Campanhas emergenciais" e botão primário "+ Nova campanha".
 - Abas com contador: Todas (24), Ativas (6), Pendentes (2), Encerradas (16). Busca "Buscar campanha ou cidade" e seletor "Tipo: Todos".
-- Tabela: Campanha, Tipo, Cidade, Itens recebidos (ex.: "1.300 de 2.000"), Período, Situação (selo Ativa, Pendente ou Encerrada) e Ações ("Editar" e "Encerrar" nas ativas, "Editar" e "Analisar" nas pendentes, "Reabrir" nas encerradas). "Analisar" leva à tela 12.
+- Tabela: Campanha, Criada por (nome da ONG ou "Administração"), Tipo, Cidade, Itens recebidos (ex.: "1.300 de 2.000"), Período, Situação (selo Ativa, Pendente ou Encerrada) e Ações ("Editar" e "Encerrar" nas ativas, "Editar" e "Analisar" nas pendentes, "Reabrir" nas encerradas). "Analisar" leva à tela 12.
 - Diálogo "Encerrar campanha?": "A campanha deixa de aparecer para os doadores. As doações já registradas continuam valendo." Botões Cancelar e Encerrar campanha (perigo).
 
 ### 14. Usuários
@@ -124,6 +127,6 @@ As telas 11 a 14 são novas, por exigência de Web (3 telas por perfil, aqui 4).
 ## Fluxos que o protótipo deve ligar
 
 - Doador: 01 Entrar → 02 Início → 03 ONGs → 04 Perfil da ONG → 05 Registrar doação → 06 Minhas doações.
-- ONG: 01 Entrar → 07 Painel → 08 Gerenciar necessidades → 10 Cadastrar necessidade → 08. De 07 também para 09 Doações recebidas.
+- ONG: 01 Entrar → 07 Painel → 08 Gerenciar necessidades → 10 Cadastrar necessidade → 08. De 07 também para 09 Doações recebidas e para o diálogo "Solicitar campanha", cujo pedido chega ao administrador (12 e 13).
 - Administrador: 01 Entrar → 11 Painel → 12 Aprovações → 13 Campanhas → 14 Usuários. O menu liga as 4 telas entre si.
 - Público: 00 Apresentação → 01 Entrar ou 03 ONGs como visitante.
