@@ -29,7 +29,7 @@ Plataforma web de doações que aproxima pessoas que querem doar de ONGs e campa
 
 ## Banco de dados
 
-Banco em PostgreSQL com 7 tabelas e 108.362 registros fictícios.
+Banco em PostgreSQL com 10 tabelas e 109.941 registros fictícios.
 
 | Arquivo | Função |
 |---|---|

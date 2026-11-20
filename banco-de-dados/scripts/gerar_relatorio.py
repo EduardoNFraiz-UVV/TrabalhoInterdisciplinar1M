@@ -168,7 +168,8 @@ def montar():
                      + [["Total geral", decimal(media_geral), "100,0%"]])
 
     contagens = [("Cidade", 30), ("Categoria", 8), ("Usuário", 5000), ("ONG", 300), ("Campanha", 24),
-                 ("Necessidade", 3000), ("Doação", 100000)]
+                 ("Campanha e cidade", 57), ("Meta da campanha", 48), ("Necessidade", 3000),
+                 ("Campanha e necessidade", 94), ("Doação", 101380)]
     total_registros = sum(n for _, n in contagens)
     tabela_base = tabela(["Tabela", "Registros"], [[t, inteiro(n)] for t, n in contagens] + [["Total", inteiro(total_registros)]])
 
@@ -226,9 +227,12 @@ td {{ padding: 3.5px 6px; border-bottom: 1px solid {GRADE}; }}
 .hero {{ font-size: 56px; line-height: 60px; font-weight: 800; color: {PRIMARIA}; }}
 .hero-t {{ font-size: 13px; color: {TINTA_SUAVE}; }}
 .rodape {{ position: absolute; left: 14mm; right: 14mm; bottom: 8mm; display: flex; justify-content: space-between; font-size: 9.5px; color: {TINTA_SUAVE}; border-top: 1px solid {GRADE}; padding-top: 5px; }}
-.base-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; margin-top: 18px; }}
+.base-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; margin-top: 12px; }}
 .base-grid h3 {{ font-size: 13px; margin: 0; }}
 .base-grid p {{ margin: 4px 0; }}
+.base-grid table {{ font-size: 9.5px; margin-top: 0; }}
+.base-grid th {{ padding: 2px 6px; }}
+.base-grid td {{ padding: 1.5px 6px; }}
 </style>
 </head>
 <body>
@@ -294,7 +298,7 @@ td {{ padding: 3.5px 6px; border-bottom: 1px solid {GRADE}; }}
   <div class="base-grid">
     <div>
       <h3>Sobre a base de dados</h3>
-      <p>Banco PostgreSQL com 7 tabelas e {inteiro(total_registros)} registros. Os dados são fictícios e foram gerados por script, com datas, sazonalidade e status coerentes com as regras do sistema.</p>
+      <p>Banco PostgreSQL com 10 tabelas e {inteiro(total_registros)} registros. Os dados são fictícios e foram gerados por script, com datas, sazonalidade e status coerentes com as regras do sistema.</p>
       <p>Período analisado: {rotulo_mes(meses[0], False)} a {rotulo_mes(meses[-1], False)}. Consultas completas em dql.sql.</p>
     </div>
     <div>{tabela_base}</div>
