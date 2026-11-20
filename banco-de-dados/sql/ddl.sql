@@ -50,6 +50,7 @@ CREATE TABLE ong (
 CREATE TABLE campanha (
     id_campanha  SERIAL       PRIMARY KEY,
     id_cidade    INTEGER      NOT NULL REFERENCES cidade (id_cidade),
+    id_ong       INTEGER      REFERENCES ong (id_ong),
     titulo       VARCHAR(100) NOT NULL,
     descricao    TEXT         NOT NULL,
     tipo         VARCHAR(20)  NOT NULL,

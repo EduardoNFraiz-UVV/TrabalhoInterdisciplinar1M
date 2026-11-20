@@ -247,11 +247,12 @@ def gerar_campanhas():
         cid = random.choices(range(1, 26), weights=PESO_CIDADE[:25])[0]
         fim = inicio + timedelta(days=random.randint(20, 60))
         status = "encerrada" if fim < HOJE else "ativa"
-        campanhas.append([n, cid, titulo.format(c=nomes_cidades[cid - 1]), descricao, tipo,
+        id_ong = (n * 37) % TOTAL_ONGS + 1 if n % 2 else None
+        campanhas.append([n, cid, id_ong, titulo.format(c=nomes_cidades[cid - 1]), descricao, tipo,
                           random.choice([500, 800, 1000, 1500, 2000, 3000, 5000]), inicio, fim, status])
-    campanhas.append([n + 1, 1, "Enchente em Vila Velha", "12 entidades precisam de água potável, alimentos, roupas e produtos de higiene.",
+    campanhas.append([n + 1, 1, None, "Enchente em Vila Velha", "12 entidades precisam de água potável, alimentos, roupas e produtos de higiene.",
                       "enchente", 3000, date(2026, 10, 10), date(2026, 11, 30), "ativa"])
-    campanhas.append([n + 2, 3, "Deslizamento em Serra", "Moradores de áreas de risco precisam de abrigo, colchões e alimentos.",
+    campanhas.append([n + 2, 3, 17, "Deslizamento em Serra", "Moradores de áreas de risco precisam de abrigo, colchões e alimentos.",
                       "deslizamento", 1200, date(2026, 12, 1), date(2027, 1, 15), "pendente"])
     return campanhas
 
@@ -280,7 +281,7 @@ def gerar_necessidades(ongs, campanhas):
         concluida_prob = 0.7 if d < date(2026, 6, 1) else 0.15
         situacao = "concluida" if random.random() < concluida_prob else "ativa"
         atualizacao = min(d + timedelta(days=random.randint(0, 30)), HOJE)
-        vigentes = [c[0] for c in campanhas if c[6] <= d <= c[7] and c[8] != "pendente"]
+        vigentes = [c[0] for c in campanhas if c[7] <= d <= c[8] and c[9] != "pendente"]
         id_campanha = random.choice(vigentes) if vigentes and random.random() < 0.15 else None
         descricao = None if random.random() < 0.4 else "Preferência por itens novos ou em bom estado."
         necessidades.append([i, b["ong"], b["cat"] + 1, id_campanha, b["item"], descricao, quantidade,
@@ -357,7 +358,7 @@ def main():
         inserir(saida, "ong", ["id_ong", "id_usuario", "id_cidade", "nome", "cnpj", "descricao", "endereco",
                                "horario_atendimento", "telefone", "email_contato", "aceita_retirada",
                                "verificada", "data_cadastro"], ongs)
-        inserir(saida, "campanha", ["id_campanha", "id_cidade", "titulo", "descricao", "tipo", "meta_itens",
+        inserir(saida, "campanha", ["id_campanha", "id_cidade", "id_ong", "titulo", "descricao", "tipo", "meta_itens",
                                     "data_inicio", "data_fim", "status"], campanhas)
         inserir(saida, "necessidade", ["id_necessidade", "id_ong", "id_categoria", "id_campanha", "item",
                                        "descricao", "quantidade", "unidade", "prioridade", "precisa_ate",

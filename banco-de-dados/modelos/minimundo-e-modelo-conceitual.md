@@ -10,7 +10,7 @@ Cada **ONG** é cadastrada por um usuário de perfil ONG, que é o seu represent
 
 A ONG cadastra suas **necessidades**: itens de que precisa em certa quantidade e unidade (por exemplo, 50 cobertores de casal). Cada necessidade pertence a uma **categoria** (alimentos, roupas, calçados, higiene, cobertores, material escolar, móveis e água) e tem prioridade normal ou urgente, uma data limite e uma situação (ativa ou concluída).
 
-O administrador também aprova **campanhas emergenciais**, relacionadas a enchentes, deslizamentos, secas, incêndios e outros desastres. A campanha tem título, descrição, tipo, cidade afetada, meta de itens, período e status (pendente, ativa ou encerrada). Uma necessidade pode ser vinculada a uma campanha.
+As **campanhas emergenciais**, relacionadas a enchentes, deslizamentos, secas, incêndios e outros desastres, podem ser solicitadas por uma ONG ou criadas diretamente pelo administrador. A campanha solicitada por uma ONG nasce pendente e só aparece para os doadores depois de aprovada pelo administrador. A campanha tem título, descrição, tipo, cidade afetada, meta de itens, período e status (pendente, ativa ou encerrada). Uma necessidade pode ser vinculada a uma campanha.
 
 O doador pesquisa as necessidades e registra uma **doação** para uma necessidade, informando a quantidade, uma observação, a forma de entrega (levar até a ONG ou solicitar retirada, informando o endereço) e a data prevista. A ONG aceita ou recusa a doação e, quando o item chega, confirma o recebimento. O doador pode cancelar enquanto ela está oferecida. O status da doação segue Oferecida, Aceita e Recebida, e também pode ser Recusada ou Cancelada.
 
@@ -36,6 +36,7 @@ O doador pesquisa as necessidades e registra uma **doação** para uma necessida
 | atinge | Campanha — Cidade | N:1 | Toda campanha atinge uma cidade. |
 | cadastra | ONG — Necessidade | 1:N | Uma ONG cadastra várias necessidades. Cada necessidade é de uma ONG. |
 | classifica | Categoria — Necessidade | 1:N | Toda necessidade tem uma categoria. |
+| solicita | ONG — Campanha | 1:N (opcional) | Uma ONG pode solicitar várias campanhas. Campanha criada pelo administrador não tem ONG solicitante. |
 | mobiliza | Campanha — Necessidade | 1:N (opcional) | Uma necessidade pode ou não estar em uma campanha. |
 | realiza | Usuário (doador) — Doação | 1:N | Um doador faz várias doações. |
 | atende | Necessidade — Doação | 1:N | Uma necessidade recebe várias doações. |
@@ -45,13 +46,14 @@ A ONG de uma doação é obtida pela necessidade escolhida. Por isso não existe
 ## Passos no brModelo (modelo conceitual)
 
 1. Criar as 7 entidades da tabela acima, com seus atributos. Marcar o identificador de cada uma como chave.
-2. Criar os 9 relacionamentos e informar as cardinalidades mínimas e máximas:
+2. Criar os 10 relacionamentos e informar as cardinalidades mínimas e máximas:
    - Usuário (1,1) mora em Cidade (0,N).
    - Usuário (0,1) representa ONG (1,1).
    - ONG (1,1) fica em Cidade (0,N).
    - Campanha (1,1) atinge Cidade (0,N).
    - ONG (1,1) cadastra Necessidade (0,N).
    - Categoria (1,1) classifica Necessidade (0,N).
+   - ONG (0,N) solicita Campanha (0,1).
    - Campanha (0,1) mobiliza Necessidade (0,N).
    - Usuário (1,1) realiza Doação (0,N).
    - Necessidade (1,1) atende Doação (0,N).
