@@ -115,9 +115,9 @@ Tela nova, exigida por Web. Sem login.
   - Dados da campanha: Título*, Tipo* e Cidades afetadas* (seleção múltipla, "Escolha uma ou mais cidades"), Data de início* e Data de fim*, Descrição*.
   - Metas da campanha: "Informe o que a campanha quer arrecadar. Cada meta tem quantidade, categoria e o item em texto. A meta não pertence a uma ONG e recebe doações diretas." Lista das metas já adicionadas (1.500 · Água · água potável; 800 · Alimentos · alimentos não perecíveis; 700 · Higiene · itens de higiene), cada uma com "Remover", e a linha de nova meta com Quantidade, Categoria, Item e "+ Adicionar meta".
   - Onde receber as doações: radios "Usar o endereço da ONG" e "Informar outro endereço", campos Endereço de recebimento* e Horário de recebimento.
-  - Necessidades vinculadas: "Necessidades da sua ONG", só as categorias que a campanha pede, cada uma com caixa de seleção e a opção "Aumenta a meta"; rodapé com o resumo e "+ Cadastrar nova necessidade". Os vínculos da própria ONG entram aceitos.
+  - Necessidades da campanha: seção "Necessidades vinculadas", igual para ONG e administrador. É um buscador geral: busca "Buscar necessidade ou ONG", filtros ONG, Categoria, Prioridade e Cidade, e a lista de necessidades de qualquer ONG, só das categorias que a campanha pede, cada uma com caixa de seleção e a opção "Aumenta a meta". Acima da lista, "Aumentar a meta com as selecionadas": radios "Todas", "Nenhuma" e "Escolher uma a uma" (a opção geral vale para todas e a individual deixa marcar linha a linha). Rodapé com o resumo e, na tela da ONG, "+ Cadastrar nova necessidade". Quem cria a campanha vincula direto e o vínculo entra aceito; a ONG dona da necessidade vê a marca na tela 08 e pode desvincular.
 - Botões "Cancelar" e "Enviar para aprovação". A campanha nasce com situação "Pendente".
-- Coluna lateral: card "Meta da campanha" (Metas gerais 1.500 + 800 + 700 = 3.000, Necessidades que aumentam a meta + 40, Meta total 3.040 itens, e a fórmula) e alerta "Aguardando aprovação".
+- Coluna lateral: card "Meta da campanha" (Metas gerais 1.500 + 800 + 700 = 3.000, Necessidades que aumentam a meta + 20, Meta total 3.020 itens, e a fórmula) e alerta "Aguardando aprovação".
 
 ## Administrador (menu: Painel, Aprovações, Campanhas, Usuários)
 
@@ -154,8 +154,8 @@ As telas 11 a 14, 17 e 19 são novas e seguem os mesmos componentes das demais. 
 
 ### 17. Nova campanha, nova
 - Aberta por "+ Nova campanha" ou "Editar", na tela 13. Cabeçalho do administrador. Breadcrumb "Painel > Campanhas > Nova campanha", título "Nova campanha" e "A campanha criada aqui já fica ativa para os doadores. A mesma tela serve para editar."
-- Mesmas seções da tela 16, com estas diferenças: o endereço de recebimento é digitado ("Informe o endereço que foi passado à administração") e a lista de necessidades vinculadas traz busca "Buscar necessidade ou ONG" e as necessidades de qualquer ONG, cada uma com o nome da ONG, só das categorias que a campanha pede. Os vínculos feitos pela administração entram aceitos, e a ONG pode desvincular.
-- Botões "Cancelar" e "Criar campanha". Coluna lateral com o card "Meta da campanha" (Necessidades que aumentam a meta + 20, Meta total 3.020 itens) e o alerta "Campanha ativa na hora".
+- Mesmas seções da tela 16, com uma diferença: o endereço de recebimento é digitado ("Informe o endereço que foi passado à administração"). O buscador de necessidades é o mesmo; na tela do administrador não há "+ Cadastrar nova necessidade".
+- Botões "Cancelar" e "Criar campanha". Coluna lateral com o card "Meta da campanha" e o alerta "Campanha ativa na hora".
 
 ### 19. Doações das campanhas, nova
 - Aberta por "Ver doações", na tela 13. Cabeçalho do administrador. Breadcrumb "Painel > Campanhas > Doações", título "Doações das campanhas" e "Doações para as metas das campanhas criadas pela administração. A entrega é no endereço de recebimento informado na criação."

@@ -63,9 +63,9 @@ A coluna **Onde** diz quem garante a regra: **Banco** (restrição, chave ou `CH
 |---|---|---|
 | RN-29 | Uma necessidade pode participar de várias campanhas, e uma campanha reúne várias necessidades. Cada vínculo guarda status (pendente, aceito, recusado), se aumenta a meta e a data do pedido. | Banco |
 | RN-30 | O pedido de vínculo só pode ser enviado se a campanha estiver ativa e a categoria da necessidade for **igual** à de alguma meta da campanha. Campanha sem metas gerais aceita qualquer categoria. | Site |
-| RN-31 | A ONG pede o vínculo só das próprias necessidades. O administrador também pode vincular necessidades de qualquer ONG. | Site |
+| RN-31 | A ONG pede o vínculo das próprias necessidades, e o pedido espera o aceite de quem criou a campanha. Quem cria a campanha (ONG ou administrador) e o administrador também podem incluir necessidades de qualquer ONG, buscando por ONG, categoria e outros filtros. Esses vínculos entram aceitos, e a ONG dona vê a marca na tela Gerenciar necessidades e pode desvincular. | Site |
 | RN-32 | O vínculo criado por quem criou a campanha ou pelo administrador nasce **aceito**. O pedido de outra ONG nasce **pendente**. | Banco (status) e Site |
-| RN-33 | Quem criou a campanha aceita ou recusa o pedido e decide, ao aceitar, se a necessidade **aumenta a meta** (sim) ou só ajuda a cumprir a meta já declarada (não). Nas campanhas do administrador, é o administrador quem decide. | Banco (`aumenta_meta`) e Site |
+| RN-33 | Quem criou a campanha decide, ao aceitar um pedido ou ao incluir necessidades, se a necessidade **aumenta a meta** (sim) ou só ajuda a cumprir a meta já declarada (não). A escolha pode ser geral (todas as selecionadas, ou nenhuma) ou individual, uma a uma. Nas campanhas do administrador, é o administrador quem decide. | Banco (`aumenta_meta`) e Site |
 | RN-34 | O administrador modera: pode recusar ou remover qualquer vínculo. A ONG pode desvincular as próprias necessidades. Vínculo recusado ou removido não conta na meta nem no progresso. | Site |
 
 ## 7. Doações
