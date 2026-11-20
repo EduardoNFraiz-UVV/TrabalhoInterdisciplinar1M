@@ -54,13 +54,11 @@ CREATE TABLE campanha (
     titulo       VARCHAR(100) NOT NULL,
     descricao    TEXT         NOT NULL,
     tipo         VARCHAR(20)  NOT NULL,
-    meta_itens   INTEGER      NOT NULL,
     data_inicio  DATE         NOT NULL,
     data_fim     DATE         NOT NULL,
     status       VARCHAR(10)  NOT NULL DEFAULT 'pendente',
     CONSTRAINT ck_campanha_tipo   CHECK (tipo IN ('enchente', 'deslizamento', 'seca', 'incendio', 'outro')),
     CONSTRAINT ck_campanha_status CHECK (status IN ('pendente', 'ativa', 'encerrada')),
-    CONSTRAINT ck_campanha_meta   CHECK (meta_itens > 0),
     CONSTRAINT ck_campanha_datas  CHECK (data_fim >= data_inicio)
 );
 

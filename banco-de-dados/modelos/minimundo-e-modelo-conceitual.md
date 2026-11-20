@@ -10,7 +10,7 @@ Cada **ONG** é cadastrada por um usuário de perfil ONG, que é o seu represent
 
 A ONG cadastra suas **necessidades**: itens de que precisa em certa quantidade e unidade (por exemplo, 50 cobertores de casal). Cada necessidade pertence a uma **categoria** (alimentos, roupas, calçados, higiene, cobertores, material escolar, móveis e água) e tem prioridade normal ou urgente, uma data limite e uma situação (ativa ou concluída).
 
-As **campanhas emergenciais**, relacionadas a enchentes, deslizamentos, secas, incêndios e outros desastres, podem ser solicitadas por uma ONG ou criadas diretamente pelo administrador. A campanha solicitada por uma ONG nasce pendente e só aparece para os doadores depois de aprovada pelo administrador. A campanha tem título, descrição, tipo, cidade afetada, meta de itens, período e status (pendente, ativa ou encerrada). Uma necessidade pode ser vinculada a uma campanha.
+As **campanhas emergenciais**, relacionadas a enchentes, deslizamentos, secas, incêndios e outros desastres, podem ser solicitadas por uma ONG ou criadas diretamente pelo administrador. A campanha solicitada por uma ONG nasce pendente e só aparece para os doadores depois de aprovada pelo administrador. A campanha tem título, descrição, tipo, cidade afetada, período e status (pendente, ativa ou encerrada). Os itens que a campanha pede são as necessidades vinculadas a ela, de uma ou de várias ONGs, e o andamento da campanha é quanto já foi recebido dessas necessidades.
 
 O doador pesquisa as necessidades e registra uma **doação** para uma necessidade, informando a quantidade, uma observação, a forma de entrega (levar até a ONG ou solicitar retirada, informando o endereço) e a data prevista. A ONG aceita ou recusa a doação e, quando o item chega, confirma o recebimento. O doador pode cancelar enquanto ela está oferecida. O status da doação segue Oferecida, Aceita e Recebida, e também pode ser Recusada ou Cancelada.
 
@@ -22,7 +22,7 @@ O doador pesquisa as necessidades e registra uma **doação** para uma necessida
 | Categoria | **id_categoria**, nome |
 | Usuário | **id_usuario**, nome, email, senha_hash, telefone, perfil, data_cadastro, ativo |
 | ONG | **id_ong**, nome, cnpj, descricao, endereco, horario_atendimento, telefone, email_contato, aceita_retirada, verificada, data_cadastro |
-| Campanha | **id_campanha**, titulo, descricao, tipo, meta_itens, data_inicio, data_fim, status |
+| Campanha | **id_campanha**, titulo, descricao, tipo, data_inicio, data_fim, status |
 | Necessidade | **id_necessidade**, item, descricao, quantidade, unidade, prioridade, precisa_ate, situacao, data_cadastro, data_atualizacao |
 | Doação | **id_doacao**, quantidade, observacao, forma_entrega, endereco_retirada, data_prevista, data_registro, data_recebimento, status, mensagem_ong |
 
