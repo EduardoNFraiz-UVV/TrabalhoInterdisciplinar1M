@@ -1,5 +1,8 @@
 DROP TABLE IF EXISTS doacao CASCADE;
+DROP TABLE IF EXISTS campanha_necessidade CASCADE;
 DROP TABLE IF EXISTS necessidade CASCADE;
+DROP TABLE IF EXISTS campanha_meta CASCADE;
+DROP TABLE IF EXISTS campanha_cidade CASCADE;
 DROP TABLE IF EXISTS campanha CASCADE;
 DROP TABLE IF EXISTS ong CASCADE;
 DROP TABLE IF EXISTS usuario CASCADE;
@@ -48,25 +51,40 @@ CREATE TABLE ong (
 );
 
 CREATE TABLE campanha (
-    id_campanha  SERIAL       PRIMARY KEY,
-    id_cidade    INTEGER      NOT NULL REFERENCES cidade (id_cidade),
-    id_ong       INTEGER      REFERENCES ong (id_ong),
-    titulo       VARCHAR(100) NOT NULL,
-    descricao    TEXT         NOT NULL,
-    tipo         VARCHAR(20)  NOT NULL,
-    data_inicio  DATE         NOT NULL,
-    data_fim     DATE         NOT NULL,
-    status       VARCHAR(10)  NOT NULL DEFAULT 'pendente',
+    id_campanha          SERIAL       PRIMARY KEY,
+    id_ong               INTEGER      REFERENCES ong (id_ong),
+    titulo               VARCHAR(100) NOT NULL,
+    descricao            TEXT         NOT NULL,
+    tipo                 VARCHAR(20)  NOT NULL,
+    data_inicio          DATE         NOT NULL,
+    data_fim             DATE         NOT NULL,
+    status               VARCHAR(10)  NOT NULL DEFAULT 'pendente',
+    endereco_recebimento VARCHAR(150) NOT NULL,
+    horario_recebimento  VARCHAR(80),
     CONSTRAINT ck_campanha_tipo   CHECK (tipo IN ('enchente', 'deslizamento', 'seca', 'incendio', 'outro')),
     CONSTRAINT ck_campanha_status CHECK (status IN ('pendente', 'ativa', 'encerrada')),
     CONSTRAINT ck_campanha_datas  CHECK (data_fim >= data_inicio)
+);
+
+CREATE TABLE campanha_cidade (
+    id_campanha  INTEGER NOT NULL REFERENCES campanha (id_campanha),
+    id_cidade    INTEGER NOT NULL REFERENCES cidade (id_cidade),
+    PRIMARY KEY (id_campanha, id_cidade)
+);
+
+CREATE TABLE campanha_meta (
+    id_meta       SERIAL       PRIMARY KEY,
+    id_campanha   INTEGER      NOT NULL REFERENCES campanha (id_campanha),
+    id_categoria  INTEGER      NOT NULL REFERENCES categoria (id_categoria),
+    item          VARCHAR(100) NOT NULL,
+    quantidade    INTEGER      NOT NULL,
+    CONSTRAINT ck_meta_qtd CHECK (quantidade > 0)
 );
 
 CREATE TABLE necessidade (
     id_necessidade  SERIAL       PRIMARY KEY,
     id_ong          INTEGER      NOT NULL REFERENCES ong (id_ong),
     id_categoria    INTEGER      NOT NULL REFERENCES categoria (id_categoria),
-    id_campanha     INTEGER      REFERENCES campanha (id_campanha),
     item            VARCHAR(100) NOT NULL,
     descricao       TEXT,
     quantidade      INTEGER      NOT NULL,
@@ -81,10 +99,21 @@ CREATE TABLE necessidade (
     CONSTRAINT ck_necessidade_situacao   CHECK (situacao IN ('ativa', 'concluida'))
 );
 
+CREATE TABLE campanha_necessidade (
+    id_campanha     INTEGER     NOT NULL REFERENCES campanha (id_campanha),
+    id_necessidade  INTEGER     NOT NULL REFERENCES necessidade (id_necessidade),
+    status          VARCHAR(10) NOT NULL DEFAULT 'pendente',
+    aumenta_meta    BOOLEAN     NOT NULL DEFAULT FALSE,
+    data_pedido     DATE        NOT NULL DEFAULT CURRENT_DATE,
+    PRIMARY KEY (id_campanha, id_necessidade),
+    CONSTRAINT ck_vinculo_status CHECK (status IN ('pendente', 'aceito', 'recusado'))
+);
+
 CREATE TABLE doacao (
     id_doacao         SERIAL       PRIMARY KEY,
     id_doador         INTEGER      NOT NULL REFERENCES usuario (id_usuario),
-    id_necessidade    INTEGER      NOT NULL REFERENCES necessidade (id_necessidade),
+    id_necessidade    INTEGER      REFERENCES necessidade (id_necessidade),
+    id_meta           INTEGER      REFERENCES campanha_meta (id_meta),
     quantidade        INTEGER      NOT NULL,
     observacao        VARCHAR(200),
     forma_entrega     VARCHAR(10)  NOT NULL,
@@ -98,15 +127,20 @@ CREATE TABLE doacao (
     CONSTRAINT ck_doacao_entrega CHECK (forma_entrega IN ('levar', 'retirada')),
     CONSTRAINT ck_doacao_status  CHECK (status IN ('oferecida', 'aceita', 'recebida', 'recusada', 'cancelada')),
     CONSTRAINT ck_doacao_retirada CHECK (forma_entrega = 'levar' OR endereco_retirada IS NOT NULL),
-    CONSTRAINT ck_doacao_recebida CHECK ((status = 'recebida') = (data_recebimento IS NOT NULL))
+    CONSTRAINT ck_doacao_recebida CHECK ((status = 'recebida') = (data_recebimento IS NOT NULL)),
+    CONSTRAINT ck_doacao_destino  CHECK ((id_necessidade IS NULL) <> (id_meta IS NULL)),
+    CONSTRAINT ck_doacao_meta_entrega CHECK (id_meta IS NULL OR forma_entrega = 'levar')
 );
 
 CREATE INDEX idx_usuario_cidade     ON usuario (id_cidade);
 CREATE INDEX idx_ong_cidade         ON ong (id_cidade);
+CREATE INDEX idx_campanha_cidade    ON campanha_cidade (id_cidade);
+CREATE INDEX idx_meta_campanha      ON campanha_meta (id_campanha);
 CREATE INDEX idx_necessidade_ong    ON necessidade (id_ong);
 CREATE INDEX idx_necessidade_categ  ON necessidade (id_categoria);
-CREATE INDEX idx_necessidade_camp   ON necessidade (id_campanha);
+CREATE INDEX idx_vinculo_necessidade ON campanha_necessidade (id_necessidade);
 CREATE INDEX idx_doacao_doador      ON doacao (id_doador);
 CREATE INDEX idx_doacao_necessidade ON doacao (id_necessidade);
+CREATE INDEX idx_doacao_meta        ON doacao (id_meta);
 CREATE INDEX idx_doacao_registro    ON doacao (data_registro);
 CREATE INDEX idx_doacao_status      ON doacao (status);

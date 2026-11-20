@@ -1,11 +1,13 @@
 -- Consulta 1: relação de doações recebidas por mês e por categoria
+-- A categoria vem da necessidade ou, quando a doação é para uma meta da campanha, da própria meta.
 SELECT to_char(d.data_recebimento, 'YYYY-MM') AS mes,
        c.nome                                 AS categoria,
        COUNT(*)                               AS total_doacoes,
        SUM(d.quantidade)                      AS itens_doados
 FROM doacao d
-JOIN necessidade n ON n.id_necessidade = d.id_necessidade
-JOIN categoria c   ON c.id_categoria   = n.id_categoria
+LEFT JOIN necessidade n   ON n.id_necessidade = d.id_necessidade
+LEFT JOIN campanha_meta m ON m.id_meta        = d.id_meta
+JOIN categoria c          ON c.id_categoria   = COALESCE(n.id_categoria, m.id_categoria)
 WHERE d.status = 'recebida'
   AND d.data_recebimento < DATE '2026-11-01'
 GROUP BY to_char(d.data_recebimento, 'YYYY-MM'), c.nome
@@ -34,12 +36,13 @@ WITH meses AS (
 ),
 mensal AS (
     SELECT date_trunc('month', d.data_recebimento)::date AS mes,
-           n.id_categoria,
+           COALESCE(n.id_categoria, m.id_categoria) AS id_categoria,
            COUNT(*) AS total
     FROM doacao d
-    JOIN necessidade n ON n.id_necessidade = d.id_necessidade
+    LEFT JOIN necessidade n   ON n.id_necessidade = d.id_necessidade
+    LEFT JOIN campanha_meta m ON m.id_meta        = d.id_meta
     WHERE d.status = 'recebida'
-    GROUP BY date_trunc('month', d.data_recebimento), n.id_categoria
+    GROUP BY date_trunc('month', d.data_recebimento), COALESCE(n.id_categoria, m.id_categoria)
 )
 SELECT categoria, media_mensal
 FROM (
