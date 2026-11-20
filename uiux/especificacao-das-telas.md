@@ -11,7 +11,7 @@ Tela nova, exigida por Web. Sem login.
 - Cabeçalho com marca, links "Como funciona", "Campanhas", "ONGs", "Projetos sociais" e botão primário "Entrar".
 - Hero: display "Conectando quem quer doar a quem precisa", texto curto sobre o objetivo da plataforma e botões "Entrar" (primário) e "Ver ONGs sem entrar" (secundário).
 - Como funciona, em 3 passos: encontre uma ONG, registre sua doação, acompanhe até ser recebida.
-- Campanha emergencial em destaque: "Enchente em Vila Velha", barra de 65% da meta, botão "Ver campanha".
+- Campanha emergencial em destaque: "Enchente em Vila Velha", barra de 65% da meta, botão "Ver campanha" (abre a tela 15, com os itens que a campanha pede).
 - ONGs em destaque: 3 cards (Lar Esperança, Casa da Criança, Abrigo Sol).
 - Projetos sociais de coleta de resíduos, conteúdo estático: 3 cards (coleta de óleo de cozinha, reciclagem de papel e plástico, reaproveitamento de roupas).
 - Rodapé com nome do projeto e perfis.
@@ -62,6 +62,13 @@ Tela nova, exigida por Web. Sem login.
   - Entrega e contato: Forma de entrega (Vou levar até a ONG), Data prevista (15/10/2026), Endereço (Rua das Flores, 120 - Centro, Vila Velha), Horário (Seg a sex, 8h às 17h) e Contato ((27) 3333-0000 · contato@laresperanca.org).
   - Rodapé: "Aguardando a ONG aceitar a doação (geralmente em até 2 dias)" e botão "Falar com a ONG".
 
+### 15. Campanha (detalhe), nova
+- Aberta pelo botão "Ver campanha" das telas 00 e 02. Cabeçalho do doador; para visitante, o cabeçalho público.
+- Breadcrumb "Início > Campanha". Card de destaque em accent-soft com selo EMERGÊNCIA, título "Enchente em Vila Velha", a descrição, cidade e tipo (ícone pin), "Arrecadação até 30/10/2026" (ícone clock) e a barra "Meta da campanha, 65% atingida".
+- Card "Resumo da campanha" ao lado: Entidades (12 participantes), Itens pedidos (8 necessidades), Já atendido (65%), Prazo (30/10/2026) e Criada por (Lar Esperança).
+- "Itens que a campanha pede": "Cada item é uma necessidade de uma ONG participante. Doe direto para a ONG que precisa." Tabela com Item, ONG, Pedido, Recebido, Prioridade (selo) e Ação "Quero doar" (leva à tela 05). Linhas: Água potável, Lar Esperança, 200 L, 120 L, Urgente; Cobertores de casal, Lar Esperança, 50 un., 20 un., Urgente; Leite em pó, Casa da Criança, 20 latas, 0 latas, Urgente; Cestas básicas, Casa da Criança, 80 un., 52 un., Normal; Fraldas G, Abrigo Sol, 40 pct., 15 pct., Normal; Agasalhos tam. M/G, Projeto Agasalho, 30 un., 12 un., Normal.
+- A campanha não tem meta própria: os itens pedidos são as necessidades vinculadas a ela (tela 10, "Vincular a uma campanha", ou a lista do diálogo de criação), e o percentual é o que já foi recebido dessas necessidades.
+
 ## ONG (menu: Painel, Necessidades, Doações recebidas, Perfil da ONG)
 
 ### 07. Painel da ONG, wireframe 07
@@ -71,7 +78,7 @@ Tela nova, exigida por Web. Sem login.
 - Tabela de últimas doações (Data, Doador, Item, Qtd., Status): 05/10 Lucas S. Cobertores de casal 5 un. Oferecida; 04/10 Ana P. Fraldas G 6 pct. Oferecida; 03/10 João M. Leite integral 12 L Aceita; 01/10 Carla R. Sabonete 20 un. Recebida.
 - Card com 3 barras de progresso: Cobertores de casal 20 de 50, Fraldas geriátricas G 10 de 40, Leite integral 0 de 60 L.
 - Card "Campanhas solicitadas" na coluna lateral, com o nome e o selo de situação: Seca em Linhares (Pendente) e Enchente em Vila Velha (Ativa).
-- Diálogo "Solicitar campanha emergencial", exibido ao clicar em "Solicitar campanha": "Descreva a situação. O administrador analisa o pedido antes de a campanha aparecer para os doadores." Campos Título da campanha*, Tipo* (lista: enchente, deslizamento, seca, incêndio, outro), Cidade afetada*, Meta de itens* e Descrição*. Botões Cancelar e "Enviar para aprovação". A campanha nasce com situação "Pendente".
+- Diálogo "Solicitar campanha emergencial", exibido ao clicar em "Solicitar campanha": "Descreva a situação e escolha os itens que a campanha vai pedir. O administrador analisa o pedido antes de a campanha aparecer para os doadores." Campos Título da campanha*, Tipo* e Cidade afetada* (lado a lado), Data de início* e Data de fim* (lado a lado) e Descrição*. Seção "Itens da campanha*": lista com caixas de seleção das necessidades do Lar Esperança (Cobertores de casal 50 un., Fraldas geriátricas G 40 pct., Leite integral 60 L), resumo "2 itens selecionados" e link "+ Cadastrar nova necessidade". Botões Cancelar e "Enviar para aprovação". A campanha nasce com situação "Pendente".
 
 ### 08. Gerenciar necessidades (CRUD), wireframe 08
 - Breadcrumb "Painel > Necessidades", título "Gerenciar necessidades" e botão primário "+ Nova necessidade".
@@ -115,8 +122,9 @@ As telas 11 a 14 são novas, por exigência de Web (3 telas por perfil, aqui 4).
 - Quem cria: a ONG solicita pelo painel dela (tela 07) e a campanha nasce pendente; o administrador também pode criar direto aqui, e ela já nasce ativa. Só campanhas ativas aparecem para os doadores.
 - Breadcrumb "Painel > Campanhas", título "Campanhas emergenciais" e botão primário "+ Nova campanha".
 - Abas com contador: Todas (24), Ativas (6), Pendentes (2), Encerradas (16). Busca "Buscar campanha ou cidade" e seletor "Tipo: Todos".
-- Tabela: Campanha, Criada por (nome da ONG ou "Administração"), Tipo, Cidade, Itens recebidos (ex.: "1.300 de 2.000"), Período, Situação (selo Ativa, Pendente ou Encerrada) e Ações ("Editar" e "Encerrar" nas ativas, "Editar" e "Analisar" nas pendentes, "Reabrir" nas encerradas). "Analisar" leva à tela 12.
-- Diálogo "Encerrar campanha?": "A campanha deixa de aparecer para os doadores. As doações já registradas continuam valendo." Botões Cancelar e Encerrar campanha (perigo).
+- Tabela: Campanha, Criada por (nome da ONG ou "Administração"), Tipo, Cidade, Progresso (ex.: "8 itens · 65%", itens vinculados e percentual já recebido), Período, Situação (selo Ativa, Pendente ou Encerrada) e Ações ("Editar" e "Encerrar" nas ativas, "Editar" e "Analisar" nas pendentes, "Reabrir" nas encerradas). "Analisar" leva à tela 12.
+- Diálogo "Nova campanha", exibido ao clicar em "+ Nova campanha": "Escolha os itens que a campanha vai pedir. A campanha criada aqui já fica ativa para os doadores." Mesmos campos do diálogo da ONG, e a seção "Itens da campanha*" traz busca "Buscar necessidade ou ONG" e a lista de necessidades de qualquer ONG, cada uma com o nome da ONG (Água potável, Lar Esperança, 200 L; Cobertores de casal, Lar Esperança, 50 un.; Leite em pó, Casa da Criança, 20 latas; Fraldas G, Abrigo Sol, 40 pct.), e o resumo "3 itens selecionados de 2 ONGs". Botões Cancelar e "Criar campanha". O mesmo diálogo serve para editar.
+- Diálogo "Encerrar campanha?": "A campanha deixa de aparecer para os doadores. As doações já registradas continuam valendo." Botões Cancelar e Encerrar campanha (perigo). Os dois diálogos aparecem lado a lado, abaixo da tabela.
 
 ### 14. Usuários
 - Breadcrumb "Painel > Usuários", título "Usuários da plataforma" e subtítulo "Doadores, ONGs e administradores cadastrados. Bloqueie quem descumprir as regras de uso."
@@ -126,7 +134,7 @@ As telas 11 a 14 são novas, por exigência de Web (3 telas por perfil, aqui 4).
 
 ## Fluxos que o protótipo deve ligar
 
-- Doador: 01 Entrar → 02 Início → 03 ONGs → 04 Perfil da ONG → 05 Registrar doação → 06 Minhas doações.
+- Doador: 01 Entrar → 02 Início → (15 Campanha, pelo botão "Ver campanha") → 03 ONGs → 04 Perfil da ONG → 05 Registrar doação → 06 Minhas doações.
 - ONG: 01 Entrar → 07 Painel → 08 Gerenciar necessidades → 10 Cadastrar necessidade → 08. De 07 também para 09 Doações recebidas e para o diálogo "Solicitar campanha", cujo pedido chega ao administrador (12 e 13).
 - Administrador: 01 Entrar → 11 Painel → 12 Aprovações → 13 Campanhas → 14 Usuários. O menu liga as 4 telas entre si.
 - Público: 00 Apresentação → 01 Entrar ou 03 ONGs como visitante.
