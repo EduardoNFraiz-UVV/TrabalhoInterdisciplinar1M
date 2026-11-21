@@ -6,6 +6,45 @@
   Os componentes (botões, campos, cards) vêm de css/componentes.
 */
 
+/* ---------- Apresentação (index.html) ---------- */
+
+/* Faixa do início: fundo primary-soft com o título grande e os botões */
+.hero {
+  background: var(--primary-soft);
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-interno {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
+}
+
+/* Parágrafo do hero não passa de 60 caracteres por linha, para ler melhor */
+.hero-interno p {
+  max-width: 62ch;
+}
+
+/* Ilustrações dos projetos sociais */
+.ilustracao {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-lg);
+}
+
+/* Passos numerados: o número fica sobre o texto do cartão */
+ol.lista-simples > li.cartao {
+  gap: var(--space-3);
+}
+
+/* A seção ao redor das âncoras do menu não fica escondida atrás do cabeçalho ao rolar */
+section[id] {
+  scroll-margin-top: var(--space-5);
+}
+
 /* ---------- Páginas de formulário centralizado (entrar, criar conta, esqueci a senha) ---------- */
 
 /* Caixa central estreita para formulários curtos */
@@ -61,6 +100,17 @@
   flex: 1;
   height: 1px;
   background: var(--line);
+}
+
+/* Perguntas da página de ajuda: o título (summary) é clicável e fica em negrito */
+.pergunta summary {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pergunta p {
+  margin-top: var(--space-2);
+  color: var(--ink-muted);
 }
 
 /* Bloco "Contas de teste" (elemento <details>, que abre e fecha sozinho) */

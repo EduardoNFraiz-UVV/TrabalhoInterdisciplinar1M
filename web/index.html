@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+  index.html (tela 00: Apresentação da plataforma)
+  Para que serve: página inicial do site, aberta por qualquer pessoa, sem login. Apresenta o objetivo da
+  plataforma, como funciona (3 passos), a campanha emergencial em destaque, ONGs em destaque e os
+  projetos sociais de coleta de resíduos (conteúdo estático). Dela se chega ao login ou às ONGs.
+  O JS (js/paginas/publico/apresentacao.js) só preenche a campanha e as ONGs em destaque.
+  Esta página fica na RAIZ do site, por isso os caminhos começam em "./" e data-raiz vale "./".
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conecta Doações · Conectando quem quer doar a quem precisa</title>
+  <meta name="description" content="Plataforma web que aproxima pessoas que querem doar de ONGs e campanhas emergenciais.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/principal.css">
+  <link rel="stylesheet" href="css/paginas/publico.css">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="./" data-pagina="inicio">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo">
+    <!-- Hero: título grande, texto sobre o objetivo e dois botões -->
+    <section class="hero" aria-labelledby="titulo-hero">
+      <div class="conteudo hero-interno">
+        <h1 id="titulo-hero" class="titulo-display">Conectando quem quer doar a quem precisa</h1>
+        <p class="texto-grande">O Conecta Doações aproxima pessoas dispostas a ajudar de ONGs e campanhas emergenciais. Veja o que cada entidade precisa, registre sua doação e acompanhe até ela ser recebida, com transparência e confiança.</p>
+        <div class="linha">
+          <a class="botao botao-primario botao-grande" href="paginas/publico/login.html" id="botao-entrar">Entrar</a>
+          <a class="botao botao-secundario botao-grande" href="paginas/publico/ongs.html">Ver ONGs sem entrar</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="conteudo pilha pilha-grande">
+      <!-- Como funciona: 3 passos numerados dentro de uma lista ordenada -->
+      <section class="secao" id="como-funciona" aria-labelledby="titulo-como">
+        <h2 id="titulo-como">Como funciona</h2>
+        <ol class="grade-cartoes lista-simples">
+          <li class="cartao">
+            <span class="passo-numero" aria-hidden="true">1</span>
+            <h3>Encontre uma ONG</h3>
+            <p class="texto-apoio">Pesquise por item, categoria ou cidade e veja as necessidades urgentes de entidades verificadas.</p>
+          </li>
+          <li class="cartao">
+            <span class="passo-numero" aria-hidden="true">2</span>
+            <h3>Registre sua doação</h3>
+            <p class="texto-apoio">Escolha o item, a quantidade e como entregar: levando até a ONG ou pedindo retirada no seu endereço.</p>
+          </li>
+          <li class="cartao">
+            <span class="passo-numero" aria-hidden="true">3</span>
+            <h3>Acompanhe até ser recebida</h3>
+            <p class="texto-apoio">A ONG aceita e confirma o recebimento. Você acompanha cada passo em Minhas doações.</p>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Campanha em destaque (cartão criado pelo JS) -->
+      <section class="secao" id="campanhas" aria-labelledby="titulo-campanha-destaque">
+        <h2 id="titulo-campanha-destaque">Campanha emergencial em destaque</h2>
+        <div id="campanha-destaque"></div>
+        <p><a href="paginas/publico/campanhas-ativas.html">Ver todas as campanhas ativas ›</a></p>
+      </section>
+
+      <!-- ONGs em destaque (3 cartões criados pelo JS) -->
+      <section class="secao" id="ongs" aria-labelledby="titulo-ongs">
+        <h2 id="titulo-ongs">ONGs em destaque</h2>
+        <div class="grade-cartoes" id="ongs-destaque"></div>
+        <p><a href="paginas/publico/ongs.html">Ver todas as ONGs ›</a></p>
+      </section>
+
+      <!-- Projetos sociais de coleta de resíduos: conteúdo estático, exigido pelo enunciado -->
+      <section class="secao" id="projetos" aria-labelledby="titulo-projetos">
+        <h2 id="titulo-projetos">Projetos sociais de coleta de resíduos</h2>
+        <p class="texto-apoio">Além das doações, apoiamos projetos que transformam resíduos em renda e cuidado com o ambiente.</p>
+        <div class="grade-cartoes">
+          <article class="cartao">
+            <img class="ilustracao" src="img/projeto-oleo.svg" alt="Galão de óleo de cozinha usado sendo recolhido" width="96" height="96">
+            <h3>Coleta de óleo de cozinha</h3>
+            <p class="texto-apoio">Pontos de coleta recebem óleo usado, que vira sabão e biocombustível, evitando que ele polua rios e redes de esgoto.</p>
+          </article>
+          <article class="cartao">
+            <img class="ilustracao" src="img/projeto-reciclagem.svg" alt="Caixa de coleta seletiva com papel e plástico" width="96" height="96">
+            <h3>Reciclagem de papel e plástico</h3>
+            <p class="texto-apoio">Cooperativas de catadores separam e vendem os materiais, gerando renda para famílias e reduzindo o lixo enviado aos aterros.</p>
+          </article>
+          <article class="cartao">
+            <img class="ilustracao" src="img/projeto-roupas.svg" alt="Cabide com roupas arrumadas para reaproveitamento" width="96" height="96">
+            <h3>Reaproveitamento de roupas</h3>
+            <p class="texto-apoio">Roupas em bom estado são higienizadas e entregues a quem precisa; as que não servem viram material para oficinas de costura.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="js/paginas/publico/apresentacao.js"></script>
+</body>
+</html>

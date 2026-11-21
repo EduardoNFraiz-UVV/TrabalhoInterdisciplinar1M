@@ -8,6 +8,7 @@
 
 /* Caixa com borda ao redor da tabela; rola na horizontal se a tabela for mais larga que a tela */
 .tabela-rolagem {
+  position: relative;     /* textos escondidos (.so-leitor) dentro da tabela ficam presos a esta caixa */
   overflow-x: auto;
   background: var(--surface-raised);
   border: 1px solid var(--line);

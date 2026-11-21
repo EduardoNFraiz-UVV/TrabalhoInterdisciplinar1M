@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+  esqueci-senha.html (tela extra, sem quadro no Figma: Esqueci minha senha)
+  Para que serve: pede o e-mail da conta. Como o site é uma demonstração sem servidor de e-mail, mostra
+  uma mensagem informativa. A resposta é a mesma exista ou não a conta (não revela quem está cadastrado).
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Esqueci minha senha · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/publico.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="esqueci-senha">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pagina-formulario">
+    <section class="cartao cartao-formulario" aria-labelledby="titulo-pagina">
+      <div class="pilha pilha-pequena">
+        <h1 id="titulo-pagina">Esqueci minha senha</h1>
+        <p class="texto-apoio">Informe o e-mail da sua conta para receber as instruções de recuperação.</p>
+      </div>
+      <div id="area-alerta" aria-live="polite"></div>
+
+      <form id="formulario-recuperar" class="pilha" novalidate>
+        <div class="campo">
+          <label for="email">E-mail <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </div>
+        <button type="submit" class="botao botao-primario botao-bloco">Enviar instruções</button>
+      </form>
+      <p class="centro"><a href="login.html">Voltar para a entrada</a></p>
+    </section>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/publico/esqueci-senha.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!--
+  criar-conta.html (tela extra, sem quadro no Figma: Criar conta)
+  Para que serve: cadastro de uma conta nova como DOADOR (entra na hora) ou como representante de uma ONG
+  (a ONG nasce NÃO VERIFICADA e espera a aprovação do administrador). Aceita ?tipo=doador|ong.
+  Os dados vão para as tabelas usuario e ong, guardadas no navegador. O JS está em js/paginas/publico/criar-conta.js.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Criar conta · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/publico.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="criar-conta">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pagina-formulario">
+    <section class="cartao cartao-formulario cartao-formulario-largo" aria-labelledby="titulo-pagina">
+      <div class="pilha pilha-pequena">
+        <h1 id="titulo-pagina">Criar conta</h1>
+        <p class="texto-apoio">Cadastre-se para doar ou para divulgar as necessidades da sua ONG.</p>
+      </div>
+      <div id="area-alerta" aria-live="polite"></div>
+
+      <form id="formulario-conta" class="pilha-grande" novalidate>
+        <fieldset class="pilha pilha-pequena">
+          <legend>Tipo de conta</legend>
+          <div class="opcoes-linha">
+            <div class="opcao"><input type="radio" id="tipo-doador" name="tipo" value="doador" checked><label for="tipo-doador">Sou Doador</label></div>
+            <div class="opcao"><input type="radio" id="tipo-ong" name="tipo" value="ong"><label for="tipo-ong">Represento uma ONG</label></div>
+          </div>
+        </fieldset>
+
+        <!-- Dados de quem cria a conta -->
+        <div class="pilha">
+          <h2 class="texto-sobretitulo" id="titulo-pessoa">Seus dados</h2>
+          <div class="campo">
+            <label for="nome">Nome completo <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="text" id="nome" name="nome" maxlength="100" autocomplete="name" required>
+          </div>
+          <div class="campo">
+            <label for="email">E-mail <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" maxlength="120" autocomplete="email" required>
+          </div>
+          <div class="grade-duas">
+            <div class="campo">
+              <label for="telefone">Telefone</label>
+              <input type="text" id="telefone" name="telefone" maxlength="20" autocomplete="tel" placeholder="(27) 99999-9999">
+            </div>
+            <div class="campo">
+              <label for="id_cidade">Cidade <span class="obrigatorio" aria-hidden="true">*</span></label>
+              <select id="id_cidade" name="idCidade" required></select>
+            </div>
+          </div>
+          <div class="grade-duas">
+            <div class="campo">
+              <label for="senha">Senha <span class="obrigatorio" aria-hidden="true">*</span></label>
+              <input type="password" id="senha" name="senha" autocomplete="new-password" required>
+              <span class="campo-ajuda">Use pelo menos 6 caracteres.</span>
+            </div>
+            <div class="campo">
+              <label for="confirmar">Confirmar senha <span class="obrigatorio" aria-hidden="true">*</span></label>
+              <input type="password" id="confirmar" name="confirmar" autocomplete="new-password" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dados da ONG: só aparecem para "Represento uma ONG" -->
+        <div class="pilha" id="bloco-ong" hidden>
+          <h2 class="texto-sobretitulo" id="titulo-ong">Dados da ONG</h2>
+          <div class="campo">
+            <label for="nomeOng">Nome da ONG <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="text" id="nomeOng" name="nomeOng" maxlength="100">
+          </div>
+          <div class="campo">
+            <label for="cnpj">CNPJ <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="text" id="cnpj" name="cnpj" maxlength="18" placeholder="00.000.000/0000-00">
+          </div>
+          <div class="campo">
+            <label for="descricao">Descrição <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <textarea id="descricao" name="descricao" maxlength="500" placeholder="Conte quem a ONG atende e como ajuda"></textarea>
+          </div>
+          <div class="campo">
+            <label for="endereco">Endereço <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="text" id="endereco" name="endereco" maxlength="150" placeholder="Rua, número, bairro e cidade">
+          </div>
+          <div class="campo">
+            <label for="horario">Horário de atendimento</label>
+            <input type="text" id="horario" name="horario" maxlength="80" placeholder="Ex.: Seg a sex, 8h às 17h">
+          </div>
+          <div class="grade-duas">
+            <div class="campo">
+              <label for="telefoneOng">Telefone da ONG</label>
+              <input type="text" id="telefoneOng" name="telefoneOng" maxlength="20">
+            </div>
+            <div class="campo">
+              <label for="emailOng">E-mail de contato da ONG</label>
+              <input type="email" id="emailOng" name="emailOng" maxlength="120">
+            </div>
+          </div>
+          <div class="opcao">
+            <input type="checkbox" id="aceitaRetirada" name="aceitaRetirada">
+            <label for="aceitaRetirada">Aceita retirada das doações no endereço do doador</label>
+          </div>
+          <p class="campo-ajuda">Depois do cadastro, o administrador verifica a ONG. Até lá, ela ainda não cadastra necessidades.</p>
+        </div>
+
+        <p class="texto-legenda"><span class="obrigatorio" aria-hidden="true">*</span> Campos obrigatórios</p>
+        <div class="linha linha-entre botoes-formulario">
+          <a class="botao botao-discreto" href="login.html">Já tenho conta</a>
+          <button type="submit" class="botao botao-primario">Criar conta</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/publico/criar-conta.js"></script>
+</body>
+</html>

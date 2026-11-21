@@ -95,6 +95,13 @@ main {
   }
 }
 
+/* Sem isto, um filho largo (como a faixa de abas) estica a coluna além da tela no celular.
+   min-width: 0 permite que o filho encolha e use a rolagem própria dele. */
+.grade-principal > *,
+.pilha {
+  min-width: 0;
+}
+
 /* Grade de cards: cria quantas colunas couberem, cada uma com no mínimo 280 px */
 .grade-cartoes {
   display: grid;

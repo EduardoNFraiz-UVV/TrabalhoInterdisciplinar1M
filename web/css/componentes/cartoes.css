@@ -119,6 +119,11 @@
   color: var(--on-accent);
 }
 
+/* O botão "Ver campanha" tem o tamanho do texto, alinhado à esquerda (não estica na largura toda) */
+.cartao-campanha > .botao {
+  align-self: flex-start;
+}
+
 .cartao-campanha .texto-apoio,
 .cartao-campanha .meta-linha {
   color: var(--on-accent);

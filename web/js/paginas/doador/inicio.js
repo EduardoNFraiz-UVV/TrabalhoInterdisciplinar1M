@@ -20,10 +20,12 @@ import { cartaoOng, cartaoCampanha } from '../../componentes/cartoes.js';
 import { seloPrioridade } from '../../componentes/selos.js';
 import { botaoDoar } from '../../componentes/acoes-doacao.js';
 import { icone } from '../../componentes/icones.js';
+import { exibirAvisoGuardado } from '../../componentes/alertas.js';
 
 const POR_PAGINA = 8;
 
 function montar(usuario) {
+  exibirAvisoGuardado($('#area-alerta'));     /* aviso deixado pela página anterior (ex.: "Conta criada!") */
   let categoria = '';          /* '' = todas as categorias */
   let verTodas = false;        /* false = só urgentes; true = todas as necessidades ativas */
   let pagina = 1;

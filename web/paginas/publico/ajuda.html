@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+  ajuda.html (tela extra, sem quadro no Figma: Ajuda)
+  Para que serve: responde as dúvidas mais comuns (como doar, como a ONG recebe, o que é meta da campanha,
+  como solicitar campanha, como ter o selo de ONG verificada) em perguntas que abrem e fecham (<details>).
+  É aberta pelo link "Ajuda" do cabeçalho. Conteúdo estático.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ajuda · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/publico.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="ajuda">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <div class="pilha pilha-pequena">
+      <h1>Ajuda</h1>
+      <p class="texto-apoio">Respostas rápidas para as dúvidas mais comuns sobre o Conecta Doações.</p>
+    </div>
+
+    <!-- Cada <details> é uma pergunta que abre e fecha sozinha, sem JavaScript -->
+    <section class="pilha" aria-labelledby="titulo-doador">
+      <h2 id="titulo-doador">Para quem quer doar</h2>
+      <details class="pergunta cartao cartao-compacto" open>
+        <summary>Como registro uma doação?</summary>
+        <p>Entre com sua conta de doador, escolha uma ONG, clique em "Quero doar" no item que precisa, informe a quantidade e como vai entregar e confirme. A ONG é avisada e você acompanha tudo em Minhas doações.</p>
+      </details>
+      <details class="pergunta cartao cartao-compacto">
+        <summary>Posso doar para uma campanha emergencial?</summary>
+        <p>Sim. Na página da campanha há dois caminhos: doar direto para uma meta da campanha (entrega no endereço de recebimento dela) ou doar para a necessidade de uma ONG participante (entrega no endereço da ONG).</p>
+      </details>
+      <details class="pergunta cartao cartao-compacto">
+        <summary>O que significam os status da doação?</summary>
+        <p>Oferecida: você registrou e a ONG ainda não respondeu. Aceita: a ONG aceitou e aguarda o item. Recebida: o item chegou e foi confirmado. Recusada ou cancelada: a doação não seguiu adiante.</p>
+      </details>
+      <details class="pergunta cartao cartao-compacto">
+        <summary>Posso pedir que busquem a doação na minha casa?</summary>
+        <p>Só nas ONGs que aceitam retirada. Nesse caso você informa o endereço de retirada. Doações para metas de campanha só aceitam entrega no endereço da campanha.</p>
+      </details>
+    </section>
+
+    <section class="pilha" aria-labelledby="titulo-ong">
+      <h2 id="titulo-ong">Para ONGs</h2>
+      <details class="pergunta cartao cartao-compacto">
+        <summary>Como minha ONG recebe o selo de verificada?</summary>
+        <p>Depois do cadastro, o administrador confere os dados e aprova a ONG. Só ONGs verificadas aparecem para os doadores e podem cadastrar necessidades e solicitar campanhas.</p>
+      </details>
+      <details class="pergunta cartao cartao-compacto">
+        <summary>Como cadastro uma necessidade?</summary>
+        <p>No painel da ONG, use "+ Cadastrar necessidade" e informe o item, a categoria, a quantidade, a unidade e a prioridade. Itens urgentes aparecem no topo para os doadores.</p>
+      </details>
+      <details class="pergunta cartao cartao-compacto">
+        <summary>Como solicito uma campanha?</summary>
+        <p>No painel, escolha "Solicitar campanha". Informe as cidades atingidas, as metas (quantidade, categoria e item) e onde receber as doações. O administrador analisa antes de a campanha aparecer.</p>
+      </details>
+      <details class="pergunta cartao cartao-compacto">
+        <summary>O que é a meta da campanha?</summary>
+        <p>A meta total é a soma das metas gerais da campanha mais as necessidades de ONGs vinculadas que aumentam a meta. O andamento é o que já foi recebido dividido pela meta total.</p>
+      </details>
+    </section>
+
+    <section class="cartao como-funciona" aria-labelledby="titulo-teste">
+      <h2 id="titulo-teste" class="texto-rotulo">Contas de teste deste site</h2>
+      <dl class="resumo-lista">
+        <dt>Doador</dt><dd>doador · doa#2026</dd>
+        <dt>Entidade (ONG)</dt><dd>entidade · ent!2026</dd>
+        <dt>Administrador</dt><dd>admin · adm@2026</dd>
+      </dl>
+    </section>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/publico/ajuda.js"></script>
+</body>
+</html>
