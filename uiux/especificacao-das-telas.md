@@ -1,20 +1,22 @@
 # Especificação das telas
 
-Base para o Figma e para o site. Cada tela segue o wireframe indicado, o guia de estilo (`tokens-do-guia-de-estilo.md`) e os dados de exemplo dos wireframes. Desktop em 1440 px, com versão em celular para as telas 02, 05 e 07. Tema claro. As regras do sistema estão em `documentos/regras-de-negocio.md`. No Figma, cada quadro tem uma etiqueta acima dele, fora da tela: "Baseada no wireframe original NN" (telas 01 a 10 e versões em celular) ou "Tela nova" (telas 00 e 11 a 19).
+Base para o Figma e para o site. Cada tela segue o wireframe indicado, o guia de estilo (`tokens-do-guia-de-estilo.md`) e os dados de exemplo dos wireframes. Desktop em 1440 px, com versão em celular para as telas 02, 05 e 07. Tema claro. As regras do sistema estão em `documentos/regras-de-negocio.md`. No Figma, cada quadro tem uma etiqueta acima dele, fora da tela: "Baseada no wireframe original NN" (telas 01 a 10 e versões em celular) ou "Tela nova" (telas 00 e 11 a 25).
 
-Cabeçalho de todas as telas logadas: "♡ Conecta Doações", menu do perfil, link "Ajuda" e saudação com "Sair".
+Cabeçalho de todas as telas: à esquerda a marca "♡ Conecta Doações" e o menu do perfil; no canto direito, alinhados à borda do conteúdo, o link "Ajuda" e a saudação com "Sair" (logado) ou o botão "Entrar" (visitante). O link "Ajuda" leva à tela 22.
+
+Rodapé de todas as telas: nome do projeto e perfis de teste à esquerda e, à direita, o link de texto pequeno e discreto "Restaurar dados de exemplo" (volta os dados do navegador ao início, com confirmação; a Ajuda explica o que ele faz).
 
 ## Telas públicas
 
 ### 00. Apresentação (`index.html`)
-Tela nova, exigida por Web. Sem login.
-- Cabeçalho com marca, links "Como funciona", "Campanhas", "ONGs", "Projetos sociais" e botão primário "Entrar".
-- Hero: display "Conectando quem quer doar a quem precisa", texto curto sobre o objetivo da plataforma e botões "Entrar" (primário) e "Ver ONGs sem entrar" (secundário).
-- Como funciona, em 3 passos: encontre uma ONG, registre sua doação, acompanhe até ser recebida.
-- Campanha emergencial em destaque: "Enchente em Vila Velha", barra de 65% da meta, botão "Ver campanha" (abre a tela 15, com as metas e os itens que a campanha pede).
+Tela nova, exigida por Web. Sem login. Sem cartões nos blocos explicativos: cartões só onde há uma ação (campanha em destaque e ONGs).
+- Cabeçalho com marca, links "Como funciona", "Campanhas", "ONGs", "Projetos sociais" e, no canto direito, "Ajuda" e o botão primário "Entrar".
+- Hero: display "Conectando quem quer doar a quem precisa", uma frase concreta ("Veja o que cada ONG precisa agora, registre o que você pode doar e acompanhe até a ONG confirmar que recebeu."), uma linha de números reais em texto corrido (ex.: "12 ONGs verificadas e 6 campanhas ativas hoje. A campanha 'Enchente em Vila Velha' já recebeu 1.942 de 3.000 itens.") e os botões "Entrar" (primário) e "Ver ONGs sem entrar" (secundário).
+- Como funciona, em 3 passos numa linha aberta: fio no topo de cada passo, número grande na fonte de títulos, título e uma frase. Encontre uma ONG, registre sua doação, acompanhe até ser recebida.
+- Campanha emergencial em destaque: card em accent-soft com "Enchente em Vila Velha", cidades, prazo, barra de 65% da meta e botão "Ver campanha" (abre a tela 15). Link "Ver todas as campanhas ativas" (tela 25).
 - ONGs em destaque: 3 cards (Lar Esperança, Casa da Criança, Abrigo Sol).
-- Projetos sociais de coleta de resíduos, conteúdo estático: 3 cards (coleta de óleo de cozinha, reciclagem de papel e plástico, reaproveitamento de roupas).
-- Rodapé com nome do projeto e perfis.
+- Projetos sociais de coleta de resíduos, conteúdo estático, em 3 linhas separadas por filetes: ilustração de 96 px à esquerda e texto à direita (coleta de óleo de cozinha, reciclagem de papel e plástico, reaproveitamento de roupas).
+- Rodapé com nome do projeto, perfis de teste e o link discreto de restaurar dados.
 
 ### 01. Entrar (`login.html`), wireframe 01
 - Logo, "♡ Conecta Doações" e "Conectando quem quer doar a quem precisa".
@@ -163,9 +165,50 @@ As telas 11 a 14, 17 e 19 são novas e seguem os mesmos componentes das demais. 
 - Tabela: Data, Campanha, Doador, Meta, Qtd., Data prevista, Status e Ações ("Aceitar", "Recusar", "Confirmar recebimento").
 - Detalhe da doação selecionada (Meta, Quantidade, Endereço, Contato), campo "Mensagem ao doador (opcional)" e botões "Recusar" e "Aceitar doação". Card "Como funciona" com 3 passos e a nota de que as doações das campanhas criadas por uma ONG ficam na tela 09 dela.
 
+## Telas extras (20 a 25)
+
+Existem no site e não têm wireframe original. Usam os mesmos componentes e tokens das demais e são "Tela nova" no Figma.
+
+### 20. Criar conta (`criar-conta.html`)
+- Cabeçalho do visitante. Card central de 620 px, título "Criar conta" e "Cadastre-se para doar ou para divulgar as necessidades da sua ONG."
+- Radios "Sou Doador" e "Represento uma ONG" (o login abre a tela já com o tipo escolhido).
+- Seção "Seus dados" (para a ONG, "Dados do representante"): Nome completo*, E-mail*, Telefone, Cidade*, Senha* (apoio "Use pelo menos 6 caracteres.") e Confirmar senha*.
+- Seção "Dados da ONG", só para "Represento uma ONG": Nome da ONG*, CNPJ*, Descrição*, Endereço*, Horário de atendimento, Telefone da ONG, E-mail de contato da ONG e a caixa "Aceita retirada das doações no endereço do doador". Apoio: "Depois do cadastro, o administrador verifica a ONG. Até lá, ela ainda não cadastra necessidades."
+- Botões "Já tenho conta" (discreto, volta ao login) e "Criar conta" (primário). Erros embaixo de cada campo (e-mail ou CNPJ já cadastrado, confirmação de senha diferente).
+- Doador entra na hora na tela 02; ONG entra na tela 07 com o aviso "Sua ONG ainda não foi verificada".
+
+### 21. Esqueci minha senha (`esqueci-senha.html`)
+- Card central de 460 px: título, "Informe o e-mail da sua conta para receber as instruções de recuperação.", campo E-mail* e botão primário "Enviar instruções".
+- Depois de enviar, alerta de informação "Pedido recebido." com a nota de que o site é uma demonstração e nenhum e-mail é enviado. A resposta é a mesma exista ou não a conta. Link "Voltar para a entrada".
+
+### 22. Ajuda (`ajuda.html`)
+- Aberta pelo link "Ajuda" do cabeçalho. Título "Ajuda" e "Respostas rápidas para as dúvidas mais comuns sobre o Conecta Doações."
+- Grupos de perguntas que abrem e fecham (cartão pequeno com chevron): "Para quem quer doar" (como registrar, campanhas, status, retirada), "Para ONGs" (selo de verificada, cadastrar necessidade, solicitar campanha, meta da campanha) e "Sobre esta demonstração" ("O que é 'Restaurar dados de exemplo'?" e "O que eu faço aparece para outras pessoas?").
+- Card final "Contas de teste deste site" com os três perfis de teste.
+
+### 23. Perfil do doador (`perfil.html`, menu "Perfil")
+- Breadcrumb "Início > Perfil", título "Meu perfil".
+- Card "Meus dados": Nome completo*, E-mail de acesso (bloqueado), Telefone, Cidade*, botão primário "Salvar perfil". Coluna lateral: card "Alterar senha" (Senha atual, Nova senha, Confirmar nova senha e botão secundário "Alterar senha").
+
+### 24. Perfil da ONG (`perfil.html`, menu "Perfil da ONG")
+- Breadcrumb "Painel > Perfil da ONG", título "Perfil da ONG" e o selo "ONG verificada" (ou "Aguardando verificação").
+- Card "Dados da ONG": Nome e CNPJ (bloqueados, "só mudam com a ajuda da administração"), Descrição*, Cidade*, Endereço*, Horário de atendimento, Telefone, E-mail de contato, caixa "Aceita retirada..." e botão "Salvar perfil".
+- Coluna lateral: card "Representante" (Nome*, E-mail de acesso bloqueado, botão secundário "Salvar representante") e card "Alterar senha". É o destino do "Editar perfil da ONG" da tela 07.
+
+### 25. Campanhas ativas (`campanhas-ativas.html`, menu "Campanhas" do visitante)
+- Breadcrumb "Início > Campanhas", título "Campanhas emergenciais" e "Campanhas ativas para enchentes, deslizamentos, secas e incêndios. Cada uma tem metas e necessidades de ONGs participantes."
+- Cards de campanha em accent-soft, dois por linha: selo EMERGÊNCIA, título, descrição, cidades e tipo, prazo, barra de progresso e botão "Ver campanha" (tela 15).
+
+## Padrões comuns
+
+- **Estados vazios ensinam o próximo passo.** Minhas doações sem nenhuma doação: "Você ainda não registrou doações." com o link "Ver ONGs que precisam de ajuda". Gerenciar necessidades sem nenhuma: "Você ainda não cadastrou necessidades." com o link "Cadastrar a primeira necessidade". Doações recebidas, aba Pendentes: explica que a doação aparece ali quando um doador registrar. Busca sem resultado diz como limpar os filtros.
+- **Cartões só onde há função**: formulários, colunas laterais, resumos, campanha em destaque e cards de ONG. Tabelas, listas e relatórios ficam planos, com título e filete. Tabela dentro de cartão não tem borda própria.
+- **A página aparece completa**: cabeçalho, conteúdo e rodapé surgem juntos depois de montados, sem "pulo" de layout.
+
 ## Fluxos que o protótipo deve ligar
 
 - Doador: 01 Entrar → 02 Início → (15 Campanha, pelo botão "Ver campanha" → 18 Registrar doação para a campanha) → 03 ONGs → 04 Perfil da ONG → 05 Registrar doação → 06 Minhas doações. A tela 15 também leva à 05, por "Quero doar".
 - ONG: 01 Entrar → 07 Painel → 08 Gerenciar necessidades → 10 Cadastrar necessidade → 08. De 07 também para 09 Doações recebidas e para 16 Solicitar campanha, cujo pedido chega ao administrador (12 e 13). Na 07 a ONG aceita ou recusa os pedidos de vínculo às campanhas que criou.
 - Administrador: 01 Entrar → 11 Painel → 12 Aprovações → 13 Campanhas (→ 17 Nova campanha, 19 Doações das campanhas) → 14 Usuários. O menu liga as telas 11 a 14.
-- Público: 00 Apresentação → 01 Entrar ou 03 ONGs como visitante.
+- Público: 00 Apresentação → 01 Entrar ou 03 ONGs como visitante. De 01 também para 20 Criar conta e 21 Esqueci minha senha; o menu "Campanhas" leva à 25, que leva à 15; o link "Ajuda" do cabeçalho de qualquer tela leva à 22.
+- Perfis: menu "Perfil" do doador → 23; menu "Perfil da ONG" e o "Editar perfil da ONG" da tela 07 → 24.
