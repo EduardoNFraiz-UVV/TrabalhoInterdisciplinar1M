@@ -28,3 +28,19 @@
 .rodape strong {
   color: var(--ink);
 }
+
+/* Botão com cara de link pequeno: sem borda nem fundo, sublinhado ao passar o mouse.
+   É uma ferramenta de demonstração, então não deve chamar atenção. A cor ink-muted mantém o contraste. */
+.link-discreto {
+  padding: var(--space-1) 0;
+  border: 0;
+  background: none;
+  font-size: 12px;
+  color: var(--ink-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link-discreto:hover {
+  color: var(--primary);
+}

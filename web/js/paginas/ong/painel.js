@@ -32,8 +32,8 @@ function montar(usuario, ong) {
   const camposDoPerfil = [ong.descricao, ong.endereco, ong.horario_atendimento, ong.telefone, ong.email_contato];
   const completo = Math.round((camposDoPerfil.filter(Boolean).length / camposDoPerfil.length) * 100);
   $('#subtitulo').textContent = completo < 100
-    ? `Perfil ${completo}% completo · Complete para aumentar a confiança dos doadores`
-    : 'Perfil 100% completo · Doadores confiam mais em ONGs com todos os dados preenchidos';
+    ? `Perfil ${completo}% completo. Falta preencher dados em "Editar perfil da ONG".`
+    : 'Perfil completo.';
 
   /* RN-09: aviso para ONG ainda não verificada */
   if (!ong.verificada) {

@@ -18,7 +18,8 @@ import { el } from '../utilitarios/dom.js';
     render: função que recebe a linha de dados e devolve o conteúdo da célula (texto ou elemento);
     classe: 'numerico' (alinha à direita) ou 'acoes' (botões em linha), opcional.
   linhas: lista de dados.
-  vazio: mensagem quando não há linhas.
+  vazio: o que aparece quando não há linhas. Pode ser um texto ou um elemento (ex.: uma frase com um link
+         para o próximo passo), para o estado vazio orientar a pessoa em vez de só dizer "nada aqui".
   selecionada: função opcional que diz se a linha deve aparecer destacada.
 */
 export function criarTabela({ legenda, colunas, linhas, vazio = 'Nenhum resultado encontrado.', selecionada = null }) {

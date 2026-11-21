@@ -68,7 +68,10 @@ function montar(ong) {
     preencher($('#lista'), criarTabela({
       legenda: 'Doações oferecidas à ONG',
       linhas,
-      vazio: 'Nenhuma doação nesta situação.',
+      /* Na aba de pendentes, o vazio explica quando as doações aparecem */
+      vazio: abaAtual === 'oferecida'
+        ? 'Nenhuma doação esperando resposta. Quando um doador registrar uma doação para suas necessidades ou campanhas, ela aparece aqui.'
+        : 'Nenhuma doação nesta situação.',
       selecionada: (d) => d.id_doacao === selecionada,
       colunas: [
         { titulo: 'Data', render: (d) => formatarDiaMes(d.data_registro) },

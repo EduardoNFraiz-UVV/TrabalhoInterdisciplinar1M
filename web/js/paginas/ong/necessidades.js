@@ -64,10 +64,16 @@ function montar(ong) {
 
     $('#contagem').textContent = `${linhas.length} ${linhas.length === 1 ? 'necessidade encontrada' : 'necessidades encontradas'}`;
 
+    /* Estado vazio com próximo passo: se a ONG não tem nenhuma necessidade, o link leva ao cadastro */
+    const semNecessidades = necessidadesDaOng(ong.id_ong).length === 0;
+    const vazio = semNecessidades && ong.verificada
+      ? el('span', {}, 'Você ainda não cadastrou necessidades. ', el('a', { href: url('necessidadeForm') }, 'Cadastrar a primeira necessidade'))
+      : 'Nenhuma necessidade encontrada com esses filtros.';
+
     preencher($('#lista'), criarTabela({
       legenda: 'Necessidades cadastradas pela ONG',
       linhas,
-      vazio: 'Nenhuma necessidade encontrada com esses filtros.',
+      vazio,
       colunas: [
         { titulo: 'Item', render: (n) => el('strong', {}, n.item) },
         { titulo: 'Categoria', render: (n) => tabela('categoria').find((c) => c.id_categoria === n.id_categoria).nome },

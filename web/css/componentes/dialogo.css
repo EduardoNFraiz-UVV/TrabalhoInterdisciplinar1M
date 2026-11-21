@@ -15,6 +15,24 @@
   box-shadow: var(--sombra-dialog);
 }
 
+/* Ao abrir, o diálogo sobe 8 px e aparece em 150 ms (movimento que mostra a mudança de estado).
+   Com prefers-reduced-motion o reset.css desliga a animação. */
+.dialogo[open] {
+  animation: dialogo-entrada 150ms ease-out;
+}
+
+@keyframes dialogo-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ::backdrop é a película escura atrás do diálogo */
 .dialogo::backdrop {
   background: rgba(19, 32, 30, .5);

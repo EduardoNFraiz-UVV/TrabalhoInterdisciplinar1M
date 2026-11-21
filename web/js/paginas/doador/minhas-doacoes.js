@@ -8,6 +8,7 @@
 
 import { iniciarPagina } from '../../nucleo/pagina.js';
 import { buscar } from '../../nucleo/armazenamento.js';
+import { url } from '../../nucleo/caminhos.js';
 import { el, $, preencher } from '../../utilitarios/dom.js';
 import { formatarData, normalizar } from '../../utilitarios/formatacao.js';
 import { doacoesDoDoador, detalharDoacao, quantidadeComUnidade, contarPorStatus, mudarStatus } from '../../regras/doacoes.js';
@@ -64,10 +65,16 @@ function montar(usuario) {
     const linhas = todas.filter((d) => abaAtual === 'todas'
       || (abaAtual === 'encerradas' ? ['recusada', 'cancelada'].includes(d.status) : d.status === abaAtual));
 
+    /* Estado vazio que ensina o próximo passo: quem nunca doou vê o caminho para a lista de ONGs */
+    const nuncaDoou = doacoesDoDoador(usuario.id_usuario).length === 0;
+    const vazio = nuncaDoou
+      ? el('span', {}, 'Você ainda não registrou doações. ', el('a', { href: url('ongs') }, 'Ver ONGs que precisam de ajuda'))
+      : 'Nenhuma doação nesta situação.';
+
     preencher($('#lista'), criarTabela({
       legenda: 'Doações registradas por você',
       linhas,
-      vazio: 'Nenhuma doação nesta situação. Que tal ajudar uma ONG hoje?',
+      vazio,
       selecionada: (d) => d.id_doacao === selecionada,
       colunas: [
         { titulo: 'Data', render: (d) => formatarData(d.data_registro) },

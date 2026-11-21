@@ -118,6 +118,11 @@
     flex-direction: column;
   }
 
+  /* No menu recolhido os links têm 44 px de altura (alvo de toque) */
+  .menu a {
+    min-height: 44px;
+  }
+
   /* No painel recolhido (coluna) o bloco do usuário volta para a esquerda, como o menu */
   .cabecalho-usuario {
     flex-wrap: wrap;

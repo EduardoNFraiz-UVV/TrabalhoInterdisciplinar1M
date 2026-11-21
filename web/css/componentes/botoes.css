@@ -21,7 +21,13 @@
   line-height: 20px;
   text-decoration: none;           /* links com aparência de botão não têm sublinhado */
   white-space: nowrap;
-  transition: background-color .15s, border-color .15s, color .15s;
+  /* 150 ms com saída suave: rápido o bastante para quem está em fluxo de tarefa não esperar */
+  transition: background-color 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out, transform 150ms ease-out;
+}
+
+/* Estado "pressionado": o botão desce 1 px, confirmando o clique (ver também prefers-reduced-motion no reset.css) */
+.botao:active:not(:disabled):not([aria-disabled="true"]) {
+  transform: translateY(1px);
 }
 
 /* Primário: fundo primary e texto branco */
@@ -131,9 +137,20 @@
   background: var(--danger-soft);
 }
 
-/* No celular, botões de rodapé de formulário ocupam a largura toda */
+/* No celular, botões de rodapé de formulário ocupam a largura toda e todo alvo de toque
+   (botões pequenos e links de ação das tabelas) chega a 44 px, o tamanho confortável para o dedo */
 @media (max-width: 640px) {
   .botoes-formulario .botao {
     flex: 1 1 auto;
+  }
+
+  .botao-pequeno {
+    min-height: 44px;
+  }
+
+  .acao {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
 }

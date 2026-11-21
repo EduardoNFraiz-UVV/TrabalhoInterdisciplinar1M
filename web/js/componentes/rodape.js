@@ -16,10 +16,12 @@ export function montarRodape() {
   if (!destino) return;
   destino.classList.add('rodape');
 
-  /* Botão que volta tudo ao estado inicial, depois de pedir confirmação */
+  /* Botão com aparência de link pequeno (discreto): volta tudo ao estado inicial, depois de pedir confirmação.
+     O que ele faz está explicado na página Ajuda, na seção "Sobre esta demonstração". */
   const botaoRestaurar = el('button', {
     type: 'button',
-    class: 'botao botao-secundario botao-pequeno',
+    class: 'link-discreto',
+    title: 'Volta os dados deste navegador ao início',
     onclick: async () => {
       const confirmado = await confirmar({
         titulo: 'Restaurar dados de exemplo?',
