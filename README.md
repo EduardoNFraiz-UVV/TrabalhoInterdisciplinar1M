@@ -7,7 +7,7 @@ Plataforma web de doações que aproxima pessoas que querem doar de ONGs e campa
 ## Links
 
 - Protótipo no Figma: https://www.figma.com/design/xBUHw0LL4nvoHsjjS1twxP/telas
-- Site publicado: a definir (GitHub Pages)
+- Site publicado (GitHub Pages): https://eduardonfraiz-uvv.github.io/TrabalhoInterdisciplinar1M/web/
 
 ## Perfis de usuário
 
