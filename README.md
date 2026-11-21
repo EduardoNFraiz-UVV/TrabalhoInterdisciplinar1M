@@ -21,7 +21,7 @@ Plataforma web de doações que aproxima pessoas que querem doar de ONGs e campa
 
 | Pasta | Conteúdo |
 |---|---|
-| `documentos/` | Enunciados das três disciplinas e regras de negócio (`regras-de-negocio.md`) |
+| `documentos/` | Enunciados de Web e de Banco de Dados e regras de negócio (`regras-de-negocio.md`) |
 | `uiux/` | Personas, histórias, wireframes, fluxos, guia de estilo, tokens e especificação das telas |
 | `web/` | Site em HTML, CSS e JavaScript |
 | `banco-de-dados/` | Modelos, scripts SQL, resultados, relatório e arquivos de entrega |
