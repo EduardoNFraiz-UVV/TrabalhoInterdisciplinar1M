@@ -20,7 +20,7 @@ Como previsto no Projeto Pedagógico do Curso (PPC), desenvolvemos, no primeiro 
 
 # **Descrição do Projeto** {#descrição-do-projeto}
 
-Link contendo a descrição do projeto
+2026.2 - Especificação do Projeto.docx
 
 # **Itens do Trabalho** {#itens-do-trabalho}
 
@@ -57,7 +57,7 @@ Dessa forma, cada grupo deverá enviar 3 arquivos:
 
 # **Datas** {#datas}
 
-O trabalho deverá ser enviado no portal acadêmico até o dia da PROVA do segundo bimestre às **23h59**.
+O trabalho deverá ser enviado no portal acadêmico até o dia da PROVA do segundo bimestre (26) às **23h59**.
 
 **Observação:** não serão aceitos trabalhos fora do prazo e/ou enviados por outro meio.
 
