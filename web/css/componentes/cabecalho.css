@@ -46,7 +46,6 @@
   gap: var(--space-1);
   list-style: none;
   padding: 0;
-  margin-right: auto;     /* empurra "Ajuda" e saudação para a direita */
 }
 
 .menu a {
@@ -71,11 +70,14 @@
   color: var(--primary);
 }
 
-/* Lado direito: Ajuda, saudação e Sair */
+/* Lado direito: Ajuda, saudação e Sair (ou Ajuda e Entrar, para o visitante).
+   margin-left: auto "come" todo o espaço livre à esquerda do bloco e o empurra
+   para a borda direita do cabeçalho, alinhada com o conteúdo da página. */
 .cabecalho-usuario {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  margin-left: auto;
   font-size: 14px;
 }
 
@@ -114,11 +116,12 @@
 
   .menu {
     flex-direction: column;
-    margin-right: 0;
   }
 
+  /* No painel recolhido (coluna) o bloco do usuário volta para a esquerda, como o menu */
   .cabecalho-usuario {
     flex-wrap: wrap;
+    margin-left: 0;
   }
 }
 
