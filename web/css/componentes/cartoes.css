@@ -143,6 +143,36 @@
   gap: var(--space-2);
 }
 
+/* ---------- Lista de linhas (fila de análise do painel) ----------
+   Cada item tem o texto principal de um lado e uma ação do outro, separados por filetes. */
+
+.lista-linhas {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+}
+
+.lista-linhas li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.lista-linhas li:last-child {
+  border-bottom: 0;
+}
+
+/* Título em cima, detalhe embaixo; min-width: 0 deixa o texto longo quebrar em vez de empurrar a ação */
+.lista-linhas .principal {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
 /* ---------- Informações de contato com ícones (perfil da ONG) ---------- */
 
 .lista-contato {
@@ -165,17 +195,3 @@
   color: var(--primary);
 }
 
-/* Passos numerados da tela de apresentação */
-.passo-numero {
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-pill);
-  background: var(--primary);
-  color: var(--on-primary);
-  font-family: var(--fonte-titulo);
-  font-weight: 800;
-}

@@ -46,16 +46,15 @@ function montar() {
     ...ongsPendentes.map((o) => ({ nome: o.nome, tipo: 'ONG', data: o.data_cadastro, destino: url('aprovacoes', { aba: 'ongs' }) })),
     ...campanhasPendentes.map((c) => ({ nome: c.titulo, tipo: 'Campanha', data: c.data_inicio, destino: url('aprovacoes', { aba: 'campanhas' }) }))
   ].sort((a, b) => b.data.localeCompare(a.data)).slice(0, 4);
-  preencher($('#analise'), criarTabela({
-    legenda: 'Itens aguardando análise',
-    linhas: itens,
-    vazio: 'Nada aguardando análise.',
-    colunas: [
-      { titulo: 'ONG ou campanha', render: (i) => el('span', {}, el('strong', {}, i.nome), ` (${i.tipo})`) },
-      { titulo: 'Data', render: (i) => formatarData(i.data) },
-      { titulo: 'Ação', classe: 'acoes', render: (i) => el('a', { class: 'acao', href: i.destino, 'aria-label': `Analisar ${i.nome}` }, 'Analisar') }
-    ]
-  }));
+  /* Lista compacta: nome, tipo e data de um lado e o link "Analisar" do outro.
+     Uma tabela de 3 colunas não cabe na coluna estreita e cortava a ação. */
+  preencher($('#analise'), itens.length === 0
+    ? el('p', { class: 'texto-apoio' }, 'Nada aguardando análise.')
+    : el('ul', { class: 'lista-linhas', role: 'list' }, itens.map((i) => el('li', {},
+      el('div', { class: 'principal' },
+        el('strong', {}, i.nome),
+        el('span', { class: 'texto-legenda' }, `${i.tipo} · ${formatarData(i.data)}`)),
+      el('a', { class: 'acao', href: i.destino, 'aria-label': `Analisar ${i.nome}` }, 'Analisar')))));
 
   /* Relatório 2: demanda por categoria e prioridade (recebido de solicitado) */
   const celula = (grupo) => `${formatarNumero(grupo.recebido)} de ${formatarNumero(grupo.solicitado)}`;

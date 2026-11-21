@@ -52,8 +52,16 @@ main {
   gap: var(--space-2);
 }
 
+/* Ritmo vertical em três níveis, para a página não ter tudo à mesma distância:
+   - dentro de um bloco (título + conteúdo, campo + ajuda): 8 a 16 px (.pilha-pequena e .pilha);
+   - entre blocos de uma coluna (.pilha-grande): 32 px;
+   - entre as seções principais da página (<main class="conteudo pilha-grande">): 48 px. */
 .pilha-grande {
-  gap: var(--space-5);
+  gap: var(--space-6);
+}
+
+main.conteudo.pilha-grande {
+  gap: calc(var(--space-6) + var(--space-3));
 }
 
 /* Linha: itens lado a lado, quebrando para a linha de baixo se faltar espaço */
@@ -171,6 +179,14 @@ main {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+/* Área onde os avisos (sucesso, erro...) aparecem. Quando está vazia ela não pode ocupar espaço:
+   com display: contents a caixa "some" do layout, então o gap do .pilha não cria uma lacuna
+   fantasma. Quando um aviso entra, ele passa a ser o item da pilha. O aria-live continua valendo,
+   por isso leitores de tela ainda anunciam o aviso. */
+.area-alerta {
+  display: contents;
 }
 
 /* Mensagem de "lista vazia" dentro das caixas de seleção */

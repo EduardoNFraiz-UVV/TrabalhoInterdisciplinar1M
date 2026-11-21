@@ -34,17 +34,17 @@
     </section>
 
     <div class="grade-principal">
-      <!-- Relatório 1: gráfico de barras -->
-      <section class="cartao" aria-labelledby="titulo-rel1">
+      <!-- Relatório 1: gráfico de barras. Fica plano (sem cartão): os três relatórios têm o mesmo tratamento -->
+      <section class="secao" aria-labelledby="titulo-rel1">
         <h2 id="titulo-rel1">Doações recebidas por mês</h2>
         <div id="grafico"></div>
       </section>
 
-      <section class="cartao" aria-labelledby="titulo-analise">
+      <!-- Fila de análise: é uma lateral com ação, por isso mantém o cartão -->
+      <aside class="cartao" aria-labelledby="titulo-analise">
         <h2 id="titulo-analise">Aguardando análise</h2>
         <div id="analise"></div>
-      </section>
-    </div>
+      </aside>
 
     <!-- Relatório 2: tabela solicitado x recebido -->
     <section class="secao" aria-labelledby="titulo-rel2">
@@ -54,7 +54,7 @@
     </section>
 
     <!-- Relatório 3: barras de progresso -->
-    <section class="cartao" aria-labelledby="titulo-rel3">
+    <section class="secao" aria-labelledby="titulo-rel3">
       <h2 id="titulo-rel3">Média mensal por categoria</h2>
       <div id="media" class="pilha"></div>
       <p class="texto-forte" id="media-geral"></p>
