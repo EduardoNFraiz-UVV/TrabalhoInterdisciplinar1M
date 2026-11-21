@@ -14,6 +14,7 @@
 import { usuarioAtual, exigirPerfil, ongDoUsuario } from './sessao.js';
 import { montarCabecalho } from '../componentes/cabecalho.js';
 import { montarRodape } from '../componentes/rodape.js';
+import { url, rotaInicialDoPerfil } from './caminhos.js';
 
 /*
   opcoes:
@@ -33,5 +34,10 @@ export function iniciarPagina({ perfis = null, pagina = null } = {}) {
 
   montarCabecalho(usuario, idPagina);
   montarRodape();
+
+  /* Links marcados com data-link-inicio (primeiro item do breadcrumb) levam à tela inicial de quem está logado */
+  document.querySelectorAll('[data-link-inicio]').forEach((link) => {
+    link.href = url(usuario ? rotaInicialDoPerfil(usuario.perfil) : 'apresentacao');
+  });
   return { usuario, ong: ongDoUsuario(usuario) };
 }

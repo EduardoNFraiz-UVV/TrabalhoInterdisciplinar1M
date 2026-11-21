@@ -55,6 +55,13 @@ export function url(nome, parametros = null) {
   return consulta ? `${base}?${consulta}` : base;
 }
 
+/* Caminho completo a partir da raiz do servidor (ex.: /web/paginas/doador/doar.html?ong=1).
+   Usado no parâmetro "retorno" do login, para voltar à página que a pessoa queria abrir */
+export function caminhoAbsoluto(nome, parametros = null) {
+  const endereco = new URL(url(nome, parametros), window.location.href);
+  return endereco.pathname + endereco.search;
+}
+
 /* Leva o navegador para outra página do site */
 export function ir(nome, parametros = null) {
   window.location.href = url(nome, parametros);
