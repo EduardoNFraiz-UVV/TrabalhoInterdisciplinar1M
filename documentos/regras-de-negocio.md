@@ -88,12 +88,24 @@ A coluna **Onde** diz quem garante a regra: **Banco** (restrição, chave ou `CH
 | RN-43 | O administrador aprova ONGs e campanhas, modera vínculos, cria e encerra campanhas e bloqueia usuários. | Site |
 | RN-44 | O painel mostra 3 relatórios, iguais às consultas do banco: doações recebidas por mês e categoria; demanda por categoria e prioridade (solicitado x recebido); média mensal por categoria. Só contam doações **recebidas**. A doação para meta entra na categoria da meta. | Banco (consultas) e Site |
 
+## 9. Contas e decisões do site
+
+| Nº | Regra | Onde |
+|---|---|---|
+| RN-45 | Conta nova: o e-mail é único (RN-05) e, para ONG, o CNPJ também (RN-07); a senha tem pelo menos 6 caracteres e é guardada como hash. O doador entra ativo na hora; a ONG nasce não verificada (RN-08) e não cadastra necessidades nem solicita campanhas até ser aprovada (RN-09). | Banco (únicos) e Site |
+| RN-46 | Trocar a senha exige a senha atual. | Site |
+| RN-47 | Recusar uma ONG remove o cadastro dela e o usuário que a representa; recusar um pedido de campanha remove o pedido, com suas cidades, metas e vínculos. | Site |
+| RN-48 | Uma meta que já recebeu doações não pode ser removida da campanha, porque as doações apontam para ela. | Banco (chave) e Site |
+| RN-49 | Excluir uma necessidade que já tem doações recebidas a marca como concluída, para preservar o histórico (refina a RN-15); sem doações recebidas, ela é excluída de verdade, com seus vínculos. | Site |
+
 ## Regras assumidas, a confirmar
 
 - "Categoria igual ou parecida" foi tratada como **mesma categoria** (RN-30).
 - A ONG não verificada fica impedida de cadastrar necessidades e solicitar campanhas (RN-09).
 - A doação para meta só admite entrega no endereço da campanha, sem retirada (RN-38).
 - A categoria "Outros" não existe (RN-11).
+- Recusar uma ONG ou uma campanha remove o registro, em vez de guardar uma situação "recusada" (RN-47).
+- Excluir necessidade com doação já recebida a conclui em vez de apagar (RN-49).
 
 ## O que o banco não garante
 
