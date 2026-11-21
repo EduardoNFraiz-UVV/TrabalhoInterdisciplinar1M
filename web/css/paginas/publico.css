@@ -1,0 +1,87 @@
+/*
+  publico.css
+  Para que serve: arranjos (layout) específicos das páginas abertas ao visitante: apresentação
+  (index), entrar, criar conta, esqueci a senha, ajuda, lista e perfil de ONGs, campanhas.
+  Quem usa: as páginas de js/paginas/publico e o index.html (junto com principal.css).
+  Os componentes (botões, campos, cards) vêm de css/componentes.
+*/
+
+/* ---------- Páginas de formulário centralizado (entrar, criar conta, esqueci a senha) ---------- */
+
+/* Caixa central estreita para formulários curtos */
+.pagina-formulario {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-6);
+}
+
+.cartao-formulario {
+  width: 100%;
+  max-width: 460px;
+  gap: var(--space-4);
+}
+
+/* Cartão mais largo, usado no "Criar conta" */
+.cartao-formulario-largo {
+  max-width: 620px;
+}
+
+/* Marca e frase de efeito no topo do formulário de entrada */
+.apresentacao-marca {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.logo-quadrado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+/* Linha com "ou" entre o login e o criar conta */
+.separador {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--ink-muted);
+  font-size: 13px;
+}
+
+.separador::before,
+.separador::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* Bloco "Contas de teste" (elemento <details>, que abre e fecha sozinho) */
+.contas-teste {
+  padding: var(--space-3) var(--space-4);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+}
+
+.contas-teste summary {
+  font-weight: 700;
+}
+
+.contas-teste dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--space-1) var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.contas-teste dt {
+  font-weight: 700;
+}
