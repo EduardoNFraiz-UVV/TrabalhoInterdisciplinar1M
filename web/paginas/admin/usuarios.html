@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+  usuarios.html (tela 14 do Figma: Usuários)
+  Para que serve: o administrador vê todos os usuários (abas Todos, Doadores, ONGs, Administradores),
+  busca por nome ou e-mail, filtra por situação e bloqueia ou desbloqueia contas (RN-04).
+  Aceita ?aba=doador|ong|admin. Quem abre: administrador.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Usuários · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/admin.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="usuarios">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="painel.html">Painel</a></li>
+        <li><span aria-current="page">Usuários</span></li>
+      </ol>
+    </nav>
+
+    <div class="pilha pilha-pequena">
+      <h1>Usuários da plataforma</h1>
+      <p class="texto-apoio">Doadores, ONGs e administradores cadastrados. Bloqueie quem descumprir as regras de uso.</p>
+    </div>
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <div id="abas"></div>
+
+    <form class="filtros" id="formulario-filtros" role="search" aria-label="Filtrar usuários">
+      <div class="campo cresce">
+        <label for="filtro-busca">Buscar por nome ou e-mail</label>
+        <div class="busca-campo" id="campo-busca"></div>
+      </div>
+      <div class="campo">
+        <label for="filtro-situacao">Situação</label>
+        <select id="filtro-situacao">
+          <option value="">Todas</option>
+          <option value="ativo">Ativos</option>
+          <option value="bloqueado">Bloqueados</option>
+        </select>
+      </div>
+    </form>
+
+    <div id="lista"></div>
+    <div id="paginacao"></div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/admin/usuarios.js"></script>
+</body>
+</html>

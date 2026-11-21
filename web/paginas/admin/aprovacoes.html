@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+  aprovacoes.html (tela 12 do Figma: Aprovação de ONGs e campanhas)
+  Para que serve: o administrador aprova ou recusa ONGs novas (selo "ONG verificada"), campanhas
+  solicitadas pelas ONGs (viram ativas) e pedidos de vínculo às campanhas criadas pela administração.
+  Também modera vínculos já aceitos. Aceita ?aba=ongs|campanhas|vinculos. Quem abre: administrador.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aprovações · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/admin.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="aprovacoes">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="painel.html">Painel</a></li>
+        <li><span aria-current="page">Aprovações</span></li>
+      </ol>
+    </nav>
+
+    <h1>Aprovação de ONGs e campanhas</h1>
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <div id="abas"></div>
+
+    <!-- O conteúdo muda conforme a aba: tabela + detalhe (ONGs), tabela (campanhas), vínculos e moderação -->
+    <section id="conteudo-aba" class="pilha pilha-grande"></section>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/admin/aprovacoes.js"></script>
+</body>
+</html>

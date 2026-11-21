@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+  campanhas.html do administrador (tela 13 do Figma: Campanhas emergenciais)
+  Para que serve: o administrador vê todas as campanhas (abas Todas, Ativas, Pendentes, Encerradas), busca
+  por campanha ou cidade, filtra por tipo e age: Editar, Encerrar (com confirmação), Reabrir, Analisar
+  e Ver doações. O botão "+ Nova campanha" abre o formulário. Quem abre: administrador.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campanhas · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/admin.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="campanhas">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="painel.html">Painel</a></li>
+        <li><span aria-current="page">Campanhas</span></li>
+      </ol>
+    </nav>
+
+    <div class="cabecalho-pagina">
+      <h1>Campanhas emergenciais</h1>
+      <a class="botao botao-primario" href="campanha-form.html">+ Nova campanha</a>
+    </div>
+
+    <p class="texto-apoio">A ONG solicita pelo painel dela e a campanha nasce pendente. O administrador também pode criar direto, e ela já nasce ativa. Só campanhas ativas aparecem para os doadores.</p>
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <div id="abas"></div>
+
+    <form class="filtros" id="formulario-filtros" role="search" aria-label="Filtrar campanhas">
+      <div class="campo cresce">
+        <label for="filtro-busca">Buscar campanha ou cidade</label>
+        <div class="busca-campo" id="campo-busca"></div>
+      </div>
+      <div class="campo">
+        <label for="filtro-tipo">Tipo</label>
+        <select id="filtro-tipo">
+          <option value="">Todos</option>
+          <option value="enchente">Enchente</option>
+          <option value="deslizamento">Deslizamento</option>
+          <option value="seca">Seca</option>
+          <option value="incendio">Incêndio</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+    </form>
+
+    <div id="lista"></div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/admin/campanhas.js"></script>
+</body>
+</html>

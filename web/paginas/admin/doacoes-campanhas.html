@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+  doacoes-campanhas.html (tela 19 do Figma: Doações das campanhas)
+  Para que serve: o administrador gerencia as doações dadas às METAS das campanhas que ele criou: aceita,
+  recusa (com mensagem) e confirma o recebimento (RN-38). Aceita ?campanha= para abrir já filtrada.
+  As doações das campanhas criadas por uma ONG ficam na tela "Doações recebidas" dela. Quem abre: administrador.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Doações das campanhas · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/admin.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="campanhas">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="painel.html">Painel</a></li>
+        <li><a href="campanhas.html">Campanhas</a></li>
+        <li><span aria-current="page">Doações</span></li>
+      </ol>
+    </nav>
+
+    <div class="pilha pilha-pequena">
+      <h1>Doações das campanhas</h1>
+      <p class="texto-apoio">Doações para as metas das campanhas criadas pela administração. A entrega é no endereço de recebimento informado na criação.</p>
+    </div>
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <div class="grade-principal">
+      <div class="pilha pilha-grande">
+        <div id="abas"></div>
+
+        <form class="filtros" id="formulario-filtros" role="search" aria-label="Filtrar doações das campanhas">
+          <div class="campo">
+            <label for="filtro-campanha">Campanha</label>
+            <select id="filtro-campanha"></select>
+          </div>
+          <div class="campo cresce">
+            <label for="filtro-busca">Buscar doador ou item</label>
+            <div class="busca-campo" id="campo-busca"></div>
+          </div>
+        </form>
+
+        <div id="lista"></div>
+
+        <section class="cartao" aria-labelledby="titulo-detalhe" id="secao-detalhe" hidden>
+          <h2 id="titulo-detalhe">Detalhe da doação</h2>
+          <div id="detalhe" class="pilha"></div>
+        </section>
+      </div>
+
+      <aside class="pilha" aria-label="Ajuda">
+        <section class="cartao como-funciona" aria-labelledby="titulo-como">
+          <h2 id="titulo-como" class="texto-rotulo">Como funciona</h2>
+          <ol>
+            <li>Aceite a doação para avisar o doador.</li>
+            <li>Quando o item chegar ao endereço da campanha, clique em Confirmar recebimento.</li>
+            <li>O andamento da meta é atualizado automaticamente.</li>
+          </ol>
+          <p class="texto-legenda">As doações das campanhas criadas por uma ONG ficam na tela Doações recebidas dela.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/admin/doacoes-campanhas.js"></script>
+</body>
+</html>

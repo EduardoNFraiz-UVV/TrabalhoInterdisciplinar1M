@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+  painel.html do administrador (tela 11 do Figma: Painel e relatórios)
+  Para que serve: tela inicial do administrador. Mostra 4 números-resumo, a lista "Aguardando análise"
+  e os 3 relatórios do banco de dados: doações recebidas por mês (gráfico), demanda por categoria e
+  prioridade, e média mensal por categoria. Os valores são calculados das doações RECEBIDAS (RN-44).
+  Quem abre: administrador. O JS está em js/paginas/admin/painel.js.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel da plataforma · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/admin.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="painel">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <div class="pilha pilha-pequena">
+      <h1>Olá, Administrador! Painel da plataforma</h1>
+      <p class="texto-apoio">Resumo e relatórios dos últimos 6 meses</p>
+    </div>
+
+    <section aria-labelledby="titulo-resumo">
+      <h2 id="titulo-resumo" class="so-leitor">Resumo</h2>
+      <div class="grade-resumo grade-resumo-4" id="cartoes-resumo"></div>
+    </section>
+
+    <div class="grade-principal">
+      <!-- Relatório 1: gráfico de barras -->
+      <section class="cartao" aria-labelledby="titulo-rel1">
+        <h2 id="titulo-rel1">Doações recebidas por mês</h2>
+        <div id="grafico"></div>
+      </section>
+
+      <section class="cartao" aria-labelledby="titulo-analise">
+        <h2 id="titulo-analise">Aguardando análise</h2>
+        <div id="analise"></div>
+      </section>
+    </div>
+
+    <!-- Relatório 2: tabela solicitado x recebido -->
+    <section class="secao" aria-labelledby="titulo-rel2">
+      <h2 id="titulo-rel2">Demanda por categoria e prioridade</h2>
+      <p class="texto-apoio">Itens recebidos de itens solicitados em cada categoria, separados por prioridade.</p>
+      <div id="demanda"></div>
+    </section>
+
+    <!-- Relatório 3: barras de progresso -->
+    <section class="cartao" aria-labelledby="titulo-rel3">
+      <h2 id="titulo-rel3">Média mensal por categoria</h2>
+      <div id="media" class="pilha"></div>
+      <p class="texto-forte" id="media-geral"></p>
+    </section>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/admin/painel.js"></script>
+</body>
+</html>
