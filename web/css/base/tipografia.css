@@ -1,0 +1,132 @@
+/*
+  tipografia.css
+  Para que serve: define a fonte, o tamanho e o peso dos textos, seguindo a tabela de estilos
+  do guia (display, heading-lg/md/sm, body, label, caption, overline).
+  Quem usa: principal.css. As classes .texto-* e .titulo-* podem ser aplicadas em qualquer tag.
+*/
+
+/* Estilo base do site inteiro: fonte de texto, tamanho "body" (15/22) e cores */
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: var(--fonte-texto);
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--surface);
+  -webkit-font-smoothing: antialiased; /* deixa o texto mais nítido em alguns navegadores */
+}
+
+/* Títulos usam a fonte de títulos */
+h1, h2, h3, h4,
+.titulo-display {
+  font-family: var(--fonte-titulo);
+  color: var(--ink);
+}
+
+/* display: título grande da tela de apresentação e do início do doador (40/44, 800) */
+.titulo-display {
+  font-size: 40px;
+  line-height: 44px;
+  font-weight: 800;
+}
+
+/* heading-lg: o único h1 de cada tela (28/34, 700) */
+h1 {
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 700;
+}
+
+/* heading-md: títulos de seção (22/28, 700) */
+h2 {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+}
+
+/* heading-sm: títulos de cards (18/24, 700) */
+h3 {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+/* Subtítulo de card (mesmo tamanho do texto, em negrito) */
+h4 {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 700;
+}
+
+/* body-lg: texto de destaque (17/26) */
+.texto-grande {
+  font-size: 17px;
+  line-height: 26px;
+}
+
+/* body-strong: texto normal em negrito */
+.texto-forte {
+  font-weight: 700;
+}
+
+/* label: rótulos de campos (14/20, 700) */
+.texto-rotulo {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+/* caption: legendas e textos de apoio (13/18) */
+.texto-legenda {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--ink-muted);
+}
+
+/* overline: palavra pequena em maiúsculas, usada em selos e títulos de bloco (12/16, 700) */
+.texto-sobretitulo {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--ink-muted);
+}
+
+/* Texto de apoio abaixo de títulos */
+.texto-apoio {
+  color: var(--ink-muted);
+}
+
+/* Links: cor primary e sublinhado; ao passar o mouse, ficam mais escuros */
+a {
+  color: var(--primary);
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+/* Foco visível: contorno azul de 3 px para quem navega pelo teclado (acessibilidade) */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* No celular, o título display diminui para caber na tela */
+@media (max-width: 640px) {
+  .titulo-display {
+    font-size: 30px;
+    line-height: 34px;
+  }
+
+  h1 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+}

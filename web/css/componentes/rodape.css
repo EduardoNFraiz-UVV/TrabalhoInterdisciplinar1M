@@ -1,0 +1,30 @@
+/*
+  rodape.css
+  Para que serve: rodapé simples com nome do projeto, perfis de teste e o botão
+  "Restaurar dados de exemplo".
+  Quem usa: rodape.js monta o HTML dentro de <footer id="rodape">.
+*/
+
+.rodape {
+  margin-top: auto;               /* encosta o rodapé no fim da página */
+  background: var(--surface-raised);
+  border-top: 1px solid var(--line);
+}
+
+.rodape-interno {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-5);
+  width: 100%;
+  max-width: var(--largura-conteudo);
+  margin: 0 auto;
+  padding: var(--space-5);
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+.rodape strong {
+  color: var(--ink);
+}

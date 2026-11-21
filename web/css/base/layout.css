@@ -1,0 +1,177 @@
+/*
+  layout.css
+  Para que serve: define as "caixas" de organização da página (container central, pilhas,
+  linhas e grades) usando Flexbox e CSS Grid.
+  Quem usa: principal.css. As classes são aplicadas direto no HTML (ex.: class="pilha").
+*/
+
+/* Link "Pular para o conteúdo": fica escondido e aparece só quando recebe foco pelo teclado */
+.pular-conteudo {
+  position: absolute;
+  left: var(--space-4);
+  top: -100px;               /* fora da tela */
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  background: var(--primary);
+  color: var(--on-primary);
+  border-radius: var(--radius-sm);
+}
+
+.pular-conteudo:focus {
+  top: var(--space-2);       /* entra na tela quando focado */
+  color: var(--on-primary);
+}
+
+/* Container central: limita a largura do conteúdo e dá respiro nas laterais */
+.conteudo {
+  width: 100%;
+  max-width: var(--largura-conteudo);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-5) var(--space-8);
+}
+
+/* A tag <main> ocupa o espaço que sobrar, empurrando o rodapé para baixo da tela */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* Pilha: itens um embaixo do outro com espaço entre eles (flex em coluna) */
+.pilha {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.pilha-pequena {
+  gap: var(--space-2);
+}
+
+.pilha-grande {
+  gap: var(--space-5);
+}
+
+/* Linha: itens lado a lado, quebrando para a linha de baixo se faltar espaço */
+.linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Linha com um item em cada ponta (ex.: título à esquerda e botão à direita) */
+.linha-entre {
+  justify-content: space-between;
+}
+
+/* Alinha os itens da linha ao final (ex.: botões do rodapé de formulário) */
+.linha-fim {
+  justify-content: flex-end;
+}
+
+/* Faz um filho da linha ocupar todo o espaço que sobrar */
+.cresce {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Grade principal: coluna do conteúdo + coluna lateral (aside).
+   No celular e no tablet, vira uma coluna só; a partir de 1024 px fica com duas. */
+.grade-principal {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .grade-principal {
+    grid-template-columns: minmax(0, 1fr) 340px;
+  }
+}
+
+/* Grade de cards: cria quantas colunas couberem, cada uma com no mínimo 280 px */
+.grade-cartoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+/* Grade de duas colunas iguais (ex.: formulários e detalhes lado a lado) */
+.grade-duas {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .grade-duas {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Grade de cards de resumo (números grandes do painel) */
+.grade-resumo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .grade-resumo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grade-resumo {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grade-resumo-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Cabeçalho da página: h1 e, ao lado, o botão principal */
+.cabecalho-pagina {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+/* Seção com título: espaço entre o título e o conteúdo */
+.secao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Texto centralizado */
+.centro {
+  text-align: center;
+}
+
+/* Esconde um elemento da tela, mas mantém para leitores de tela (acessibilidade) */
+.so-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* No celular, o container usa menos espaço nas laterais */
+@media (max-width: 640px) {
+  .conteudo {
+    padding: var(--space-4) var(--space-4) var(--space-7);
+  }
+}

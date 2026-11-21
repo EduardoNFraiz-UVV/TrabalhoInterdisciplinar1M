@@ -1,0 +1,34 @@
+/*
+  dialogo.css
+  Para que serve: janela de confirmação (Excluir necessidade?, Encerrar campanha?...).
+  Usa a tag nativa <dialog>, que já bloqueia o resto da página e prende o foco do teclado.
+  Quem usa: dialogo.js cria <dialog class="dialogo"> e chama showModal().
+*/
+
+.dialogo {
+  width: min(480px, calc(100% - var(--space-5)));
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  color: var(--ink);
+  box-shadow: var(--sombra-dialog);
+}
+
+/* ::backdrop é a película escura atrás do diálogo */
+.dialogo::backdrop {
+  background: rgba(19, 32, 30, .5);
+}
+
+.dialogo h2 {
+  margin-bottom: var(--space-3);
+}
+
+/* Botões do diálogo alinhados à direita: Cancelar, ação alternativa e ação principal */
+.dialogo-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}

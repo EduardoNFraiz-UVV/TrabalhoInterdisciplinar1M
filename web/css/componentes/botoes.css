@@ -1,0 +1,139 @@
+/*
+  botoes.css
+  Para que serve: os 4 tipos de botão do guia (primário, secundário, discreto e perigo),
+  com estados de hover (mouse em cima) e desabilitado, e os 3 tamanhos.
+  Quem usa: qualquer <button> ou <a> com class="botao ...". Um botão primário por área.
+*/
+
+/* Base: vale para todos os botões. Uso inline-flex para alinhar ícone e texto lado a lado */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--control-md);   /* 40 px de altura */
+  padding: 0 var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--fonte-texto);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  text-decoration: none;           /* links com aparência de botão não têm sublinhado */
+  white-space: nowrap;
+  transition: background-color .15s, border-color .15s, color .15s;
+}
+
+/* Primário: fundo primary e texto branco */
+.botao-primario {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.botao-primario:hover {
+  background: var(--primary-hover);
+  color: var(--on-primary);
+}
+
+/* Secundário: fundo branco, borda forte e texto primary; no hover, fundo suave */
+.botao-secundario {
+  background: var(--surface-raised);
+  border-color: var(--line-strong);
+  color: var(--primary);
+}
+
+.botao-secundario:hover {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Discreto: sem fundo nem borda (usado em "Cancelar") */
+.botao-discreto {
+  background: transparent;
+  color: var(--primary);
+}
+
+.botao-discreto:hover {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+/* Perigo: fundo vermelho, só em ações destrutivas dentro de diálogos de confirmação */
+.botao-perigo {
+  background: var(--danger);
+  color: var(--on-danger);
+}
+
+.botao-perigo:hover {
+  background: var(--danger-hover);
+  color: var(--on-danger);
+}
+
+/* Desabilitado: vale para qualquer tipo; o atributo disabled ou aria-disabled ativa o visual */
+.botao:disabled,
+.botao[aria-disabled="true"] {
+  background: var(--surface-sunken);
+  border-color: var(--line);
+  color: var(--ink-muted);
+  cursor: not-allowed;
+}
+
+/* Tamanhos: sm = 32 px, lg = 48 px (o padrão md = 40 px já está na base) */
+.botao-pequeno {
+  min-height: var(--control-sm);
+  padding: 0 var(--space-3);
+  font-size: 13px;
+}
+
+.botao-grande {
+  min-height: var(--control-lg);
+  padding: 0 var(--space-5);
+  font-size: 15px;
+}
+
+/* Botão que ocupa toda a largura (ex.: "Entrar" na tela de login) */
+.botao-bloco {
+  width: 100%;
+}
+
+/* Links de ação dentro de tabelas ("Editar", "Concluir", "Excluir"): texto sem ícone, cada um com sua cor */
+.acao {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  border: 0;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+}
+
+.acao:hover {
+  background: var(--primary-soft);
+  text-decoration: underline;
+}
+
+.acao-sucesso {
+  color: var(--success-action);   /* verde mais vivo, só para "Concluir" */
+}
+
+.acao-sucesso:hover {
+  background: var(--success-soft);
+}
+
+.acao-perigo {
+  color: var(--danger);
+}
+
+.acao-perigo:hover {
+  background: var(--danger-soft);
+}
+
+/* No celular, botões de rodapé de formulário ocupam a largura toda */
+@media (max-width: 640px) {
+  .botoes-formulario .botao {
+    flex: 1 1 auto;
+  }
+}

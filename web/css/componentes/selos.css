@@ -1,0 +1,85 @@
+/*
+  selos.css
+  Para que serve: etiquetas coloridas ("selos") de status da doação, prioridade, situação da
+  campanha e "ONG verificada". Sempre têm palavra + ícone (nunca só cor), por acessibilidade.
+  Quem usa: selos.js monta o HTML <span class="selo selo-...">.
+*/
+
+/* Base: pílula pequena com ícone e texto */
+.selo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Status da doação (tabela de cores do guia) */
+.selo-oferecida {
+  background: var(--info-soft);
+  color: var(--info);
+}
+
+.selo-aceita {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+
+.selo-recebida {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.selo-recusada,
+.selo-urgente {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* Prioridade normal e doação cancelada: neutro */
+.selo-normal,
+.selo-cancelada,
+.selo-encerrada {
+  background: var(--surface-sunken);
+  color: var(--ink-muted);
+}
+
+/* Campanha ativa: verde; pendente: amarelo (mesmo visual de "aceita") */
+.selo-ativa {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.selo-pendente {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+
+/* Vínculo aceito, bloqueio e usuário ativo/bloqueado */
+.selo-aceito {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.selo-recusado,
+.selo-bloqueado {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* "ONG verificada": azul de informação */
+.selo-verificada {
+  background: var(--info-soft);
+  color: var(--info);
+}
+
+/* EMERGÊNCIA: amarelo de destaque com texto escuro */
+.selo-emergencia {
+  background: var(--accent);
+  color: var(--on-accent);
+  text-transform: uppercase;
+}

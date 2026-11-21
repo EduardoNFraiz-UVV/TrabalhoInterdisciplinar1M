@@ -1,0 +1,176 @@
+/*
+  cartoes.css
+  Para que serve: os "cards" do guia: card genérico, card de ONG, card de resumo (número grande),
+  resumo da doação (rótulo e valor), campanha emergencial e "Como funciona".
+  Cards se separam por BORDA (line), não por sombra.
+  Quem usa: quase todas as páginas, via <article class="cartao"> ou <section class="cartao">.
+*/
+
+/* Card genérico: fundo branco, borda leve, cantos arredondados */
+.cartao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+/* Variante mais compacta */
+.cartao-compacto {
+  padding: var(--space-4);
+}
+
+/* ---------- Card de ONG ---------- */
+
+/* Inicial da ONG em quadrado primary-soft */
+.inicial {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-family: var(--fonte-titulo);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.inicial-grande {
+  width: 72px;
+  height: 72px;
+  font-size: 32px;
+  border-radius: var(--radius-lg);
+}
+
+/* Cidade com ícone de pin, em texto de apoio */
+.meta-linha {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+/* Itens urgentes (alerta vermelho no card da ONG) */
+.urgentes {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--danger);
+}
+
+/* O botão do card fica sempre no rodapé, mesmo se o texto for curto */
+.cartao-ong .botao {
+  margin-top: auto;
+}
+
+/* ---------- Card de resumo do painel ---------- */
+
+.cartao-resumo {
+  gap: var(--space-1);
+}
+
+.cartao-resumo .numero {
+  font-family: var(--fonte-titulo);
+  font-size: 40px;
+  line-height: 44px;
+  font-weight: 800;
+}
+
+.cartao-resumo .rotulo-resumo {
+  color: var(--ink-muted);
+}
+
+/* ---------- Resumo da doação (lista de rótulo e valor) ---------- */
+
+.resumo-lista {
+  display: grid;
+  grid-template-columns: max-content 1fr;     /* rótulo se ajusta ao texto; valor ocupa o resto */
+  gap: var(--space-2) var(--space-4);
+}
+
+.resumo-lista dt {
+  color: var(--ink-muted);
+  font-size: 13px;
+}
+
+.resumo-lista dd {
+  font-weight: 700;
+  overflow-wrap: anywhere;                   /* quebra endereços longos */
+}
+
+/* ---------- Campanha emergencial ---------- */
+
+.cartao-campanha {
+  background: var(--accent-soft);
+  border-color: transparent;
+  color: var(--on-accent);
+}
+
+.cartao-campanha h2,
+.cartao-campanha h3 {
+  color: var(--on-accent);
+}
+
+.cartao-campanha .texto-apoio,
+.cartao-campanha .meta-linha {
+  color: var(--on-accent);
+}
+
+/* ---------- Ajuda contextual "Como funciona" ---------- */
+
+.como-funciona {
+  background: var(--surface-sunken);
+  border-color: transparent;
+}
+
+.como-funciona ol {
+  padding-left: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* ---------- Informações de contato com ícones (perfil da ONG) ---------- */
+
+.lista-contato {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+}
+
+.lista-contato li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.lista-contato svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--primary);
+}
+
+/* Passos numerados da tela de apresentação */
+.passo-numero {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: var(--on-primary);
+  font-family: var(--fonte-titulo);
+  font-weight: 800;
+}

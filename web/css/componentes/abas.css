@@ -1,0 +1,59 @@
+/*
+  abas.css
+  Para que serve: abas (filtros por status) com contador, como "Todas (6)  Oferecidas (2)".
+  Quem usa: abas.js cria o HTML (role="tablist" com botões role="tab"); aqui só o visual.
+*/
+
+/* Faixa que agrupa as abas; no celular rola na horizontal em vez de quebrar */
+.abas {
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: var(--surface-sunken);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Cada aba é um botão sem borda */
+.aba {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--control-sm);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.aba:hover {
+  color: var(--ink);
+}
+
+/* Aba selecionada (aria-selected="true"): fundo branco e texto escuro */
+.aba[aria-selected="true"] {
+  background: var(--surface-raised);
+  color: var(--ink);
+  box-shadow: var(--sombra-card);
+}
+
+/* Contador dentro da aba: bolinha com o número */
+.aba-contador {
+  min-width: 22px;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.aba[aria-selected="true"] .aba-contador {
+  background: var(--primary-soft);
+  color: var(--primary);
+}

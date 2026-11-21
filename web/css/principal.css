@@ -1,0 +1,24 @@
+/*
+  principal.css
+  Para que serve: reúne, com @import, todos os arquivos de CSS base e de componentes.
+  Cada página HTML só precisa carregar este arquivo (mais o CSS da sua área, se houver).
+  A ORDEM importa: primeiro os tokens (variáveis), depois o reset, a tipografia e o layout,
+  e por fim os componentes, que usam as variáveis.
+*/
+
+@import url('base/tokens.css');
+@import url('base/reset.css');
+@import url('base/tipografia.css');
+@import url('base/layout.css');
+
+@import url('componentes/botoes.css');
+@import url('componentes/campos.css');
+@import url('componentes/abas.css');
+@import url('componentes/selos.css');
+@import url('componentes/cartoes.css');
+@import url('componentes/tabelas.css');
+@import url('componentes/alertas.css');
+@import url('componentes/dialogo.css');
+@import url('componentes/progresso.css');
+@import url('componentes/cabecalho.css');
+@import url('componentes/rodape.css');

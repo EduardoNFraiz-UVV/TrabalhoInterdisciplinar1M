@@ -1,0 +1,107 @@
+/*
+  progresso.css
+  Para que serve: barra de progresso (8 px, trilha surface-sunken, preenchimento primary),
+  com rótulo à esquerda e valor à direita, e o acompanhamento da doação em 3 passos.
+  Quem usa: progresso.js (barra) e a tela Minhas doações (passos).
+*/
+
+.progresso {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* Linha de cima: rótulo à esquerda e valor à direita */
+.progresso-textos {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: 13px;
+}
+
+.progresso-textos .valor {
+  color: var(--ink-muted);
+}
+
+/* Trilha: o fundo cinza-esverdeado da barra */
+.progresso-trilha {
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-sunken);
+  overflow: hidden;
+}
+
+/* Preenchimento: a largura é definida pelo JS (style="width: 65%") */
+.progresso-preenchimento {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+}
+
+/* ---------- Acompanhamento da doação em 3 passos ---------- */
+
+.passos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+}
+
+.passo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--ink-muted);
+}
+
+/* Círculo numerado do passo */
+.passo-marca {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Passo concluído: círculo preenchido com marca de "feito" */
+.passo-feito .passo-marca {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+
+/* Passo atual: texto em negrito e círculo destacado */
+.passo-atual {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.passo-atual .passo-marca {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.passo-feito.passo-atual .passo-marca {
+  color: var(--on-primary);
+}
+
+/* Traço que liga um passo ao outro (some no celular, onde os passos quebram de linha) */
+.passo + .passo::before {
+  content: '';
+  width: 32px;
+  height: 2px;
+  margin-right: var(--space-1);
+  background: var(--line-strong);
+}
+
+@media (max-width: 640px) {
+  .passo + .passo::before {
+    display: none;
+  }
+}
