@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--
+  perfil.html do perfil ONG (tela extra, sem quadro no Figma: Perfil da ONG)
+  Para que serve: a ONG edita os dados que os doadores veem (descrição, endereço, horário, contato,
+  se aceita retirada) e troca a senha do representante. Corresponde ao "Editar perfil da ONG" do painel.
+  Quem abre: representante de ONG.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Perfil da ONG · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/ong.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="perfil">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="painel.html">Painel</a></li>
+        <li><span aria-current="page">Perfil da ONG</span></li>
+      </ol>
+    </nav>
+
+    <div class="cabecalho-pagina">
+      <h1>Perfil da ONG</h1>
+      <span id="selo-verificada"></span>
+    </div>
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <div class="grade-principal">
+      <!-- Dados que os doadores veem -->
+      <form id="formulario-ong" class="cartao pilha-grande" novalidate>
+        <h2>Dados da ONG</h2>
+        <div class="grade-duas">
+          <div class="campo">
+            <label for="nome">Nome da ONG</label>
+            <input type="text" id="nome" name="nome" disabled>
+            <span class="campo-ajuda">O nome e o CNPJ só mudam com a ajuda da administração.</span>
+          </div>
+          <div class="campo">
+            <label for="cnpj">CNPJ</label>
+            <input type="text" id="cnpj" name="cnpj" disabled>
+          </div>
+        </div>
+        <div class="campo">
+          <label for="descricao">Descrição <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <textarea id="descricao" name="descricao" maxlength="500" required></textarea>
+        </div>
+        <div class="grade-duas">
+          <div class="campo">
+            <label for="id_cidade">Cidade <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <select id="id_cidade" name="id_cidade" required></select>
+          </div>
+          <div class="campo">
+            <label for="endereco">Endereço <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="text" id="endereco" name="endereco" maxlength="150" required>
+          </div>
+        </div>
+        <div class="campo">
+          <label for="horario_atendimento">Horário de atendimento</label>
+          <input type="text" id="horario_atendimento" name="horario_atendimento" maxlength="80" placeholder="Ex.: Seg a sex, 8h às 17h">
+        </div>
+        <div class="grade-duas">
+          <div class="campo">
+            <label for="telefone">Telefone</label>
+            <input type="text" id="telefone" name="telefone" maxlength="20" placeholder="(27) 3333-0000">
+          </div>
+          <div class="campo">
+            <label for="email_contato">E-mail de contato</label>
+            <input type="email" id="email_contato" name="email_contato" maxlength="120">
+          </div>
+        </div>
+        <div class="opcao">
+          <input type="checkbox" id="aceita_retirada" name="aceita_retirada">
+          <label for="aceita_retirada">Aceita retirada das doações no endereço do doador</label>
+        </div>
+        <p class="texto-legenda"><span class="obrigatorio" aria-hidden="true">*</span> Campos obrigatórios</p>
+        <div class="linha linha-fim botoes-formulario">
+          <button type="submit" class="botao botao-primario">Salvar perfil</button>
+        </div>
+      </form>
+
+      <aside class="pilha" aria-label="Representante e senha">
+        <form id="formulario-representante" class="cartao pilha" novalidate>
+          <h2>Representante</h2>
+          <div class="campo">
+            <label for="rep-nome">Nome <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="text" id="rep-nome" name="nome" maxlength="100" required>
+          </div>
+          <div class="campo">
+            <label for="rep-email">E-mail de acesso</label>
+            <input type="email" id="rep-email" name="email" disabled>
+          </div>
+          <button type="submit" class="botao botao-secundario">Salvar representante</button>
+        </form>
+
+        <form id="formulario-senha" class="cartao pilha" novalidate>
+          <h2>Alterar senha</h2>
+          <div class="campo">
+            <label for="senha-atual">Senha atual</label>
+            <input type="password" id="senha-atual" name="senha_atual" autocomplete="current-password">
+          </div>
+          <div class="campo">
+            <label for="senha-nova">Nova senha</label>
+            <input type="password" id="senha-nova" name="senha_nova" autocomplete="new-password">
+            <span class="campo-ajuda">Use pelo menos 6 caracteres.</span>
+          </div>
+          <div class="campo">
+            <label for="senha-confirmar">Confirmar nova senha</label>
+            <input type="password" id="senha-confirmar" name="senha_confirmar" autocomplete="new-password">
+          </div>
+          <button type="submit" class="botao botao-secundario">Alterar senha</button>
+        </form>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/ong/perfil.js"></script>
+</body>
+</html>
