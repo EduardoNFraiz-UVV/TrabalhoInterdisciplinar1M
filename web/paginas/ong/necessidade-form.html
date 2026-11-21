@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--
+  necessidade-form.html (tela 10 do Figma: Cadastrar necessidade)
+  Para que serve: formulário para CRIAR uma necessidade. A mesma página EDITA quando o endereço traz
+  ?id=NUMERO (o título muda para "Editar necessidade"). Faz parte do CRUD de necessidades.
+  Quem abre: representante de ONG verificada.
+  O comportamento está em js/paginas/ong/necessidade-form.js.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cadastrar necessidade · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/ong.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="necessidades">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="painel.html">Painel</a></li>
+        <li><a href="necessidades.html">Necessidades</a></li>
+        <li><span aria-current="page" id="migalha-atual">Nova necessidade</span></li>
+      </ol>
+    </nav>
+
+    <h1 id="titulo-pagina">Cadastrar necessidade</h1>
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <!-- grade-principal: formulário à esquerda e coluna lateral (aside) à direita -->
+    <div class="grade-principal">
+      <form id="formulario-necessidade" class="cartao pilha-grande" novalidate>
+        <div class="campo">
+          <label for="item">Nome do item <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="text" id="item" name="item" placeholder="Ex.: Cobertor de casal" maxlength="100" required>
+        </div>
+
+        <div class="campo">
+          <label for="id_categoria">Categoria <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <select id="id_categoria" name="id_categoria" required></select>
+        </div>
+
+        <!-- Quantidade e unidade lado a lado. A unidade diz o que a quantidade mede (un., pct., L...) -->
+        <div class="grade-duas">
+          <div class="campo">
+            <label for="quantidade">Quantidade <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="number" id="quantidade" name="quantidade" min="1" step="1" inputmode="numeric" required>
+          </div>
+          <div class="campo">
+            <label for="unidade">Unidade <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <select id="unidade" name="unidade" required></select>
+            <span class="campo-ajuda">A unidade diz o que a quantidade mede.</span>
+          </div>
+        </div>
+
+        <fieldset class="pilha pilha-pequena">
+          <legend>Prioridade <span class="obrigatorio" aria-hidden="true">*</span></legend>
+          <div class="opcao">
+            <input type="radio" id="prioridade-normal" name="prioridade" value="normal" checked>
+            <label for="prioridade-normal">Normal</label>
+          </div>
+          <div class="opcao">
+            <input type="radio" id="prioridade-urgente" name="prioridade" value="urgente">
+            <label for="prioridade-urgente">Urgente (destacada para os doadores)</label>
+          </div>
+        </fieldset>
+
+        <!-- Pedir vínculo a campanhas (opcional): a lista é criada pelo JS conforme a categoria escolhida -->
+        <fieldset class="pilha pilha-pequena secao-formulario" id="bloco-campanhas">
+          <legend>Pedir vínculo a campanhas (opcional)</legend>
+          <p class="campo-ajuda">Só aparecem campanhas ativas que pedem a categoria deste item. Quem criou a campanha decide se aceita o pedido e se a necessidade aumenta a meta.</p>
+          <div id="vinculados"></div>
+          <div id="lista-campanhas" class="lista-marcavel"></div>
+          <p class="campo-ajuda" id="rodape-campanhas" aria-live="polite"></p>
+        </fieldset>
+
+        <div class="campo">
+          <label for="descricao">Descrição / especificações</label>
+          <textarea id="descricao" name="descricao" placeholder="Ex.: cobertores novos, de preferência em cores claras" maxlength="500"></textarea>
+        </div>
+
+        <div class="campo">
+          <label for="precisa_ate">Precisa até (data)</label>
+          <input type="date" id="precisa_ate" name="precisa_ate">
+        </div>
+
+        <p class="texto-legenda"><span class="obrigatorio" aria-hidden="true">*</span> Campos obrigatórios</p>
+
+        <div class="linha linha-fim botoes-formulario">
+          <a class="botao botao-discreto" href="necessidades.html">Cancelar</a>
+          <button type="submit" class="botao botao-primario" id="botao-salvar">Salvar necessidade</button>
+        </div>
+      </form>
+
+      <!-- <aside>: conteúdo complementar, fora do fluxo principal -->
+      <aside class="pilha" aria-label="Pré-visualização e dica">
+        <section class="cartao" aria-labelledby="titulo-previa">
+          <h2 id="titulo-previa" class="texto-sobretitulo">Como os doadores vão ver</h2>
+          <div id="previa" class="pilha pilha-pequena"></div>
+        </section>
+        <section class="cartao como-funciona" aria-labelledby="titulo-dica">
+          <h2 id="titulo-dica" class="texto-rotulo">Dica</h2>
+          <p>Itens urgentes aparecem no topo da busca e na tela inicial dos doadores.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/ong/necessidade-form.js"></script>
+</body>
+</html>

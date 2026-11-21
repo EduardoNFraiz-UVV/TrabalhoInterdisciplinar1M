@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+  necessidades.html (tela 08 do Figma: Gerenciar necessidades, o CRUD do site)
+  Para que serve: a ONG vê todas as suas necessidades e pode criar, editar, concluir e excluir.
+  Quem abre: representante de ONG (perfil "ong"). Outros perfis são redirecionados.
+  O conteúdo da tabela é montado por js/paginas/ong/necessidades.js.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerenciar necessidades · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/ong.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="necessidades">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <!-- Breadcrumb: <nav> com lista ordenada <ol>; a página atual leva aria-current="page" -->
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="painel.html">Painel</a></li>
+        <li><span aria-current="page">Necessidades</span></li>
+      </ol>
+    </nav>
+
+    <div class="cabecalho-pagina">
+      <h1>Gerenciar necessidades</h1>
+      <a id="botao-nova" class="botao botao-primario" href="necessidade-form.html">+ Nova necessidade</a>
+    </div>
+
+    <!-- Área de avisos (sucesso ao salvar, ONG não verificada...). aria-live avisa leitores de tela -->
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <!-- Filtros da tabela. role="search" identifica a região de busca para leitores de tela -->
+    <form class="filtros" id="formulario-filtros" role="search" aria-label="Filtrar necessidades">
+      <div class="campo cresce">
+        <label for="filtro-busca">Buscar item</label>
+        <div class="busca-campo" id="campo-busca"></div>
+      </div>
+      <div class="campo">
+        <label for="filtro-categoria">Categoria</label>
+        <select id="filtro-categoria"></select>
+      </div>
+      <div class="campo">
+        <label for="filtro-prioridade">Prioridade</label>
+        <select id="filtro-prioridade">
+          <option value="">Todas</option>
+          <option value="urgente">Urgente</option>
+          <option value="normal">Normal</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="filtro-situacao">Situação</label>
+        <select id="filtro-situacao">
+          <option value="ativa">Ativas</option>
+          <option value="concluida">Concluídas</option>
+          <option value="">Todas</option>
+        </select>
+      </div>
+    </form>
+
+    <!-- A tabela é criada pelo JS dentro desta <section> -->
+    <section aria-labelledby="titulo-lista" class="secao">
+      <h2 id="titulo-lista" class="so-leitor">Lista de necessidades</h2>
+      <p class="texto-legenda" id="contagem" aria-live="polite"></p>
+      <div id="lista"></div>
+    </section>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/ong/necessidades.js"></script>
+</body>
+</html>
