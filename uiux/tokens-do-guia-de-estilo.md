@@ -122,3 +122,26 @@ Regras: um botão primário por área. O texto começa com verbo e diz o resulta
 **Feedback.** Alertas de sucesso, erro, aviso e informação, cada um com ícone, título e detalhe. Diálogo de confirmação com título, texto e botões Cancelar, Marcar concluída e Excluir. Ajuda contextual "Como funciona" sobre surface-sunken.
 
 **Progresso.** Barra de 8 px em surface-sunken com preenchimento primary, rótulo à esquerda e valor à direita. Acompanhamento da doação em 3 passos: Oferecida, Aceita pela ONG, Recebida.
+
+## Ritmo vertical
+
+A distância entre blocos varia de propósito, para a página ter hierarquia e não parecer uma pilha uniforme. Usa só os espaçamentos da grade de 4 px.
+
+| Nível | Onde | Valor |
+|---|---|---|
+| Dentro do bloco | título e conteúdo, campo e apoio, linhas de uma lista | space-2 a space-4 (8 a 16 px) |
+| Entre blocos | cards, formulário e tabela da mesma coluna | space-6 (32 px) |
+| Entre seções principais | seções de uma tela (ex.: Como funciona e Campanha em destaque) | 48 px (space-6 + space-3) |
+
+## Movimento
+
+Movimento só para mostrar mudança de estado, nunca como decoração.
+
+- Duração de **150 ms** com saída suave (ease-out) em hover, abas e botões.
+- Botão pressionado desce 1 px. O diálogo aparece subindo 8 px e ganhando opacidade em 150 ms.
+- Sem animação na carga da página.
+- Com "reduzir movimento" ativo no sistema, transições e animações são desligadas.
+
+## Alvos de toque
+
+No celular (até 640 px), botões pequenos, links de ação das tabelas, abas e itens do menu recolhido têm **44 px** de altura. No computador seguem as alturas de controle do guia (32, 40 e 48 px).
