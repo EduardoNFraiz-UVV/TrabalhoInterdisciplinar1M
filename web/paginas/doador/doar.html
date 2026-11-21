@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--
+  doar.html (tela 05 do Figma: Registrar doação para uma necessidade de ONG)
+  Para que serve: o doador registra a intenção de doar um item para uma ONG. Escolhe o item, a
+  quantidade (até o que falta), como entregar (levar ou retirada) e a data. A doação nasce "oferecida".
+  Aceita ?necessidade= (já escolhe o item) ou ?ong= (escolhe a ONG). Quem abre: doador.
+  Para doar a uma meta de campanha, veja doar-campanha.html.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registrar doação · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/doador.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="ongs">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="inicio.html">Início</a></li>
+        <li><a href="../publico/ongs.html">ONGs</a></li>
+        <li><a href="../publico/ong.html" id="migalha-ong">ONG</a></li>
+        <li><span aria-current="page">Registrar doação</span></li>
+      </ol>
+    </nav>
+
+    <div class="pilha pilha-pequena">
+      <h1>Registrar intenção de doação</h1>
+      <p class="texto-apoio">Passo 1 de 2: dados da doação → Passo 2: confirmação</p>
+    </div>
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <div class="grade-principal">
+      <form id="formulario-doacao" class="cartao pilha-grande" novalidate>
+        <div class="campo">
+          <label for="ong-selecionada">ONG selecionada</label>
+          <input type="text" id="ong-selecionada" disabled>
+        </div>
+
+        <div class="campo">
+          <label for="id_necessidade">Item <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <select id="id_necessidade" name="idNecessidade" required></select>
+        </div>
+
+        <div class="campo">
+          <label for="quantidade">Quantidade <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <div class="linha">
+            <input type="number" id="quantidade" name="quantidade" min="1" step="1" inputmode="numeric" aria-describedby="ajuda-quantidade" required>
+            <span class="campo-ajuda" id="ajuda-quantidade"></span>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="observacao">Descrição / observação</label>
+          <textarea id="observacao" name="observacao" maxlength="200" placeholder="Ex.: cobertores novos, ainda na embalagem"></textarea>
+        </div>
+
+        <fieldset class="pilha pilha-pequena campo" id="campo-forma">
+          <legend>Forma de entrega <span class="obrigatorio" aria-hidden="true">*</span></legend>
+          <div class="opcao">
+            <input type="radio" id="forma-levar" name="forma" value="levar" checked>
+            <label for="forma-levar">Vou levar até a ONG</label>
+          </div>
+          <div class="opcao">
+            <input type="radio" id="forma-retirada" name="forma" value="retirada">
+            <label for="forma-retirada">Solicitar retirada no meu endereço</label>
+          </div>
+        </fieldset>
+
+        <!-- Só aparece quando o doador escolhe "retirada" -->
+        <div class="campo" id="campo-retirada" hidden>
+          <label for="enderecoRetirada">Endereço para retirada <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="text" id="enderecoRetirada" name="enderecoRetirada" maxlength="150" placeholder="Rua, número, bairro e cidade">
+        </div>
+
+        <div class="campo">
+          <label for="dataPrevista">Data prevista de entrega <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="date" id="dataPrevista" name="dataPrevista" aria-describedby="ajuda-data" required>
+          <span class="campo-ajuda" id="ajuda-data"></span>
+        </div>
+
+        <p class="texto-legenda"><span class="obrigatorio" aria-hidden="true">*</span> Campos obrigatórios</p>
+
+        <div class="linha linha-entre botoes-formulario">
+          <a class="botao botao-discreto" href="../publico/ongs.html" id="cancelar">Cancelar</a>
+          <button type="submit" class="botao botao-primario" id="botao-confirmar">Confirmar doação</button>
+        </div>
+      </form>
+
+      <aside class="pilha" aria-label="Resumo da doação">
+        <section class="cartao" aria-labelledby="titulo-resumo">
+          <h2 id="titulo-resumo">Resumo da sua doação</h2>
+          <dl class="resumo-lista" id="resumo"></dl>
+          <p class="texto-legenda">Após confirmar, a ONG será avisada. Acompanhe em Minhas doações.</p>
+        </section>
+        <a href="../publico/ajuda.html">Dúvidas sobre como doar</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/doador/doar.js"></script>
+</body>
+</html>

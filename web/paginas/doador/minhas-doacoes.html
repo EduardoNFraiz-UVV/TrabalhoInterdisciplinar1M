@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+  minhas-doacoes.html (tela 06 do Figma: Minhas doações)
+  Para que serve: o doador acompanha as doações que registrou: filtra por status (abas com contador),
+  busca por ONG, campanha ou item, vê o acompanhamento em 3 passos e pode cancelar uma doação oferecida.
+  Quem abre: doador. O JS está em js/paginas/doador/minhas-doacoes.js.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Minhas doações · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/doador.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="minhas-doacoes">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <h1>Minhas doações</h1>
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <div class="linha linha-entre">
+      <div id="abas"></div>
+      <form class="busca" id="formulario-busca" role="search" aria-label="Buscar nas minhas doações">
+        <div class="busca-campo" id="campo-busca"></div>
+      </form>
+    </div>
+
+    <div id="lista"></div>
+
+    <!-- Detalhes da doação escolhida (aparece ao clicar em "Ver detalhes") -->
+    <section class="cartao" id="secao-detalhe" aria-labelledby="titulo-detalhe" hidden>
+      <h2 id="titulo-detalhe">Detalhes da doação</h2>
+      <div id="passos"></div>
+      <div class="grade-duas" id="colunas"></div>
+      <div class="linha linha-entre" id="rodape-detalhe"></div>
+    </section>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/doador/minhas-doacoes.js"></script>
+</body>
+</html>

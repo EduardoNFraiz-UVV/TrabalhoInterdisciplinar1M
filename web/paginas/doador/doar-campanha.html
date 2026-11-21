@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+  doar-campanha.html (tela 18 do Figma: Registrar doação para a campanha)
+  Para que serve: o doador doa direto para uma META geral de uma campanha (?meta= ou ?campanha=).
+  A entrega é só "levar" ao endereço de recebimento da campanha (RN-38). Quem abre: doador.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Doar para a campanha · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/doador.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="inicio">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="inicio.html">Início</a></li>
+        <li><a href="../publico/campanha.html" id="migalha-campanha">Campanha</a></li>
+        <li><span aria-current="page">Doar para a campanha</span></li>
+      </ol>
+    </nav>
+
+    <div class="pilha pilha-pequena">
+      <h1>Registrar intenção de doação</h1>
+      <p class="texto-apoio">Doação para a campanha · Passo 1 de 2: dados da doação → Passo 2: confirmação</p>
+    </div>
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <div class="grade-principal">
+      <form id="formulario-doacao" class="cartao pilha-grande" novalidate>
+        <div class="campo">
+          <label for="campanha-selecionada">Campanha selecionada</label>
+          <input type="text" id="campanha-selecionada" disabled>
+        </div>
+
+        <div class="campo">
+          <label for="idMeta">Meta <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <select id="idMeta" name="idMeta" required></select>
+        </div>
+
+        <div class="campo">
+          <label for="quantidade">Quantidade <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <div class="linha">
+            <input type="number" id="quantidade" name="quantidade" min="1" step="1" inputmode="numeric" aria-describedby="ajuda-quantidade" required>
+            <span class="campo-ajuda" id="ajuda-quantidade"></span>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="observacao">Descrição / observação</label>
+          <textarea id="observacao" name="observacao" maxlength="200" placeholder="Ex.: garrafas de 1,5 L, lacradas"></textarea>
+        </div>
+
+        <!-- Doação para campanha só aceita "levar": a opção é única e fica marcada -->
+        <fieldset class="pilha pilha-pequena campo">
+          <legend>Forma de entrega <span class="obrigatorio" aria-hidden="true">*</span></legend>
+          <div class="opcao">
+            <input type="radio" id="forma-levar" name="forma" value="levar" checked>
+            <label for="forma-levar">Vou levar até o endereço da campanha</label>
+          </div>
+          <span class="campo-ajuda">Doações para campanhas só aceitam entrega no endereço de recebimento.</span>
+        </fieldset>
+
+        <div class="campo">
+          <label for="dataPrevista">Data prevista de entrega <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="date" id="dataPrevista" name="dataPrevista" aria-describedby="ajuda-data" required>
+          <span class="campo-ajuda" id="ajuda-data"></span>
+        </div>
+
+        <p class="texto-legenda"><span class="obrigatorio" aria-hidden="true">*</span> Campos obrigatórios</p>
+
+        <div class="linha linha-entre botoes-formulario">
+          <a class="botao botao-discreto" href="../publico/campanha.html" id="cancelar">Cancelar</a>
+          <button type="submit" class="botao botao-primario">Confirmar doação</button>
+        </div>
+      </form>
+
+      <aside class="pilha" aria-label="Resumo da doação">
+        <section class="cartao" aria-labelledby="titulo-resumo">
+          <h2 id="titulo-resumo">Resumo da sua doação</h2>
+          <dl class="resumo-lista" id="resumo"></dl>
+          <p class="texto-legenda">Após confirmar, quem criou a campanha será avisado. Acompanhe em Minhas doações.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/doador/doar-campanha.js"></script>
+</body>
+</html>

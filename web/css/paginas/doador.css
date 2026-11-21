@@ -1,0 +1,33 @@
+/*
+  doador.css
+  Para que serve: ajustes de layout específicos das páginas do perfil doador (início, doar,
+  doar para a campanha, minhas doações e perfil).
+  Quem usa: as páginas em paginas/doador, junto com principal.css.
+  Os componentes (botões, campos, tabelas, cards) vêm de css/componentes.
+*/
+
+/* Formulários de doação: mais espaço entre os blocos de campos */
+form.cartao.pilha-grande {
+  gap: var(--space-5);
+}
+
+/* Campo de quantidade: o número é curto e o texto "(faltam 30)" fica ao lado */
+#quantidade {
+  max-width: 160px;
+}
+
+/* A busca do início ocupa toda a largura, com o botão "Buscar" ao lado */
+#formulario-busca {
+  max-width: 720px;
+}
+
+/* No topo de Minhas doações a busca fica à direita das abas e não precisa ser larga */
+.linha > #formulario-busca {
+  flex: 1 1 280px;
+  max-width: 360px;
+}
+
+/* Barra de abas de categoria: no celular rola para o lado */
+#abas {
+  max-width: 100%;
+}

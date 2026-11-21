@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+  inicio.html (tela 02 do Figma: Início do doador)
+  Para que serve: tela inicial do doador. Busca por item, ONG ou cidade, abas de categoria, campanha
+  emergencial em destaque, tabela de necessidades urgentes e cartões de ONGs.
+  Quem abre: doador. O JS está em js/paginas/doador/inicio.js.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Início · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/doador.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="inicio">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <div class="pilha">
+      <!-- Título "display" do guia: o único h1 da tela -->
+      <h1 class="titulo-display">Como você quer ajudar hoje?</h1>
+
+      <form class="busca" id="formulario-busca" role="search" aria-label="Buscar necessidades">
+        <div class="busca-campo" id="campo-busca"></div>
+        <button type="submit" class="botao botao-primario">Buscar</button>
+      </form>
+
+      <!-- Categorias como abas (criadas pelo JS) -->
+      <div id="abas"></div>
+    </div>
+
+    <!-- Campanha emergencial em destaque -->
+    <section id="campanha-destaque" aria-label="Campanha emergencial em destaque"></section>
+
+    <div class="grade-principal">
+      <section class="secao" aria-labelledby="titulo-tabela">
+        <div class="linha linha-entre">
+          <h2 id="titulo-tabela">Necessidades urgentes</h2>
+          <button type="button" class="botao botao-discreto botao-pequeno" id="alternar-lista">Ver todas as necessidades</button>
+        </div>
+        <p class="texto-legenda" id="contagem" aria-live="polite"></p>
+        <div id="lista"></div>
+        <div id="paginacao"></div>
+      </section>
+
+      <!-- Coluna lateral: ONGs com itens urgentes -->
+      <aside class="pilha" aria-labelledby="titulo-ongs">
+        <h2 id="titulo-ongs">ONGs que precisam de você</h2>
+        <div id="ongs-destaque" class="pilha"></div>
+        <a href="../publico/ongs.html">Ver todas as ONGs ›</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/doador/inicio.js"></script>
+</body>
+</html>

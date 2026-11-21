@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--
+  perfil.html do doador (tela extra, sem quadro no Figma: Perfil)
+  Para que serve: o doador atualiza nome, telefone e cidade (tabela usuario) e troca a senha.
+  Quem abre: doador. O JS está em js/paginas/doador/perfil.js.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Perfil · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/doador.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="perfil">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="inicio.html">Início</a></li>
+        <li><span aria-current="page">Perfil</span></li>
+      </ol>
+    </nav>
+
+    <h1>Meu perfil</h1>
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <div class="grade-principal">
+      <form id="formulario-perfil" class="cartao pilha-grande" novalidate>
+        <h2>Meus dados</h2>
+        <div class="campo">
+          <label for="nome">Nome completo <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="text" id="nome" name="nome" maxlength="100" required>
+        </div>
+        <div class="campo">
+          <label for="email">E-mail de acesso</label>
+          <input type="email" id="email" name="email" disabled>
+        </div>
+        <div class="grade-duas">
+          <div class="campo">
+            <label for="telefone">Telefone</label>
+            <input type="text" id="telefone" name="telefone" maxlength="20" placeholder="(27) 99999-9999">
+          </div>
+          <div class="campo">
+            <label for="id_cidade">Cidade <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <select id="id_cidade" name="id_cidade" required></select>
+          </div>
+        </div>
+        <p class="texto-legenda"><span class="obrigatorio" aria-hidden="true">*</span> Campos obrigatórios</p>
+        <div class="linha linha-fim botoes-formulario">
+          <button type="submit" class="botao botao-primario">Salvar perfil</button>
+        </div>
+      </form>
+
+      <aside class="pilha" aria-label="Senha">
+        <form id="formulario-senha" class="cartao pilha" novalidate>
+          <h2>Alterar senha</h2>
+          <div class="campo">
+            <label for="senha-atual">Senha atual</label>
+            <input type="password" id="senha-atual" name="senha_atual" autocomplete="current-password">
+          </div>
+          <div class="campo">
+            <label for="senha-nova">Nova senha</label>
+            <input type="password" id="senha-nova" name="senha_nova" autocomplete="new-password">
+            <span class="campo-ajuda">Use pelo menos 6 caracteres.</span>
+          </div>
+          <div class="campo">
+            <label for="senha-confirmar">Confirmar nova senha</label>
+            <input type="password" id="senha-confirmar" name="senha_confirmar" autocomplete="new-password">
+          </div>
+          <button type="submit" class="botao botao-secundario">Alterar senha</button>
+        </form>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/doador/perfil.js"></script>
+</body>
+</html>
