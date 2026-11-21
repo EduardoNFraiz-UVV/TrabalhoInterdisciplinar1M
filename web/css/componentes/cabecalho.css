@@ -11,6 +11,19 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* O cabeçalho é montado pelo JavaScript depois que a página aparece. Reservamos a altura dele
+   antes, para o conteúdo não "pular" para baixo quando o menu entrar (isso é o que o Lighthouse
+   chama de deslocamento de layout). No celular a barra é um pouco mais alta, por causa do botão Menu. */
+#cabecalho {
+  min-height: 57px;
+}
+
+@media (max-width: 820px) {
+  #cabecalho {
+    min-height: 69px;
+  }
+}
+
 /* Linha interna do cabeçalho, com a mesma largura do conteúdo da página */
 .cabecalho-interno {
   display: flex;

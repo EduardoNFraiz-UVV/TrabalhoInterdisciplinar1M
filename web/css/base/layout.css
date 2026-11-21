@@ -30,6 +30,23 @@
   padding: var(--space-5) var(--space-5) var(--space-8);
 }
 
+/* Cabeçalho, conteúdo e rodapé são montados pelo JavaScript. Para a página não "pular" enquanto
+   isso acontece, eles ficam invisíveis até o JS terminar (pagina.js coloca a classe "pronto" no <body>
+   no quadro seguinte). Como a visibilidade só muda uma vez, nada visível se desloca na tela.
+   Saída de segurança: se o JS falhar, a animação abaixo revela a página depois de 1,5 s. */
+body:not(.pronto) > header,
+body:not(.pronto) > main,
+body:not(.pronto) > footer {
+  visibility: hidden;
+  animation: revelar-pagina 0s 1.5s forwards;
+}
+
+@keyframes revelar-pagina {
+  to {
+    visibility: visible;
+  }
+}
+
 /* A tag <main> ocupa o espaço que sobrar, empurrando o rodapé para baixo da tela */
 body {
   min-height: 100vh;

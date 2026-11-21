@@ -5,6 +5,11 @@
   Quem usa: rodape.js monta o HTML dentro de <footer id="rodape">.
 */
 
+/* Como o cabeçalho, o rodapé é montado pelo JS: reservar a altura evita um "pulo" no fim da página */
+#rodape {
+  min-height: 71px;
+}
+
 .rodape {
   margin-top: auto;               /* encosta o rodapé no fim da página */
   background: var(--surface-raised);

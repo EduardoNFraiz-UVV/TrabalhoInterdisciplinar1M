@@ -35,6 +35,10 @@ export function iniciarPagina({ perfis = null, pagina = null } = {}) {
   montarCabecalho(usuario, idPagina);
   montarRodape();
 
+  /* Mostra a página no próximo quadro de animação. Como o JavaScript da página roda até o fim antes
+     disso, o conteúdo já está montado quando ela aparece (veja body:not(.pronto) em layout.css) */
+  requestAnimationFrame(() => document.body.classList.add('pronto'));
+
   /* Links marcados com data-link-inicio (primeiro item do breadcrumb) levam à tela inicial de quem está logado */
   document.querySelectorAll('[data-link-inicio]').forEach((link) => {
     link.href = url(usuario ? rotaInicialDoPerfil(usuario.perfil) : 'apresentacao');
