@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+  campanhas-ativas.html (tela extra, sem quadro no Figma: lista pública de campanhas)
+  Para que serve: lista todas as campanhas emergenciais ATIVAS com progresso e botão "Ver campanha".
+  É aberta pelo link "Campanhas" do menu do visitante. O JS está em js/paginas/publico/campanhas-ativas.js.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campanhas ativas · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/publico.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="campanhas-ativas">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="../../index.html" data-link-inicio>Início</a></li>
+        <li><span aria-current="page">Campanhas</span></li>
+      </ol>
+    </nav>
+
+    <div class="pilha pilha-pequena">
+      <h1>Campanhas emergenciais</h1>
+      <p class="texto-apoio">Campanhas ativas para enchentes, deslizamentos, secas e incêndios. Cada uma tem metas e necessidades de ONGs participantes.</p>
+    </div>
+
+    <section aria-labelledby="titulo-lista">
+      <h2 id="titulo-lista" class="so-leitor">Lista de campanhas ativas</h2>
+      <div class="grade-cartoes" id="lista"></div>
+    </section>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/publico/campanhas-ativas.js"></script>
+</body>
+</html>

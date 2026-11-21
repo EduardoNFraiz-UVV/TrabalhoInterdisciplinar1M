@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+  campanha.html (tela 15 do Figma: Campanha, detalhe)
+  Para que serve: mostra uma campanha (?id=): resumo, onde entregar, as metas gerais com progresso e
+  botão "Doar para esta meta", e as necessidades de ONGs vinculadas (só as aceitas) com "Quero doar".
+  Quem abre: visitante e doador (campanhas ativas). O JS está em js/paginas/publico/campanha.js.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campanha · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/publico.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="campanhas-ativas">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="../../index.html" data-link-inicio>Início</a></li>
+        <li><span aria-current="page">Campanha</span></li>
+      </ol>
+    </nav>
+
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <!-- Card de destaque da campanha (amarelo claro), criado pelo JS -->
+    <section id="destaque" aria-labelledby="titulo-campanha"></section>
+
+    <div class="grade-principal" id="corpo" hidden>
+      <div class="pilha pilha-grande">
+        <section class="secao" aria-labelledby="titulo-metas">
+          <h2 id="titulo-metas">O que a campanha quer arrecadar</h2>
+          <ul id="metas" class="lista-simples pilha" role="list"></ul>
+        </section>
+
+        <section class="secao" aria-labelledby="titulo-necessidades">
+          <h2 id="titulo-necessidades">Necessidades de ONGs vinculadas</h2>
+          <p class="texto-apoio" id="texto-necessidades"></p>
+          <div id="necessidades"></div>
+          <div><button type="button" class="botao botao-secundario" id="ver-mais" hidden>Ver mais necessidades</button></div>
+        </section>
+      </div>
+
+      <aside class="pilha" aria-label="Resumo e entrega">
+        <section class="cartao" aria-labelledby="titulo-resumo">
+          <h2 id="titulo-resumo">Resumo da campanha</h2>
+          <dl class="resumo-lista" id="resumo"></dl>
+          <p class="texto-legenda">Meta total = metas gerais + necessidades vinculadas que aumentam a meta. O andamento é o que já foi recebido dividido pela meta total.</p>
+        </section>
+        <section class="cartao" aria-labelledby="titulo-entrega">
+          <h2 id="titulo-entrega">Onde entregar</h2>
+          <ul class="lista-contato" id="entrega" role="list"></ul>
+          <p class="texto-legenda">Vale para doações às metas. Doações para necessidades de ONGs vão para o endereço de cada ONG.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/publico/campanha.js"></script>
+</body>
+</html>

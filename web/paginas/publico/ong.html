@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+  ong.html (tela 04 do Figma: Perfil da ONG)
+  Para que serve: mostra uma ONG (endereço pelo parâmetro ?id=): dados, contato, abas Necessidades,
+  Sobre a ONG e Doações recebidas, com filtro e ordenação. De aqui o doador vai registrar a doação.
+  Quem abre: visitante e doador. O JS está em js/paginas/publico/ong.js.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Perfil da ONG · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/publico.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="ongs">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="../../index.html" data-link-inicio>Início</a></li>
+        <li><a href="ongs.html">ONGs</a></li>
+        <li><span aria-current="page" id="migalha-atual">ONG</span></li>
+      </ol>
+    </nav>
+
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <!-- Cabeçalho da ONG: inicial, nome, selo e descrição -->
+    <section class="cartao" id="cabecalho-ong" aria-labelledby="titulo-ong"></section>
+
+    <div class="grade-principal">
+      <div class="pilha pilha-grande">
+        <div id="abas"></div>
+        <section id="conteudo-aba" class="pilha"></section>
+      </div>
+
+      <!-- Contato da ONG com ícones (pin, clock, phone, truck) -->
+      <aside class="pilha" aria-label="Contato">
+        <section class="cartao" aria-labelledby="titulo-contato">
+          <h2 id="titulo-contato">Contato</h2>
+          <ul class="lista-contato" id="lista-contato" role="list"></ul>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/publico/ong.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+  ongs.html (tela 03 do Figma: ONGs cadastradas)
+  Para que serve: lista as ONGs verificadas com busca por nome, filtros por categoria e cidade,
+  "só com itens urgentes", contador de resultados e paginação (6 cartões por página).
+  Quem abre: visitante, doador (com o menu do doador). O JS está em js/paginas/publico/ongs.js.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ONGs cadastradas · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/publico.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="ongs">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <!-- data-link-inicio: o JS troca o endereço conforme quem está logado -->
+        <li><a href="../../index.html" data-link-inicio>Início</a></li>
+        <li><span aria-current="page">ONGs</span></li>
+      </ol>
+    </nav>
+
+    <h1>ONGs cadastradas</h1>
+
+    <!-- role="search": região de busca. Os filtros funcionam sem recarregar a página -->
+    <form class="filtros" id="formulario-filtros" role="search" aria-label="Filtrar ONGs">
+      <div class="campo cresce">
+        <label for="filtro-busca">Pesquisar ONG pelo nome</label>
+        <div class="busca-campo" id="campo-busca"></div>
+      </div>
+      <div class="campo">
+        <label for="filtro-categoria">Categoria</label>
+        <select id="filtro-categoria"></select>
+      </div>
+      <div class="campo">
+        <label for="filtro-cidade">Cidade</label>
+        <select id="filtro-cidade"></select>
+      </div>
+      <div class="opcao">
+        <input type="checkbox" id="filtro-urgentes">
+        <label for="filtro-urgentes">Só com itens urgentes</label>
+      </div>
+    </form>
+
+    <div class="linha linha-entre">
+      <p id="contagem" class="texto-apoio" aria-live="polite"></p>
+      <button type="button" class="botao botao-discreto botao-pequeno" id="limpar-filtros">Limpar filtros</button>
+    </div>
+
+    <!-- Grade de cartões criada pelo JS -->
+    <section aria-labelledby="titulo-lista">
+      <h2 id="titulo-lista" class="so-leitor">Lista de ONGs</h2>
+      <div class="grade-cartoes" id="lista"></div>
+    </section>
+    <div id="paginacao"></div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/publico/ongs.js"></script>
+</body>
+</html>
