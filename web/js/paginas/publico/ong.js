@@ -9,7 +9,7 @@
 
 import { iniciarPagina } from '../../nucleo/pagina.js';
 import { tabela, buscar } from '../../nucleo/armazenamento.js';
-import { ir, parametro } from '../../nucleo/caminhos.js';
+import { parametro } from '../../nucleo/caminhos.js';
 import { el, $, preencher } from '../../utilitarios/dom.js';
 import { inicial, formatarData, formatarQuantidade, formatarNumero, nomeAbreviado } from '../../utilitarios/formatacao.js';
 import { necessidadesDaOng, prometido, faltam, ordemPorUrgencia } from '../../regras/necessidades.js';

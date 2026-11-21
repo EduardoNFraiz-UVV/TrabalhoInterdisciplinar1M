@@ -19,7 +19,7 @@ import { aprovarCampanha, recusarCampanha, textoCidades, nomeCriador } from '../
 import { pedidosPendentes, aceitarVinculo, recusarVinculo, removerVinculo } from '../../regras/vinculos.js';
 import { criarAbas } from '../../componentes/abas.js';
 import { criarTabela } from '../../componentes/tabela.js';
-import { seloVinculo, seloVerificada } from '../../componentes/selos.js';
+import { seloVinculo } from '../../componentes/selos.js';
 import { mostrarAlerta } from '../../componentes/alertas.js';
 import { confirmar } from '../../componentes/dialogo.js';
 import { perguntarAumentaMeta } from '../../componentes/dialogo-vinculo.js';

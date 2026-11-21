@@ -27,6 +27,28 @@ Plataforma web de doações que aproxima pessoas que querem doar de ONGs e campa
 | `banco-de-dados/` | Modelos, scripts SQL, resultados, relatório e arquivos de entrega |
 | `entrega-web/` | PDF de entrega de Web |
 
+## Site
+
+HTML, CSS e JavaScript puros, sem bibliotecas. Todas as telas da especificação (`uiux/especificacao-das-telas.md`) mais as telas extras (criar conta, esqueci minha senha, ajuda, perfis e lista de campanhas). Os dados ficam no `localStorage` do navegador, com as mesmas tabelas e colunas do banco, e o rodapé tem o botão "Restaurar dados de exemplo".
+
+O JavaScript usa módulos (`import`/`export`), então o site precisa de um servidor para abrir. Dentro da pasta `web/`:
+
+```
+python -m http.server 8000
+```
+
+e abrir http://localhost:8000. No VS Code, a extensão Live Server também serve. No GitHub Pages funciona direto.
+
+| Pasta de `web/` | Conteúdo |
+|---|---|
+| `index.html` | Tela 00, apresentação |
+| `paginas/publico/` | Entrar, criar conta, esqueci a senha, ajuda, ONGs, perfil da ONG, campanha e campanhas ativas |
+| `paginas/doador/` | Início, doar, doar para a campanha, minhas doações e perfil |
+| `paginas/ong/` | Painel, necessidades (CRUD), formulário de necessidade, doações recebidas, solicitar campanha e perfil |
+| `paginas/admin/` | Painel com relatórios, aprovações, campanhas, usuários, nova campanha e doações das campanhas |
+| `css/` | `base/` (tokens, reset, tipografia, layout), `componentes/` e `paginas/` |
+| `js/` | `nucleo/` (dados, sessão, caminhos), `regras/` (regras de negócio), `componentes/`, `utilitarios/` e `paginas/` (um arquivo por tela) |
+
 ## Banco de dados
 
 Banco em PostgreSQL com 10 tabelas e 109.941 registros fictícios.

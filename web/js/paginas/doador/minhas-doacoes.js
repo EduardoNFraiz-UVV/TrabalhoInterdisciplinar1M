@@ -9,7 +9,7 @@
 import { iniciarPagina } from '../../nucleo/pagina.js';
 import { buscar } from '../../nucleo/armazenamento.js';
 import { el, $, preencher } from '../../utilitarios/dom.js';
-import { formatarData, normalizar, ROTULO_ENTREGA } from '../../utilitarios/formatacao.js';
+import { formatarData, normalizar } from '../../utilitarios/formatacao.js';
 import { doacoesDoDoador, detalharDoacao, quantidadeComUnidade, contarPorStatus, mudarStatus } from '../../regras/doacoes.js';
 import { criarAbas } from '../../componentes/abas.js';
 import { criarTabela } from '../../componentes/tabela.js';

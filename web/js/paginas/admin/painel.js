@@ -8,7 +8,7 @@
 */
 
 import { iniciarPagina } from '../../nucleo/pagina.js';
-import { tabela, buscar } from '../../nucleo/armazenamento.js';
+import { tabela } from '../../nucleo/armazenamento.js';
 import { url } from '../../nucleo/caminhos.js';
 import { el, $, preencher } from '../../utilitarios/dom.js';
 import { formatarNumero, formatarDecimal, formatarData, nomeMes, chaveMes, hojeISO } from '../../utilitarios/formatacao.js';
