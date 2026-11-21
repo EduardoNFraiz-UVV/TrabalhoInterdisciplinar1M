@@ -9,7 +9,7 @@
   A senha digitada vira um SHA-256 e é comparada com a coluna senha_hash do usuário.
 */
 
-import { tabela, buscar } from './armazenamento.js';
+import { tabela, buscar, atualizar } from './armazenamento.js';
 import { ir, rotaInicialDoPerfil } from './caminhos.js';
 
 /* Chave onde guardamos o id do usuário logado */
@@ -66,6 +66,16 @@ export function usuarioAtual() {
 export function sair() {
   limparSessao();
   ir('login');
+}
+
+/*
+  Troca a senha do usuário. Confere a senha atual (hash) e grava o hash da nova.
+  Devolve true se trocou, ou false se a senha atual estava errada.
+*/
+export async function trocarSenha(usuario, senhaAtual, senhaNova) {
+  if ((await hashSenha(senhaAtual)) !== usuario.senha_hash) return false;
+  atualizar('usuario', usuario.id_usuario, { senha_hash: await hashSenha(senhaNova) });
+  return true;
 }
 
 /* Devolve a ONG que o usuário representa (ou null se ele não for representante de ONG) */

@@ -159,6 +159,18 @@ main {
   text-align: center;
 }
 
+/* Lista sem marcadores e sem recuo (usada dentro de células de tabela e cards) */
+.lista-simples {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Mensagem de "lista vazia" dentro das caixas de seleção */
+.lista-vazia {
+  padding: var(--space-3) var(--space-4);
+}
+
 /* Esconde um elemento da tela, mas mantém para leitores de tela (acessibilidade) */
 .so-leitor {
   position: absolute;

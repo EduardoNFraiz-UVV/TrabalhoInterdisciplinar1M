@@ -147,7 +147,9 @@ fieldset {
   pointer-events: none;      /* o clique passa direto para o campo */
 }
 
-.busca-campo input {
+/* Dentro de .campo existe uma regra mais forte para inputs; por isso repetimos o seletor com .campo */
+.busca-campo input,
+.campo .busca-campo input {
   width: 100%;
   min-height: var(--control-md);
   padding: var(--space-2) var(--space-3) var(--space-2) 40px;

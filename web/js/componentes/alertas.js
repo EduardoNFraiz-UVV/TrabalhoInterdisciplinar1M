@@ -34,3 +34,20 @@ export function mostrarAlerta(area, tipo, titulo, detalhe = null) {
 export function limparAlerta(area) {
   if (area) area.replaceChildren();
 }
+
+/* Chave onde guardamos um aviso para a PRÓXIMA página (ex.: "Necessidade salva" depois de redirecionar) */
+const CHAVE_AVISO = 'conecta.aviso';
+
+/* Guarda um aviso no sessionStorage para ser mostrado na página seguinte */
+export function guardarAviso(tipo, titulo, detalhe = null) {
+  sessionStorage.setItem(CHAVE_AVISO, JSON.stringify({ tipo, titulo, detalhe }));
+}
+
+/* Mostra o aviso guardado (se houver) na área informada e o apaga, para aparecer uma vez só */
+export function exibirAvisoGuardado(area) {
+  const texto = sessionStorage.getItem(CHAVE_AVISO);
+  if (!texto) return;
+  sessionStorage.removeItem(CHAVE_AVISO);
+  const { tipo, titulo, detalhe } = JSON.parse(texto);
+  mostrarAlerta(area, tipo, titulo, detalhe);
+}

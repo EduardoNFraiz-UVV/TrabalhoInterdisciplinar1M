@@ -1,0 +1,100 @@
+/*
+  campanha-form.css
+  Para que serve: estilos do formulário de campanha, que existe em duas páginas
+  (paginas/ong/campanha-form.html e paginas/admin/campanha-form.html): lista de metas,
+  linha de nova meta, lista de cidades, buscador de necessidades e resumo da meta.
+  Quem usa: principal.css (importado em todas as páginas).
+*/
+
+/* Lista das metas gerais já adicionadas */
+.metas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+}
+
+.metas-lista li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+}
+
+/* Linha para digitar uma meta nova: quantidade, categoria e item; o botão fica na linha de baixo.
+   No celular vira uma coluna; a partir de 640 px, três colunas (grid). */
+.nova-meta {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  align-items: end;
+}
+
+.nova-meta .botao {
+  justify-self: start;
+}
+
+@media (min-width: 640px) {
+  .nova-meta {
+    grid-template-columns: 120px 180px minmax(160px, 1fr);
+  }
+
+  .nova-meta .botao {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Caixa de cidades: lista rolável com várias caixas de seleção em colunas automáticas */
+.lista-cidades {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-1) var(--space-4);
+  max-height: 200px;
+  overflow: auto;
+  padding: var(--space-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+}
+
+/* Resumo da meta no cartão lateral: rótulo em cima e valor embaixo (cabe melhor na coluna estreita) */
+.resumo-meta {
+  grid-template-columns: 1fr;
+  gap: var(--space-1);
+}
+
+.resumo-meta dd {
+  margin-bottom: var(--space-2);
+}
+
+/* Número grande da meta total */
+.resumo-meta dd.destaque {
+  font-family: var(--fonte-titulo);
+  font-size: 22px;
+}
+
+/* Linha do buscador de necessidades: texto à esquerda e "Aumenta a meta" à direita */
+.item-necessidade {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+}
+
+.item-necessidade .opcao {
+  flex: 1 1 260px;
+}
+
+/* Filtros do buscador: selects lado a lado, quebrando linha quando falta espaço */
+.filtros-busca {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-3);
+}
