@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+  painel.html (tela 07 do Figma: Painel da ONG)
+  Para que serve: tela inicial da ONG. Resume necessidades, doações pendentes e recebidas, mostra ações
+  rápidas, as últimas doações, o andamento das necessidades, as campanhas solicitadas e os pedidos
+  de vínculo que outras ONGs fizeram às campanhas desta ONG (com Aceitar e Recusar).
+  Quem abre: representante de ONG. O conteúdo é montado por js/paginas/ong/painel.js.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel da ONG · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/ong.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="painel">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <!-- Saudação e andamento do perfil: o texto é preenchido pelo JS -->
+    <div class="pilha pilha-pequena">
+      <h1 id="saudacao">Painel da ONG</h1>
+      <p class="texto-apoio" id="subtitulo"></p>
+    </div>
+
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <!-- Três cartões de resumo (número grande, rótulo e link) -->
+    <section aria-labelledby="titulo-resumo">
+      <h2 id="titulo-resumo" class="so-leitor">Resumo</h2>
+      <div class="grade-resumo" id="cartoes-resumo"></div>
+    </section>
+
+    <!-- Ações rápidas: só um botão primário por área -->
+    <section class="secao" aria-labelledby="titulo-acoes">
+      <h2 id="titulo-acoes">Ações rápidas</h2>
+      <div class="linha">
+        <a class="botao botao-primario" href="necessidade-form.html">+ Cadastrar necessidade</a>
+        <a class="botao botao-secundario" href="necessidades.html">Gerenciar necessidades</a>
+        <a class="botao botao-secundario" href="doacoes-recebidas.html">Ver doações recebidas</a>
+        <a class="botao botao-secundario" href="campanha-form.html">Solicitar campanha</a>
+        <a class="botao botao-secundario" href="perfil.html">Editar perfil da ONG</a>
+      </div>
+    </section>
+
+    <div class="grade-principal">
+      <div class="pilha pilha-grande">
+        <section class="secao" aria-labelledby="titulo-ultimas">
+          <h2 id="titulo-ultimas">Últimas doações</h2>
+          <div id="ultimas"></div>
+        </section>
+      </div>
+
+      <!-- Coluna lateral com andamento e campanhas -->
+      <aside class="pilha" aria-label="Andamento e campanhas">
+        <section class="cartao" aria-labelledby="titulo-andamento">
+          <h2 id="titulo-andamento">Andamento das necessidades</h2>
+          <div id="progressos" class="pilha"></div>
+        </section>
+        <section class="cartao" aria-labelledby="titulo-campanhas">
+          <h2 id="titulo-campanhas">Campanhas solicitadas</h2>
+          <ul id="campanhas" class="lista-simples pilha pilha-pequena" role="list"></ul>
+        </section>
+      </aside>
+    </div>
+
+    <!-- Os pedidos de vínculo ocupam a largura toda, porque a tabela tem muitas colunas -->
+    <section class="secao" aria-labelledby="titulo-pedidos">
+      <h2 id="titulo-pedidos">Pedidos de vínculo às suas campanhas</h2>
+      <p class="texto-apoio">Outras ONGs querem incluir necessidades nas campanhas que sua ONG criou. Você aceita e decide se a necessidade aumenta a meta.</p>
+      <div id="pedidos"></div>
+    </section>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/ong/painel.js"></script>
+</body>
+</html>

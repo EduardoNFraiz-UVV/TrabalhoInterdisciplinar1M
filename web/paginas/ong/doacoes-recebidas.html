@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+  doacoes-recebidas.html (tela 09 do Figma: Doações recebidas)
+  Para que serve: a ONG acompanha as doações oferecidas a ela (às suas necessidades e às metas das
+  campanhas que criou), aceita, recusa, escreve mensagem ao doador e confirma o recebimento.
+  Quem abre: representante de ONG. Aceita ?aba=oferecida|aceita|recebida|recusada para abrir já numa aba.
+  O comportamento está em js/paginas/ong/doacoes-recebidas.js.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Doações recebidas · Conecta Doações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/principal.css">
+  <link rel="stylesheet" href="../../css/paginas/ong.css">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-raiz="../../" data-pagina="doacoes-recebidas">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header id="cabecalho"></header>
+
+  <main id="conteudo" class="conteudo pilha pilha-grande">
+    <nav class="breadcrumb" aria-label="Você está em">
+      <ol role="list">
+        <li><a href="painel.html">Painel</a></li>
+        <li><span aria-current="page">Doações recebidas</span></li>
+      </ol>
+    </nav>
+
+    <h1>Doações oferecidas à ONG</h1>
+    <div id="area-alerta" aria-live="polite"></div>
+
+    <div class="grade-principal">
+      <div class="pilha pilha-grande">
+        <!-- Abas por status (criadas pelo JS) e filtros -->
+        <div id="abas"></div>
+
+        <form class="filtros" id="formulario-filtros" role="search" aria-label="Filtrar doações">
+          <div class="campo">
+            <label for="filtro-origem">Origem</label>
+            <select id="filtro-origem">
+              <option value="">Todas</option>
+              <option value="necessidades">Minhas necessidades</option>
+              <option value="campanhas">Campanhas criadas pela ONG</option>
+            </select>
+          </div>
+          <div class="campo cresce">
+            <label for="filtro-busca">Buscar doador ou item</label>
+            <div class="busca-campo" id="campo-busca"></div>
+          </div>
+        </form>
+
+        <div id="lista"></div>
+
+        <!-- Detalhe da doação selecionada (preenchido pelo JS) -->
+        <section class="cartao" aria-labelledby="titulo-detalhe" id="secao-detalhe" hidden>
+          <h2 id="titulo-detalhe">Detalhe da doação</h2>
+          <div id="detalhe" class="pilha"></div>
+        </section>
+      </div>
+
+      <aside class="pilha" aria-label="Ajuda">
+        <section class="cartao como-funciona" aria-labelledby="titulo-como">
+          <h2 id="titulo-como" class="texto-rotulo">Como funciona</h2>
+          <ol>
+            <li>Aceite a doação para avisar o doador.</li>
+            <li>Quando o item chegar, clique em Confirmar recebimento.</li>
+            <li>A quantidade da necessidade é atualizada automaticamente.</li>
+          </ol>
+          <p class="texto-legenda">Ao confirmar, o doador recebe uma notificação.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="rodape"></footer>
+  <script type="module" src="../../js/paginas/ong/doacoes-recebidas.js"></script>
+</body>
+</html>
