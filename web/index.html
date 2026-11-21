@@ -29,7 +29,9 @@
     <section class="hero" aria-labelledby="titulo-hero">
       <div class="conteudo hero-interno">
         <h1 id="titulo-hero" class="titulo-display">Conectando quem quer doar a quem precisa</h1>
-        <p class="texto-grande">O Conecta Doações aproxima pessoas dispostas a ajudar de ONGs e campanhas emergenciais. Veja o que cada entidade precisa, registre sua doação e acompanhe até ela ser recebida, com transparência e confiança.</p>
+        <p class="texto-grande">Veja o que cada ONG precisa agora, registre o que você pode doar e acompanhe até a ONG confirmar que recebeu.</p>
+        <!-- Números reais do site, escritos em texto corrido (preenchido pelo JS), em vez de cartões de métricas -->
+        <p class="texto-apoio" id="hero-numeros"></p>
         <div class="linha">
           <a class="botao botao-primario botao-grande" href="paginas/publico/login.html" id="botao-entrar">Entrar</a>
           <a class="botao botao-secundario botao-grande" href="paginas/publico/ongs.html">Ver ONGs sem entrar</a>
@@ -41,19 +43,21 @@
       <!-- Como funciona: 3 passos numerados dentro de uma lista ordenada -->
       <section class="secao" id="como-funciona" aria-labelledby="titulo-como">
         <h2 id="titulo-como">Como funciona</h2>
-        <ol class="grade-cartoes lista-simples">
-          <li class="cartao">
-            <span class="passo-numero" aria-hidden="true">1</span>
+        <!-- Os passos formam uma sequência de verdade, então ficam numerados, mas numa linha aberta:
+             sem cartões, com um fio no topo ligando um passo ao outro -->
+        <ol class="passos-abertos">
+          <li>
+            <span class="passo-grande" aria-hidden="true">1</span>
             <h3>Encontre uma ONG</h3>
             <p class="texto-apoio">Pesquise por item, categoria ou cidade e veja as necessidades urgentes de entidades verificadas.</p>
           </li>
-          <li class="cartao">
-            <span class="passo-numero" aria-hidden="true">2</span>
+          <li>
+            <span class="passo-grande" aria-hidden="true">2</span>
             <h3>Registre sua doação</h3>
             <p class="texto-apoio">Escolha o item, a quantidade e como entregar: levando até a ONG ou pedindo retirada no seu endereço.</p>
           </li>
-          <li class="cartao">
-            <span class="passo-numero" aria-hidden="true">3</span>
+          <li>
+            <span class="passo-grande" aria-hidden="true">3</span>
             <h3>Acompanhe até ser recebida</h3>
             <p class="texto-apoio">A ONG aceita e confirma o recebimento. Você acompanha cada passo em Minhas doações.</p>
           </li>
@@ -78,21 +82,28 @@
       <section class="secao" id="projetos" aria-labelledby="titulo-projetos">
         <h2 id="titulo-projetos">Projetos sociais de coleta de resíduos</h2>
         <p class="texto-apoio">Além das doações, apoiamos projetos que transformam resíduos em renda e cuidado com o ambiente.</p>
-        <div class="grade-cartoes">
-          <article class="cartao">
+        <!-- Três projetos em linhas: ilustração ao lado do texto, separados por filetes (sem cartões) -->
+        <div class="lista-projetos">
+          <article class="projeto">
             <img class="ilustracao" src="img/projeto-oleo.svg" alt="Galão de óleo de cozinha usado sendo recolhido" width="96" height="96">
-            <h3>Coleta de óleo de cozinha</h3>
-            <p class="texto-apoio">Pontos de coleta recebem óleo usado, que vira sabão e biocombustível, evitando que ele polua rios e redes de esgoto.</p>
+            <div class="pilha pilha-pequena">
+              <h3>Coleta de óleo de cozinha</h3>
+              <p class="texto-apoio">Pontos de coleta recebem óleo usado, que vira sabão e biocombustível, evitando que ele polua rios e redes de esgoto.</p>
+            </div>
           </article>
-          <article class="cartao">
+          <article class="projeto">
             <img class="ilustracao" src="img/projeto-reciclagem.svg" alt="Caixa de coleta seletiva com papel e plástico" width="96" height="96">
-            <h3>Reciclagem de papel e plástico</h3>
-            <p class="texto-apoio">Cooperativas de catadores separam e vendem os materiais, gerando renda para famílias e reduzindo o lixo enviado aos aterros.</p>
+            <div class="pilha pilha-pequena">
+              <h3>Reciclagem de papel e plástico</h3>
+              <p class="texto-apoio">Cooperativas de catadores separam e vendem os materiais, gerando renda para famílias e reduzindo o lixo enviado aos aterros.</p>
+            </div>
           </article>
-          <article class="cartao">
+          <article class="projeto">
             <img class="ilustracao" src="img/projeto-roupas.svg" alt="Cabide com roupas arrumadas para reaproveitamento" width="96" height="96">
-            <h3>Reaproveitamento de roupas</h3>
-            <p class="texto-apoio">Roupas em bom estado são higienizadas e entregues a quem precisa; as que não servem viram material para oficinas de costura.</p>
+            <div class="pilha pilha-pequena">
+              <h3>Reaproveitamento de roupas</h3>
+              <p class="texto-apoio">Roupas em bom estado são higienizadas e entregues a quem precisa; as que não servem viram material para oficinas de costura.</p>
+            </div>
           </article>
         </div>
       </section>

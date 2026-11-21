@@ -35,9 +35,64 @@
   border-radius: var(--radius-lg);
 }
 
-/* Passos numerados: o número fica sobre o texto do cartão */
-ol.lista-simples > li.cartao {
-  gap: var(--space-3);
+/* "Como funciona": três passos numerados numa linha aberta.
+   Cada passo tem um fio no topo (border-top) e o número grande na fonte de títulos. No celular
+   os passos ficam um embaixo do outro. */
+.passos-abertos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5) var(--space-6);
+  list-style: none;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .passos-abertos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.passos-abertos li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 2px solid var(--line-strong);
+}
+
+.passo-grande {
+  font-family: var(--fonte-titulo);
+  font-size: 40px;
+  line-height: 1;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+/* "Projetos sociais": linhas com a ilustração à esquerda e o texto à direita, separadas por filetes */
+.lista-projetos {
+  display: flex;
+  flex-direction: column;
+}
+
+.projeto {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--line);
+}
+
+.projeto:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+@media (max-width: 480px) {
+  /* Em telas muito estreitas a ilustração fica em cima do texto */
+  .projeto {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
 }
 
 /* A seção ao redor das âncoras do menu não fica escondida atrás do cabeçalho ao rolar */
