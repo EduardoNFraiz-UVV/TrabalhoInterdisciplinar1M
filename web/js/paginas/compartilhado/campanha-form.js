@@ -13,6 +13,7 @@ import { tabela, buscar } from '../../nucleo/armazenamento.js';
 import { ir, parametro } from '../../nucleo/caminhos.js';
 import { el, $, preencher } from '../../utilitarios/dom.js';
 import { formatarNumero, formatarQuantidade, normalizar } from '../../utilitarios/formatacao.js';
+import { somarQuantidades, semRepetidos } from '../../utilitarios/listas.js';
 import { necessidadesAtivas } from '../../regras/necessidades.js';
 import { metasDaCampanha, cidadesDaCampanha, vinculosAceitos, salvarCampanha } from '../../regras/campanhas.js';
 import { incluirNecessidades, removerVinculo } from '../../regras/vinculos.js';
@@ -170,12 +171,12 @@ export function iniciarFormularioCampanha({ modo, ong }) {
 
   const ongsVerificadas = tabela('ong').filter((o) => o.verificada);
   preencherSelect($('#nec-ong'), ongsVerificadas, { valor: (o) => o.id_ong, rotulo: (o) => o.nome, primeira: 'Todas' });
-  const cidadesDasOngs = [...new Set(ongsVerificadas.map((o) => o.id_cidade))].map((id) => buscar('cidade', id)).sort((a, b) => a.nome.localeCompare(b.nome));
+  const cidadesDasOngs = semRepetidos(ongsVerificadas.map((o) => o.id_cidade)).map((id) => buscar('cidade', id)).sort((a, b) => a.nome.localeCompare(b.nome));
   preencherSelect($('#nec-cidade'), cidadesDasOngs, { valor: (c) => c.id_cidade, rotulo: (c) => c.nome, primeira: 'Todas' });
 
   /* Categorias que a campanha pede: as das metas (sem metas, qualquer categoria) */
   function categoriasPermitidas() {
-    const ids = [...new Set(metas.map((m) => m.id_categoria))];
+    const ids = semRepetidos(metas.map((m) => m.id_categoria));
     return ids.length ? ids : tabela('categoria').map((c) => c.id_categoria);
   }
 
@@ -255,10 +256,16 @@ export function iniciarFormularioCampanha({ modo, ong }) {
 
   /* ---------- Resumo da meta (RN-26) ---------- */
   function desenharResumo() {
-    const gerais = metas.reduce((soma, m) => soma + m.quantidade, 0);
-    const aumento = [...selecionadas].filter(([, aumenta]) => aumenta).reduce((soma, [id]) => soma + buscar('necessidade', id).quantidade, 0);
+    const gerais = somarQuantidades(metas);
+    let aumento = 0;
+    let qtdAumentam = 0;
+    for (const [id, aumenta] of selecionadas) {
+      if (aumenta) {
+        aumento += buscar('necessidade', id).quantidade;
+        qtdAumentam += 1;
+      }
+    }
     const qtdSelecionadas = selecionadas.size;
-    const qtdAumentam = [...selecionadas.values()].filter(Boolean).length;
 
     preencher($('#resumo-meta'),
       el('dt', {}, 'Metas gerais'),

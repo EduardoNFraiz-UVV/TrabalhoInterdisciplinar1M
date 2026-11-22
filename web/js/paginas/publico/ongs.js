@@ -10,6 +10,7 @@ import { iniciarPagina } from '../../nucleo/pagina.js';
 import { tabela, buscar } from '../../nucleo/armazenamento.js';
 import { el, $, preencher } from '../../utilitarios/dom.js';
 import { normalizar } from '../../utilitarios/formatacao.js';
+import { semRepetidos } from '../../utilitarios/listas.js';
 import { necessidadesDaOng, itensUrgentes } from '../../regras/necessidades.js';
 import { cartaoOng } from '../../componentes/cartoes.js';
 import { criarPaginacao, fatiar } from '../../componentes/paginacao.js';
@@ -26,7 +27,7 @@ function montar() {
 
   const ongs = tabela('ong').filter((o) => o.verificada);
   preencherSelect($('#filtro-categoria'), tabela('categoria'), { valor: (c) => c.id_categoria, rotulo: (c) => c.nome, primeira: 'Todas' });
-  const cidades = [...new Set(ongs.map((o) => o.id_cidade))].map((id) => buscar('cidade', id)).sort((a, b) => a.nome.localeCompare(b.nome));
+  const cidades = semRepetidos(ongs.map((o) => o.id_cidade)).map((id) => buscar('cidade', id)).sort((a, b) => a.nome.localeCompare(b.nome));
   preencherSelect($('#filtro-cidade'), cidades, { valor: (c) => c.id_cidade, rotulo: (c) => c.nome, primeira: 'Todas' });
 
   /* Lista as ONGs que passam por todos os filtros */
