@@ -115,7 +115,7 @@ export function inicial(nome) {
 export function normalizar(texto) {
   return String(texto ?? '')
     .normalize('NFD')                       /* separa a letra do acento */
-    .replace(/[̀-ͯ]/g, '')        /* apaga os acentos */
+    .replace(/[\u0300-\u036f]/g, '')        /* apaga os acentos */
     .toLowerCase();
 }
 
