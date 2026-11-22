@@ -25,7 +25,7 @@ No rodapé de qualquer página, "Restaurar dados de exemplo" volta tudo ao come�
 | `web/css/paginas` | Estilos que só existem numa área (público, doador, ong, admin) |
 | `web/css/principal.css` | Junta tudo com `@import`. Cada HTML carrega este arquivo |
 | `web/js/nucleo` | O "motor": guarda os dados (`armazenamento.js`), login (`sessao.js`), endereços (`caminhos.js`), arranque da página (`pagina.js`), dados de exemplo |
-| `web/js/utilitarios` | Ferramentas pequenas: criar elementos (`dom.js`), formatar datas e textos (`formatacao.js`) |
+| `web/js/utilitarios` | Ferramentas pequenas: criar elementos (`dom.js`), formatar datas e textos (`formatacao.js`), somar quantidades e tirar repetidos de uma lista (`listas.js`) |
 | `web/js/regras` | As regras de negócio: o que pode e o que não pode (campanhas, doações, necessidades, relatórios...) |
 | `web/js/componentes` | Peças reutilizáveis que o JS desenha: cabeçalho, abas, tabela, diálogo, selos... |
 | `web/js/paginas` | Um arquivo JS por página, na mesma divisão por tipo de usuário |
@@ -147,6 +147,10 @@ Cada linha: o que é, em português, e um exemplo real do projeto.
 | `new Promise(...)` | "Promessa de resposta": o diálogo devolve o que o usuário clicar, quando clicar | `abrirDialogo` em `dialogo.js` |
 | `import { x } from './a.js'` / `export` | Um arquivo oferece funções com `export` e outro as usa com `import`. É assim que o código é dividido em pastas | todo arquivo de `js/` |
 | `Object.entries(obj)` | Transforma `{ a: 1, b: 2 }` em `[['a', 1], ['b', 2]]` para percorrer com `forEach` | `atualizarContadores` em `abas.js` |
+| `for (const item of lista)` | Percorre a lista item por item, do primeiro ao último | `somarQuantidades` em `listas.js` |
+| `new Map()` | Uma lista de pares "chave -> valor": `.set(chave, valor)` guarda, `.get(chave)` lê, `.has(chave)` pergunta se existe, `.delete(chave)` apaga | `botoes` em `abas.js`; `selecionadas` em `campanha-form.js` |
+| `new Set()` | Um conjunto: lista que não aceita repetidos (`.add`, `.has`, `.delete`, `.size`) | `marcadas` em `necessidade-form.js` |
+| `[...lista]` | Faz uma cópia da lista (útil para mexer na cópia sem estragar a original) | `[...ativas].sort(...)` em `apresentacao.js` |
 
 ## 8. CSS: o que aparece e para que serve
 
@@ -225,3 +229,16 @@ ao `<input>` por `for`/`id`, `<table>` com `<caption>`, `<thead>`, `<tbody>`, `<
 - **`import`/`export`**: é a divisão em pastas. Sem módulos, todos os arquivos dividiriam o mesmo espaço de nomes.
 - **Funções seta `=>`**: fazem o mesmo que `function`; ficam porque o código é mais curto e a seção 7 explica a leitura.
 - **`el()`**: poderia ser `innerHTML`, mas perderíamos a proteção contra texto malicioso (seção 5).
+- **`Map` e `Set`**: ficam onde guardam "chave -> valor" ou "valores sem repetir" (abas, formulário de campanha, formulário de necessidade). Trocar por objeto ou lista deixaria o código mais comprido.
+
+## 13. O que já foi simplificado no código
+
+Para o grupo ter menos coisas estranhas para explicar, estas construções foram trocadas por equivalentes mais básicos,
+com o mesmo resultado na tela:
+
+- Somas com `.reduce(...)` viraram a função `somarQuantidades(lista)` (um `for ... of` em `utilitarios/listas.js`).
+- `[...new Set(lista)]` (tirar repetidos) virou a função `semRepetidos(lista)`, no mesmo arquivo.
+- Conjuntos usados só para perguntar "este id está na lista?" viraram listas com `.includes()`.
+- Condições encadeadas do tipo `a ? x : b ? y : z` viraram `if / else if / else` (em `aprovacoes.js`, `inicio.js`, `minhas-doacoes.js`, `ong.js`, `doacoes-recebidas.js` e `campanha-form.js`).
+- Cálculos repetidos (como "quanto já foi recebido de uma necessidade") passaram a usar a função que já existia (`recebido()` em `regras/necessidades.js`).
+- O intervalo de acentos da busca (`[̀-ͯ]` em `normalizar`) agora é escrito de forma legível.
