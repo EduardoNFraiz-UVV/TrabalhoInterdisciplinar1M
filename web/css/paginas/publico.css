@@ -149,6 +149,8 @@ section[id] {
   font-size: 13px;
 }
 
+/* ::before e ::after criam dois elementos "de enfeite" antes e depois do texto "ou", sem mexer no HTML.
+   Sem conteúdo (content: ''), com 1 px de altura e flex: 1, viram as duas linhas dos lados */
 .separador::before,
 .separador::after {
   content: '';

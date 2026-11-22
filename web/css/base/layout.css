@@ -116,6 +116,7 @@ main.conteudo.pilha-grande {
 
 @media (min-width: 1024px) {
   .grade-principal {
+    /* Duas colunas: a primeira pega todo o espaço que sobra (1fr, podendo encolher até 0) e a lateral tem 340 px fixos */
     grid-template-columns: minmax(0, 1fr) 340px;
   }
 }
@@ -130,6 +131,8 @@ main.conteudo.pilha-grande {
 /* Grade de cards: cria quantas colunas couberem, cada uma com no mínimo 280 px */
 .grade-cartoes {
   display: grid;
+  /* repeat(auto-fill, ...) cria quantas colunas couberem; minmax(280px, 1fr) = cada coluna tem no mínimo 280 px
+     e divide igualmente o espaço que sobrar */
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: var(--space-4);
 }

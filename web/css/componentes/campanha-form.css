@@ -42,10 +42,12 @@
 
 @media (min-width: 640px) {
   .nova-meta {
+    /* Três colunas: quantidade (120 px), categoria (180 px) e item (o resto, com no mínimo 160 px) */
     grid-template-columns: 120px 180px minmax(160px, 1fr);
   }
 
   .nova-meta .botao {
+    /* O botão ocupa a linha inteira: da linha de grade 1 até a última (-1) */
     grid-column: 1 / -1;
   }
 }
@@ -53,6 +55,7 @@
 /* Caixa de cidades: lista rolável com várias caixas de seleção em colunas automáticas */
 .lista-cidades {
   display: grid;
+  /* Colunas automáticas: quantas couberem, cada uma com no mínimo 200 px */
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: var(--space-1) var(--space-4);
   max-height: 200px;
@@ -95,6 +98,7 @@
 /* Filtros do buscador: selects lado a lado, quebrando linha quando falta espaço */
 .filtros-busca {
   display: grid;
+  /* auto-fit é parecido com auto-fill, mas as colunas que sobrarem vazias somem e as outras esticam */
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: var(--space-3);
 }

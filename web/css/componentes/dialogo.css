@@ -6,6 +6,8 @@
 */
 
 .dialogo {
+  /* min() usa o menor dos dois valores: 480 px, ou a largura da tela menos uma folga (calc faz a conta).
+     Assim o diálogo nunca passa da tela no celular */
   width: min(480px, calc(100% - var(--space-5)));
   padding: var(--space-5);
   border: 1px solid var(--line);

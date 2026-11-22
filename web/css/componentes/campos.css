@@ -138,6 +138,8 @@ fieldset {
 }
 
 .busca-campo svg {
+  /* Truque para centralizar na vertical: absolute dentro do .busca-campo (que é relative), com o topo
+     a 50% da altura; translateY(-50%) sobe o ícone metade da altura dele, deixando-o bem no meio */
   position: absolute;
   left: var(--space-3);
   top: 50%;
