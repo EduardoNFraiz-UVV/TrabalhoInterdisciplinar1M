@@ -80,7 +80,11 @@ export function buscar(nome, id) {
 /* Calcula o próximo id livre de uma tabela (maior id atual + 1), como um SERIAL do PostgreSQL */
 function proximoId(nome) {
   const chave = CHAVES_PRIMARIAS[nome];
-  return tabela(nome).reduce((maior, registro) => Math.max(maior, registro[chave]), 0) + 1;
+  let maior = 0;
+  for (const registro of tabela(nome)) {
+    maior = Math.max(maior, registro[chave]);
+  }
+  return maior + 1;
 }
 
 /* Insere um registro novo. Se a tabela tem chave primária simples, o id é gerado aqui. Devolve o registro */
