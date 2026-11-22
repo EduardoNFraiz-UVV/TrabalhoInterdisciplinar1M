@@ -120,11 +120,9 @@ function montar(ong) {
 
     const info = detalharDoacao(doacao);
     const doador = buscar('usuario', doacao.id_doador);
-    const entrega = doacao.id_meta
-      ? `Entrega no endereço da campanha em ${formatarData(doacao.data_prevista)}`
-      : doacao.forma_entrega === 'levar'
-        ? `Entrega na ONG em ${formatarData(doacao.data_prevista)}`
-        : `Retirada em ${formatarData(doacao.data_prevista)}`;
+    let entrega = `Retirada em ${formatarData(doacao.data_prevista)}`;
+    if (doacao.id_meta) entrega = `Entrega no endereço da campanha em ${formatarData(doacao.data_prevista)}`;
+    else if (doacao.forma_entrega === 'levar') entrega = `Entrega na ONG em ${formatarData(doacao.data_prevista)}`;
 
     const campoMensagem = el('textarea', { id: 'mensagem', rows: 3, maxlength: 200, placeholder: 'Ex.: Obrigado! Pode entregar na portaria.' });
     const acionavel = doacao.status === 'oferecida' || doacao.status === 'aceita';
