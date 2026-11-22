@@ -11,6 +11,7 @@
   Se contexto for null, o navegador está sendo redirecionado (sem login ou perfil errado).
 */
 
+/* Funções de outros arquivos que usamos aqui */
 import { usuarioAtual, exigirPerfil, ongDoUsuario } from './sessao.js';
 import { montarCabecalho } from '../componentes/cabecalho.js';
 import { montarRodape } from '../componentes/rodape.js';
@@ -26,12 +27,16 @@ import { url, rotaInicialDoPerfil } from './caminhos.js';
 */
 export function iniciarPagina({ perfis = null, pagina = null } = {}) {
   /* Páginas protegidas: confere login e perfil */
+  /* Se a página tem lista de perfis, exige login; se é pública, só pega quem estiver logado (ou null) */
   const usuario = perfis ? exigirPerfil(perfis) : usuarioAtual();
+  /* Página protegida sem usuário liberado: o navegador já está sendo redirecionado, então paramos aqui */
   if (perfis && !usuario) return null;
 
   /* Descobre qual item do menu marcar como atual */
+  /* Se "pagina" é uma função, chama ela com o usuário; senão usa o texto dado ou o data-pagina do <body> */
   const idPagina = typeof pagina === 'function' ? pagina(usuario) : (pagina ?? document.body.dataset.pagina);
 
+  /* Desenha o cabeçalho (com o menu certo para o perfil) e o rodapé */
   montarCabecalho(usuario, idPagina);
   montarRodape();
 
@@ -41,7 +46,9 @@ export function iniciarPagina({ perfis = null, pagina = null } = {}) {
 
   /* Links marcados com data-link-inicio (primeiro item do breadcrumb) levam à tela inicial de quem está logado */
   document.querySelectorAll('[data-link-inicio]').forEach((link) => {
+    /* Logado: vai para a tela inicial do perfil; visitante: vai para a apresentação */
     link.href = url(usuario ? rotaInicialDoPerfil(usuario.perfil) : 'apresentacao');
   });
+  /* Entrega o usuário (ou null) e a ONG dele (ou null) para a página usar */
   return { usuario, ong: ongDoUsuario(usuario) };
 }
