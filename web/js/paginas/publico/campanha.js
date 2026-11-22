@@ -7,6 +7,7 @@
   Depende de: pagina.js, armazenamento.js, regras de campanhas, componentes de progresso, tabela e ações.
 */
 
+/* Funções de outros arquivos que usamos aqui */
 import { iniciarPagina } from '../../nucleo/pagina.js';
 import { buscar } from '../../nucleo/armazenamento.js';
 import { url, parametro } from '../../nucleo/caminhos.js';
@@ -24,8 +25,11 @@ import { icone } from '../../componentes/icones.js';
 /* Quantas necessidades aparecem de início (o botão "Ver mais" mostra o resto) */
 const INICIAIS = 6;
 
+/* usuario: quem está logado (ou null); ong: a ONG dele (ou null) */
 function montar(usuario, ong) {
+  /* 1. Acha a campanha pelo número da URL (?id=...) */
   const campanha = buscar('campanha', parametro('id'));
+  /* Administrador e a ONG dona da campanha podem ver campanhas que não estão ativas */
   const podeVerNaoAtiva = usuario && (usuario.perfil === 'admin' || (ong && campanha?.id_ong === ong.id_ong));
 
   /* Campanha inexistente ou fora do ar para quem não é dono */
@@ -35,6 +39,7 @@ function montar(usuario, ong) {
     return;
   }
 
+  /* Id e progresso (0 a 100) da campanha; o título da aba do navegador leva o nome da campanha */
   const id = campanha.id_campanha;
   const progresso = progressoDaCampanha(id);
   document.title = `${campanha.titulo} · Conecta Doações`;
@@ -49,14 +54,18 @@ function montar(usuario, ong) {
       el('span', { class: 'meta-linha' }, icone('clock', 14), `Arrecadação até ${formatarData(campanha.data_fim)}`)),
     barraProgresso('Meta da campanha', `${progresso}% atingida`, progresso)));
 
+  /* Mostra o corpo da página (que começa escondido) */
   $('#corpo').hidden = false;
 
   /* Metas gerais: barra de progresso e botão "Doar para esta meta" (leva à tela 18) */
   preencher($('#metas'), metasDaCampanha(id).map((meta) => {
+    /* Quanto esta meta já recebeu */
     const recebidoMeta = recebidoDaMeta(meta.id_meta);
+    /* O botão só existe se a campanha está ativa e ainda falta algo (e se o perfil pode doar) */
     const botao = campanha.status === 'ativa' && faltamDaMeta(meta) > 0
       ? botaoDoar(usuario, 'doarCampanha', { meta: meta.id_meta }, { rotulo: 'Doar para esta meta', rotuloAcessivel: `Doar para a meta ${meta.item}` })
       : null;
+    /* Um item de lista por meta: título, botão e barra de progresso */
     return el('li', { class: 'cartao cartao-compacto' },
       el('div', { class: 'linha linha-entre' },
         el('h3', {}, `${formatarNumero(meta.quantidade)} · ${meta.item}`),
@@ -66,9 +75,11 @@ function montar(usuario, ong) {
 
   /* Necessidades vinculadas aceitas */
   const vinculos = vinculosAceitos(id);
+  /* Começa mostrando só as primeiras; "Ver mais" liga esta variável */
   let mostrarTodas = false;
   $('#texto-necessidades').textContent = 'Cada item é uma necessidade de uma ONG participante. Doe direto para a ONG que precisa.';
 
+  /* Desenha a tabela de necessidades (todas ou só as primeiras) */
   function desenharNecessidades() {
     const lista = mostrarTodas ? vinculos : vinculos.slice(0, INICIAIS);
     preencher($('#necessidades'), criarTabela({
@@ -84,26 +95,31 @@ function montar(usuario, ong) {
         {
           titulo: 'Ação',
           classe: 'acoes',
+          /* Botão de doar só com campanha ativa e se ainda falta algo; senão, célula vazia */
           render: (v) => (campanha.status === 'ativa' && faltam(v.necessidade) > 0
             ? botaoDoar(usuario, 'doar', { necessidade: v.necessidade.id_necessidade }, { rotuloAcessivel: `Quero doar ${v.necessidade.item}` })
             : '')
         }
       ]
     }));
+    /* Botão "Ver mais": some se cabem todas; o texto alterna entre "Ver menos" e "Ver mais (N)" */
     const botaoMais = $('#ver-mais');
     botaoMais.hidden = vinculos.length <= INICIAIS;
     botaoMais.textContent = mostrarTodas ? 'Ver menos' : `Ver mais necessidades (${vinculos.length - INICIAIS})`;
   }
+  /* Ao clicar em "Ver mais/menos": inverte a variável (true vira false e vice-versa) e redesenha */
   $('#ver-mais').addEventListener('click', () => { mostrarTodas = !mostrarTodas; desenharNecessidades(); });
   desenharNecessidades();
 
   /* Resumo da campanha */
+  /* ONG que criou a campanha (null se foi o administrador) */
   const criadora = campanha.id_ong ? buscar('ong', campanha.id_ong) : null;
   preencher($('#resumo'),
     el('dt', {}, 'Meta total'), el('dd', {}, `${formatarNumero(metaTotal(id))} itens`),
     el('dt', {}, 'Já atendido'), el('dd', {}, `${progresso}% (${formatarNumero(recebidoDaCampanha(id))} itens)`),
     el('dt', {}, 'Necessidades'), el('dd', {}, `${vinculos.length} de ${quantidadeDeOngs(id)} ${quantidadeDeOngs(id) === 1 ? 'ONG' : 'ONGs'}`),
     el('dt', {}, 'Prazo'), el('dd', {}, formatarData(campanha.data_fim)),
+    /* Se foi uma ONG, o nome vira link para o perfil dela; se foi o administrador, só o texto */
     el('dt', {}, 'Criada por'), el('dd', {}, criadora ? el('a', { href: url('ong', { id: criadora.id_ong }) }, nomeCriador(campanha)) : nomeCriador(campanha)));
 
   /* Onde entregar: endereço e horário de recebimento da campanha */
@@ -112,5 +128,7 @@ function montar(usuario, ong) {
     el('li', {}, icone('clock', 18), campanha.horario_recebimento ?? 'Horário não informado'));
 }
 
+/* Prepara a página (pública). O menu marca "inicio" para quem está logado e "campanhas-ativas" para visitante */
 const contexto = iniciarPagina({ perfis: null, pagina: (usuario) => (usuario ? 'inicio' : 'campanhas-ativas') });
+/* Se não está redirecionando, monta o conteúdo com o usuário e a ONG dele */
 if (contexto) montar(contexto.usuario, contexto.ong);
