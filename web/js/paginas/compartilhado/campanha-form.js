@@ -313,16 +313,24 @@ export function iniciarFormularioCampanha({ modo, ong }) {
       return;
     }
 
+    let donaDaCampanha = null;
+    if (campanha) donaDaCampanha = campanha.id_ong;
+    else if (ehOng) donaDaCampanha = ong.id_ong;
+
+    let situacao = 'ativa';
+    if (campanha) situacao = campanha.status;
+    else if (ehOng) situacao = 'pendente';
+
     /* Grava a campanha, as cidades e as metas */
     const salva = salvarCampanha({
       id_campanha: campanha?.id_campanha,
-      id_ong: campanha ? campanha.id_ong : (ehOng ? ong.id_ong : null),
+      id_ong: donaDaCampanha,
       titulo: dados.get('titulo').trim(),
       descricao: dados.get('descricao').trim(),
       tipo: dados.get('tipo'),
       data_inicio: dados.get('data_inicio'),
       data_fim: dados.get('data_fim'),
-      status: campanha ? campanha.status : (ehOng ? 'pendente' : 'ativa'),
+      status: situacao,
       endereco_recebimento: dados.get('endereco_recebimento').trim(),
       horario_recebimento: dados.get('horario_recebimento').trim() || null,
       cidades,

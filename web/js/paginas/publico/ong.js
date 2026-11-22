@@ -77,9 +77,14 @@ function montar(usuario) {
 
     function desenharTabela() {
       const ordem = selectOrdem.value;
+      function comparar(a, b) {
+        if (ordem === 'faltam') return faltam(b) - faltam(a);
+        if (ordem === 'recentes') return b.data_atualizacao.localeCompare(a.data_atualizacao);
+        return ordemPorUrgencia(a, b);
+      }
       const lista = necessidades()
         .filter((n) => !selectCategoria.value || n.id_categoria === Number(selectCategoria.value))
-        .sort((a, b) => (ordem === 'faltam' ? faltam(b) - faltam(a) : ordem === 'recentes' ? b.data_atualizacao.localeCompare(a.data_atualizacao) : ordemPorUrgencia(a, b)));
+        .sort(comparar);
       preencher(area, criarTabela({
         legenda: `Necessidades da ${ong.nome}`,
         linhas: lista,
