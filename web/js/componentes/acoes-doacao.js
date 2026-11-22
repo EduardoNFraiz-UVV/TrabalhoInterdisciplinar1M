@@ -8,6 +8,7 @@
   Depende de: dom.js e caminhos.js.
 */
 
+/* Funções de outros arquivos que usamos aqui */
 import { el } from '../utilitarios/dom.js';
 import { url, caminhoAbsoluto } from '../nucleo/caminhos.js';
 
@@ -18,13 +19,16 @@ import { url, caminhoAbsoluto } from '../nucleo/caminhos.js';
   tipo: 'primario' ou 'secundario'. Devolve o link, ou null se o perfil não pode doar.
 */
 export function botaoDoar(usuario, rota, parametros, { rotulo = 'Quero doar', rotuloAcessivel = null, tipo = 'secundario', pequeno = true } = {}) {
+  /* Logado como ONG ou administrador: não mostra o botão (devolve null) */
   if (usuario && usuario.perfil !== 'doador') return null;
+  /* Doador logado: vai direto ao formulário. Visitante: vai ao login, guardando o formulário como "retorno" */
   const href = usuario
     ? url(rota, parametros)
     : url('login', { retorno: caminhoAbsoluto(rota, parametros) });
+  /* O botão é um link <a> com aparência de botão (ele leva a outra página) */
   return el('a', {
-    class: `botao botao-${tipo}${pequeno ? ' botao-pequeno' : ''}`,
+    class: `botao botao-${tipo}${pequeno ? ' botao-pequeno' : ''}`,   /* cor e tamanho do botão */
     href,
-    'aria-label': rotuloAcessivel
+    'aria-label': rotuloAcessivel                                      /* texto mais completo para leitor de tela */
   }, rotulo);
 }

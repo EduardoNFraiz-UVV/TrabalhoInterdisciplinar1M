@@ -6,6 +6,7 @@
   Depende de: dom.js, dialogo.js, campanhas.js e formatacao.js.
 */
 
+/* Funções de outros arquivos que usamos aqui */
 import { el } from '../utilitarios/dom.js';
 import { abrirDialogo } from './dialogo.js';
 import { metaTotal } from '../regras/campanhas.js';
@@ -16,19 +17,24 @@ import { formatarNumero, formatarQuantidade } from '../utilitarios/formatacao.js
   necessidade, ong (dona da necessidade) e campanha são registros das tabelas do banco.
 */
 export async function perguntarAumentaMeta({ necessidade, ong, campanha }) {
+  /* Meta total de hoje e quanto ela ficaria se a necessidade aumentasse a meta */
   const total = metaTotal(campanha.id_campanha);
   const novoTotal = total + necessidade.quantidade;
 
   /* Duas opções de radio: dentro do <fieldset> para leitores de tela entenderem que são do mesmo grupo */
   const corpo = el('fieldset', { class: 'pilha pilha-pequena' },
+    /* <legend> = título do grupo, escondido visualmente (só leitor de tela lê) */
     el('legend', { class: 'so-leitor' }, 'A quantidade aumenta a meta?'),
+    /* Opção "Sim" */
     el('div', { class: 'opcao' },
       el('input', { type: 'radio', id: 'aumenta-sim', name: 'aumenta', value: 'sim' }),
       el('label', { for: 'aumenta-sim' }, `Sim, aumenta a meta em ${formatarNumero(necessidade.quantidade)} itens (de ${formatarNumero(total)} para ${formatarNumero(novoTotal)})`)),
+    /* Opção "Não" (já vem marcada) */
     el('div', { class: 'opcao' },
       el('input', { type: 'radio', id: 'aumenta-nao', name: 'aumenta', value: 'nao', checked: true }),
       el('label', { for: 'aumenta-nao' }, 'Não, ajuda a cumprir a meta já declarada')));
 
+  /* Abre o diálogo e espera a resposta (await) */
   const resposta = await abrirDialogo({
     titulo: 'Aceitar necessidade na campanha?',
     texto: `'${necessidade.item}' (${formatarQuantidade(necessidade.quantidade, necessidade.unidade)}), da ${ong.nome}, entra na campanha '${campanha.titulo}'. Decida se a quantidade aumenta a meta.`,
@@ -41,5 +47,6 @@ export async function perguntarAumentaMeta({ necessidade, ong, campanha }) {
     ler: (dialogo) => dialogo.querySelector('input[name="aumenta"]:checked').value === 'sim'
   });
 
+  /* Cancelou: devolve null. Confirmou: devolve { aumenta: true ou false } conforme o radio marcado */
   return resposta ? { aumenta: resposta.dados } : null;
 }
