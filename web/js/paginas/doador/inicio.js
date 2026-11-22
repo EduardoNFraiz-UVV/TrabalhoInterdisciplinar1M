@@ -7,6 +7,7 @@
   Depende de: pagina.js, regras, componentes de abas, tabela, cartões, paginação e ações de doação.
 */
 
+/* Funções de outros arquivos que usamos aqui */
 import { iniciarPagina } from '../../nucleo/pagina.js';
 import { tabela, buscar } from '../../nucleo/armazenamento.js';
 import { el, $, preencher } from '../../utilitarios/dom.js';
@@ -22,10 +23,13 @@ import { botaoDoar } from '../../componentes/acoes-doacao.js';
 import { icone } from '../../componentes/icones.js';
 import { exibirAvisoGuardado } from '../../componentes/alertas.js';
 
+/* Quantas necessidades aparecem em cada página da tabela */
 const POR_PAGINA = 8;
 
+/* usuario: o doador logado */
 function montar(usuario) {
   exibirAvisoGuardado($('#area-alerta'));     /* aviso deixado pela página anterior (ex.: "Conta criada!") */
+  /* Estado da página: categoria escolhida, modo (urgentes ou todas) e página da tabela */
   let categoria = '';          /* '' = todas as categorias */
   let verTodas = false;        /* false = só urgentes; true = todas as necessidades ativas */
   let pagina = 1;
@@ -35,10 +39,12 @@ function montar(usuario) {
   $('#campo-busca').append(icone('search', 18), campoBusca);
 
   /* Abas de categoria: "Todas" mais as 8 categorias */
+  /* O id de cada aba é o id da categoria (como texto); a aba "Todas" tem id vazio */
   const abas = criarAbas({
     rotulo: 'Filtrar por categoria',
     abas: [{ id: '', rotulo: 'Todas' }, ...tabela('categoria').map((c) => ({ id: String(c.id_categoria), rotulo: c.nome }))],
     ativa: '',
+    /* Ao escolher uma aba: guarda a categoria, volta para a página 1 e redesenha */
     aoMudar: (id) => { categoria = id; pagina = 1; desenhar(); }
   });
   $('#abas').append(abas.elemento);
@@ -53,11 +59,14 @@ function montar(usuario) {
 
   /* Necessidades que passam pela busca, pela categoria e pelo modo (urgentes ou todas) */
   function filtradas() {
+    /* Texto digitado e se o usuário está buscando/filtrando */
     const termo = normalizar(campoBusca.value);
     const buscando = termo !== '' || categoria !== '';
     return necessidadesAtivas().filter((n) => {
+      /* ONG e cidade da necessidade (usadas na busca por texto) */
       const ong = buscar('ong', n.id_ong);
       const cidade = buscar('cidade', ong.id_cidade).nome;
+      /* Todas as condições abaixo precisam ser verdadeiras (&&). "!x ||" = se o filtro está vazio, passa */
       return faltam(n) > 0
         && (!categoria || n.id_categoria === Number(categoria))
         && (!termo || [n.item, ong.nome, cidade].some((texto) => normalizar(texto).includes(termo)))
@@ -65,18 +74,24 @@ function montar(usuario) {
     });
   }
 
+  /* Desenha o título, a contagem, a tabela e a paginação */
   function desenhar() {
     const lista = filtradas();
     const buscando = campoBusca.value.trim() !== '' || categoria !== '';
+    /* Título da tabela: resultado de busca, todas ou só urgentes */
     let titulo = 'Necessidades urgentes';
     if (buscando) titulo = 'Resultados da busca';
     else if (verTodas) titulo = 'Todas as necessidades';
     $('#titulo-tabela').textContent = titulo;
+    /* Texto do botão que alterna entre urgentes e todas (escondido durante uma busca) */
     $('#alternar-lista').textContent = verTodas ? 'Ver só as urgentes' : 'Ver todas as necessidades';
     $('#alternar-lista').hidden = buscando;
+    /* Contagem com singular/plural */
     $('#contagem').textContent = `${lista.length} ${lista.length === 1 ? 'necessidade encontrada' : 'necessidades encontradas'}`;
+    /* Volta para a página 1 se a atual deixou de existir */
     if ((pagina - 1) * POR_PAGINA >= lista.length) pagina = 1;
 
+    /* Tabela com só os itens da página atual */
     preencher($('#lista'), criarTabela({
       legenda: 'Necessidades das ONGs',
       linhas: fatiar(lista, pagina, POR_PAGINA),
@@ -90,16 +105,20 @@ function montar(usuario) {
         { titulo: 'Ação', classe: 'acoes', render: (n) => botaoDoar(usuario, 'doar', { necessidade: n.id_necessidade }, { rotuloAcessivel: `Quero doar ${n.item}` }) }
       ]
     }));
+    /* Botões da paginação; ao escolher outra página, guarda o número e redesenha */
     preencher($('#paginacao'), criarPaginacao({ total: lista.length, porPagina: POR_PAGINA, pagina, aoMudar: (nova) => { pagina = nova; desenhar(); } }));
   }
 
   /* Buscar: pelo botão, pela tecla Enter ou enquanto digita */
   $('#formulario-busca').addEventListener('submit', (evento) => { evento.preventDefault(); pagina = 1; desenhar(); });
   campoBusca.addEventListener('input', () => { pagina = 1; desenhar(); });
+  /* Botão "Ver todas / Ver só as urgentes": inverte a variável e redesenha */
   $('#alternar-lista').addEventListener('click', () => { verTodas = !verTodas; pagina = 1; desenhar(); });
 
+  /* Primeira pintura da página */
   desenhar();
 }
 
+/* Confere o login (só doador) e monta cabeçalho e rodapé; depois monta a página */
 const contexto = iniciarPagina({ perfis: ['doador'] });
 if (contexto) montar(contexto.usuario);
