@@ -6,6 +6,7 @@
   Depende de: dom.js, icones.js e formatacao.js. O visual está em css/componentes/selos.css.
 */
 
+/* Funções e tabelas de outros arquivos que usamos aqui */
 import { el } from '../utilitarios/dom.js';
 import { icone } from './icones.js';
 import { ROTULO_STATUS_DOACAO, ROTULO_SITUACAO_CAMPANHA } from '../utilitarios/formatacao.js';
@@ -31,6 +32,7 @@ const ICONE_POR_SELO = {
 
 /* Cria um selo genérico: tipo define a cor e o ícone; texto é a palavra mostrada */
 export function selo(tipo, texto) {
+  /* A classe "selo-<tipo>" pinta o selo; ?? 'info' usa o ícone "info" se o tipo não estiver na tabela */
   return el('span', { class: `selo selo-${tipo}` }, icone(ICONE_POR_SELO[tipo] ?? 'info', 14), texto);
 }
 
@@ -51,6 +53,7 @@ export function seloSituacaoCampanha(status) {
 
 /* Selo de situação do vínculo entre necessidade e campanha */
 export function seloVinculo(status) {
+  /* Cria o objeto com os textos e já escolhe, pelo status, o texto certo */
   const texto = { pendente: 'Aguardando aceite', aceito: 'Aceito', recusado: 'Recusado' }[status];
   return selo(status, texto);
 }

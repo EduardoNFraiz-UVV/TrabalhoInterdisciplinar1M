@@ -8,6 +8,7 @@
   Depende de: dom.js.
 */
 
+/* Traz a função que cria elementos HTML */
 import { el } from '../utilitarios/dom.js';
 
 /*
@@ -23,25 +24,33 @@ import { el } from '../utilitarios/dom.js';
   selecionada: função opcional que diz se a linha deve aparecer destacada.
 */
 export function criarTabela({ legenda, colunas, linhas, vazio = 'Nenhum resultado encontrado.', selecionada = null }) {
+  /* Linha do cabeçalho: um <th> para cada coluna */
   const cabecalho = el('tr', {}, colunas.map((coluna) =>
+    /* scope="col" diz ao leitor de tela que o <th> é título de coluna.
+       Na coluna de ações o título fica escondido para quem vê, mas é lido por leitor de tela ("Ações") */
     el('th', { scope: 'col', class: coluna.classe }, coluna.classe === 'acoes' ? el('span', { class: 'so-leitor' }, 'Ações') : coluna.titulo)));
 
+  /* Corpo da tabela, ainda vazio */
   const corpo = el('tbody', {});
   if (linhas.length === 0) {
+    /* Sem dados: uma única linha, com uma célula que ocupa todas as colunas (colspan) e a mensagem */
     corpo.append(el('tr', {}, el('td', { colspan: colunas.length, class: 'tabela-vazia' }, vazio)));
   } else {
+    /* Com dados: uma linha <tr> para cada registro */
     linhas.forEach((linha) => {
-      corpo.append(el('tr', { class: selecionada && selecionada(linha) ? 'selecionada' : null },
+      corpo.append(el('tr', { class: selecionada && selecionada(linha) ? 'selecionada' : null },   /* classe só nas linhas destacadas */
+        /* Uma célula <td> para cada coluna */
         colunas.map((coluna) => el('td', {
           class: coluna.classe,
-          'data-rotulo': coluna.classe === 'acoes' ? null : coluna.titulo
-        }, coluna.render(linha)))));
+          'data-rotulo': coluna.classe === 'acoes' ? null : coluna.titulo   /* nome da coluna, usado no celular */
+        }, coluna.render(linha)))));   /* render(linha) devolve o conteúdo da célula */
     });
   }
 
+  /* Monta e devolve a tabela completa. O <div> externo permite rolar na horizontal se faltar espaço */
   return el('div', { class: 'tabela-rolagem' },
     el('table', { class: 'tabela' },
-      el('caption', { class: 'so-leitor' }, legenda),
+      el('caption', { class: 'so-leitor' }, legenda),   /* título da tabela, só para leitor de tela */
       el('thead', {}, cabecalho),
       corpo));
 }
