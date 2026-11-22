@@ -146,7 +146,11 @@ function montar(usuario) {
   }
 
   function desenharAba() {
-    preencher($('#conteudo-aba'), abaAtual === 'necessidades' ? abaNecessidades() : abaAtual === 'sobre' ? abaSobre() : abaDoacoes());
+    let conteudo;
+    if (abaAtual === 'necessidades') conteudo = abaNecessidades();
+    else if (abaAtual === 'sobre') conteudo = abaSobre();
+    else conteudo = abaDoacoes();
+    preencher($('#conteudo-aba'), conteudo);
   }
   desenharAba();
 }

@@ -68,7 +68,10 @@ function montar(usuario) {
   function desenhar() {
     const lista = filtradas();
     const buscando = campoBusca.value.trim() !== '' || categoria !== '';
-    $('#titulo-tabela').textContent = buscando ? 'Resultados da busca' : verTodas ? 'Todas as necessidades' : 'Necessidades urgentes';
+    let titulo = 'Necessidades urgentes';
+    if (buscando) titulo = 'Resultados da busca';
+    else if (verTodas) titulo = 'Todas as necessidades';
+    $('#titulo-tabela').textContent = titulo;
     $('#alternar-lista').textContent = verTodas ? 'Ver só as urgentes' : 'Ver todas as necessidades';
     $('#alternar-lista').hidden = buscando;
     $('#contagem').textContent = `${lista.length} ${lista.length === 1 ? 'necessidade encontrada' : 'necessidades encontradas'}`;

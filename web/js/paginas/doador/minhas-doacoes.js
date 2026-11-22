@@ -120,6 +120,10 @@ function montar(usuario) {
     const ehMeta = doacao.id_meta !== null;
     const status = doacao.status;
 
+    let formaDeEntrega = 'Retirada no meu endereço';
+    if (ehMeta) formaDeEntrega = 'Vou levar até o endereço da campanha';
+    else if (doacao.forma_entrega === 'levar') formaDeEntrega = 'Vou levar até a ONG';
+
     preencher($('#passos'), passosDaDoacao(status));
     preencher($('#colunas'),
       el('div', { class: 'pilha pilha-pequena' },
@@ -133,7 +137,7 @@ function montar(usuario) {
       el('div', { class: 'pilha pilha-pequena' },
         el('h3', {}, 'Entrega e contato'),
         el('dl', { class: 'resumo-lista' },
-          el('dt', {}, 'Forma de entrega'), el('dd', {}, ehMeta ? 'Vou levar até o endereço da campanha' : doacao.forma_entrega === 'levar' ? 'Vou levar até a ONG' : 'Retirada no meu endereço'),
+          el('dt', {}, 'Forma de entrega'), el('dd', {}, formaDeEntrega),
           el('dt', {}, 'Data prevista'), el('dd', {}, formatarData(doacao.data_prevista)),
           el('dt', {}, 'Endereço'), el('dd', {}, doacao.forma_entrega === 'retirada' ? doacao.endereco_retirada : info.endereco),
           el('dt', {}, 'Horário'), el('dd', {}, info.horario ?? '—'),

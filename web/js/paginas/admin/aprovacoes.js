@@ -50,7 +50,11 @@ function montar() {
 
   function desenhar() {
     abas.atualizarContadores({ ongs: listaOngs().length, campanhas: listaCampanhas().length, vinculos: listaVinculos().length });
-    preencher($('#conteudo-aba'), ...(abaAtual === 'ongs' ? abaOngs() : abaAtual === 'campanhas' ? abaCampanhas() : abaVinculos()));
+    let conteudo;
+    if (abaAtual === 'ongs') conteudo = abaOngs();
+    else if (abaAtual === 'campanhas') conteudo = abaCampanhas();
+    else conteudo = abaVinculos();
+    preencher($('#conteudo-aba'), ...conteudo);
   }
 
   /* ---------- Aba ONGs ---------- */
