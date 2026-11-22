@@ -1,12 +1,3 @@
-/*
-  admin.css
-  Para que serve: ajustes de layout específicos das páginas do perfil administrador (painel com
-  relatórios, aprovações, campanhas, usuários, formulário de campanha e doações das campanhas).
-  Quem usa: as páginas em paginas/admin, junto com principal.css.
-  Os componentes (botões, campos, tabelas, cards) vêm de css/componentes.
-*/
-
-/* Formulário de campanha do administrador: mais espaço entre os blocos de campos */
 form.cartao.pilha-grande {
   gap: var(--space-5);
 }

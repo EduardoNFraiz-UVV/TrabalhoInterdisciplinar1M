@@ -1,12 +1,3 @@
-/*
-  painel.js
-  Página: paginas/ong/painel.html (tela 07: Painel da ONG).
-  Para que serve: mostra o resumo da ONG e permite ACEITAR ou RECUSAR os pedidos de vínculo de outras
-  ONGs às campanhas criadas por esta ONG (RN-31 a RN-33), decidindo se a necessidade aumenta a meta.
-  Depende de: pagina.js, regras (necessidades, doações, vínculos, campanhas) e componentes.
-*/
-
-/* Funções de outros arquivos que usamos aqui */
 import { iniciarPagina } from '../../nucleo/pagina.js';
 import { tabela, buscar } from '../../nucleo/armazenamento.js';
 import { url } from '../../nucleo/caminhos.js';
@@ -21,51 +12,38 @@ import { barraProgresso } from '../../componentes/progresso.js';
 import { alerta, mostrarAlerta, exibirAvisoGuardado } from '../../componentes/alertas.js';
 import { perguntarAumentaMeta } from '../../componentes/dialogo-vinculo.js';
 
-/* Confere o login (só ONG) e, se está tudo certo, monta a página.
-   A função montar é declarada mais abaixo, mas funciona aqui: funções criadas com "function" podem ser usadas antes da linha onde aparecem */
 const contexto = iniciarPagina({ perfis: ['ong'] });
 if (contexto) montar(contexto.usuario, contexto.ong);
 
-/* usuario: quem está logado; ong: a ONG dele */
 function montar(usuario, ong) {
-  /* Área de avisos e aviso deixado pela página anterior */
   const areaAlerta = $('#area-alerta');
-  exibirAvisoGuardado(areaAlerta);        /* aviso deixado pela página anterior (ex.: campanha enviada) */
+  exibirAvisoGuardado(areaAlerta);
 
-  /* Saudação e percentual de perfil completo (conta quantos dados da ONG estão preenchidos) */
   $('#saudacao').textContent = `Olá, ${primeiroNome(usuario.nome)}! Painel do ${ong.nome}`;
-  /* Os 5 campos que contam para o "perfil completo" */
   const camposDoPerfil = [ong.descricao, ong.endereco, ong.horario_atendimento, ong.telefone, ong.email_contato];
-  /* filter(Boolean) fica só com os preenchidos; dividimos pelo total e viramos percentual */
   const completo = Math.round((camposDoPerfil.filter(Boolean).length / camposDoPerfil.length) * 100);
   $('#subtitulo').textContent = completo < 100
     ? `Perfil ${completo}% completo. Falta preencher dados em "Editar perfil da ONG".`
     : 'Perfil completo.';
 
-  /* RN-09: aviso para ONG ainda não verificada */
   if (!ong.verificada) {
     areaAlerta.append(alerta('aviso', 'Sua ONG ainda não foi verificada.', 'O administrador está analisando o cadastro. Enquanto isso, você não pode cadastrar necessidades nem solicitar campanhas.'));
   }
 
-  /* Cartão de resumo: número grande, rótulo e link */
   const cartaoResumo = (numero, rotulo, textoLink, href) => el('div', { class: 'cartao cartao-resumo' },
     el('span', { class: 'numero' }, formatarNumero(numero)),
     el('span', { class: 'rotulo-resumo' }, rotulo),
     el('a', { href, class: 'texto-forte' }, `${textoLink} ›`));
 
-  /* Desenha tudo que depende dos dados (chamado de novo depois de aceitar ou recusar um pedido) */
   function desenhar() {
-    /* Doações desta ONG e o mês atual no formato 'AAAA-MM' */
     const doacoes = doacoesDaOng(ong.id_ong);
     const mesAtual = chaveMes(hojeISO());
 
-    /* Os 3 cartões de números: necessidades ativas, doações pendentes e recebidas no mês */
     preencher($('#cartoes-resumo'),
       cartaoResumo(necessidadesDaOng(ong.id_ong).filter((n) => n.situacao === 'ativa').length, 'Necessidades cadastradas', 'Gerenciar', url('necessidades')),
       cartaoResumo(doacoes.filter((d) => d.status === 'oferecida').length, 'Doações pendentes', 'Ver pendentes', url('doacoesRecebidas', { aba: 'oferecida' })),
       cartaoResumo(doacoes.filter((d) => d.status === 'recebida' && chaveMes(d.data_recebimento) === mesAtual).length, 'Recebidas no mês', 'Ver histórico', url('doacoesRecebidas', { aba: 'recebida' })));
 
-    /* Tabela das 4 últimas doações */
     preencher($('#ultimas'), criarTabela({
       legenda: 'Últimas doações recebidas pela ONG',
       linhas: doacoes.slice(0, 4),
@@ -79,33 +57,25 @@ function montar(usuario, ong) {
       ]
     }));
 
-    /* Barras de progresso das 3 necessidades mais urgentes */
     const urgentes = necessidadesDaOng(ong.id_ong).filter((n) => n.situacao === 'ativa').sort(ordemPorUrgencia).slice(0, 3);
     preencher($('#progressos'), urgentes.length === 0
       ? el('p', { class: 'texto-apoio' }, 'Nenhuma necessidade ativa.')
       : urgentes.map((n) => {
-        /* Quanto já foi prometido desta necessidade */
         const p = prometido(n.id_necessidade);
-        /* Barra: nome do item, "prometido de total" (com a unidade, exceto "un.") e o percentual */
         return barraProgresso(n.item, `${formatarNumero(p)} de ${formatarNumero(n.quantidade)}${n.unidade !== 'un.' ? ` ${n.unidade}` : ''}`, percentual(p, n.quantidade));
       }));
 
-    /* Campanhas que a ONG solicitou, com o selo de situação */
     const campanhas = tabela('campanha').filter((c) => c.id_ong === ong.id_ong);
     preencher($('#campanhas'), campanhas.length === 0
       ? el('li', { class: 'texto-apoio' }, 'Você ainda não solicitou campanhas.')
       : campanhas.map((c) => el('li', { class: 'linha linha-entre' },
-        /* Só campanhas ativas têm página pública, então só elas viram link */
         c.status === 'ativa' ? el('a', { href: url('campanha', { id: c.id_campanha }) }, c.titulo) : el('span', {}, c.titulo),
         seloSituacaoCampanha(c.status))));
 
-    /* A tabela de pedidos de vínculo também é redesenhada */
     desenharPedidos();
   }
 
-  /* Pedidos de vínculo às campanhas criadas por esta ONG */
   function desenharPedidos() {
-    /* Pedidos que esperam resposta */
     const pedidos = pedidosPendentes(ong.id_ong);
     preencher($('#pedidos'), criarTabela({
       legenda: 'Pedidos de vínculo às campanhas da ONG',
@@ -121,7 +91,6 @@ function montar(usuario, ong) {
         {
           titulo: 'Ações',
           classe: 'acoes',
-          /* Dois botões em cada linha: Aceitar e Recusar */
           render: (p) => [
             el('button', { type: 'button', class: 'acao', 'aria-label': `Aceitar ${p.necessidade.item}`, onclick: () => aceitar(p) }, 'Aceitar'),
             el('button', { type: 'button', class: 'acao acao-perigo', 'aria-label': `Recusar ${p.necessidade.item}`, onclick: () => recusar(p) }, 'Recusar')
@@ -131,26 +100,20 @@ function montar(usuario, ong) {
     }));
   }
 
-  /* Aceitar: abre o diálogo "aumenta a meta?" e grava a decisão (RN-33) */
   async function aceitar(pedido) {
-    /* Espera a resposta do diálogo (null se a pessoa cancelou) */
     const resposta = await perguntarAumentaMeta(pedido);
     if (!resposta) return;
-    /* Grava o aceite com a escolha "aumenta a meta" */
     aceitarVinculo(pedido.campanha.id_campanha, pedido.necessidade.id_necessidade, resposta.aumenta);
-    /* Mensagem de sucesso diferente conforme a escolha */
     mostrarAlerta(areaAlerta, 'sucesso', 'Necessidade aceita na campanha.',
       resposta.aumenta ? `A meta da campanha "${pedido.campanha.titulo}" aumentou.` : `"${pedido.necessidade.item}" ajuda a cumprir a meta já declarada.`);
     desenhar();
   }
 
-  /* Recusar: o vínculo recusado não conta na meta nem no progresso (RN-34) */
   function recusar(pedido) {
     recusarVinculo(pedido.campanha.id_campanha, pedido.necessidade.id_necessidade);
     mostrarAlerta(areaAlerta, 'info', 'Pedido recusado.', `"${pedido.necessidade.item}" não entra na campanha.`);
     desenhar();
   }
 
-  /* Primeira pintura da página */
   desenhar();
 }

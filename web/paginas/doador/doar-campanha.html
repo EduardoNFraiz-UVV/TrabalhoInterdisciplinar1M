@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-  doar-campanha.html (tela 18 do Figma: Registrar doação para a campanha)
-  Para que serve: o doador doa direto para uma META geral de uma campanha (?meta= ou ?campanha=).
-  A entrega é só "levar" ao endereço de recebimento da campanha (RN-38). Quem abre: doador.
--->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -17,14 +12,10 @@
   <link rel="stylesheet" href="../../css/paginas/doador.css">
   <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
 </head>
-<!-- data-raiz diz ao JavaScript onde fica a raiz do site (para montar os links entre páginas em pastas diferentes); data-pagina diz qual item do menu marcar como atual -->
 <body data-raiz="../../" data-pagina="inicio">
-  <!-- Link para quem navega só pelo teclado pular o cabeçalho; fica escondido e aparece quando recebe o foco -->
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
-  <!-- Caixa vazia de propósito: o JavaScript (pagina.js e cabecalho.js) monta aqui o cabeçalho e o menu -->
   <header id="cabecalho"></header>
 
-  <!-- <main> é o conteúdo principal da página (só existe um por página); o id="conteudo" é o destino do link "Pular para o conteúdo" -->
   <main id="conteudo" class="conteudo pilha pilha-grande">
     <nav class="breadcrumb" aria-label="Você está em">
       <ol role="list">
@@ -38,7 +29,6 @@
       <h1>Registrar intenção de doação</h1>
       <p class="texto-apoio">Doação para a campanha · Passo 1 de 2: dados da doação → Passo 2: confirmação</p>
     </div>
-    <!-- Área de avisos: o JavaScript mostra aqui as mensagens de sucesso e erro; aria-live="polite" faz o leitor de tela anunciar quando o texto muda -->
     <div id="area-alerta" class="area-alerta" aria-live="polite"></div>
 
     <div class="grade-principal">
@@ -66,7 +56,6 @@
           <textarea id="observacao" name="observacao" maxlength="200" placeholder="Ex.: garrafas de 1,5 L, lacradas"></textarea>
         </div>
 
-        <!-- Doação para campanha só aceita "levar": a opção é única e fica marcada -->
         <fieldset class="pilha pilha-pequena campo">
           <legend>Forma de entrega <span class="obrigatorio" aria-hidden="true">*</span></legend>
           <div class="opcao">
@@ -100,9 +89,7 @@
     </div>
   </main>
 
-  <!-- Caixa vazia de propósito: o JavaScript (rodape.js) monta aqui o rodapé -->
   <footer id="rodape"></footer>
-  <!-- type="module" permite que este JavaScript use import e export para trazer funções de outros arquivos -->
   <script type="module" src="../../js/paginas/doador/doar-campanha.js"></script>
 </body>
 </html>

@@ -1,10 +1,4 @@
 <!DOCTYPE html>
-<!--
-  ongs.html (tela 03 do Figma: ONGs cadastradas)
-  Para que serve: lista as ONGs verificadas com busca por nome, filtros por categoria e cidade,
-  "só com itens urgentes", contador de resultados e paginação (6 cartões por página).
-  Quem abre: visitante, doador (com o menu do doador). O JS está em js/paginas/publico/ongs.js.
--->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -18,18 +12,13 @@
   <link rel="stylesheet" href="../../css/paginas/publico.css">
   <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
 </head>
-<!-- data-raiz diz ao JavaScript onde fica a raiz do site (para montar os links entre páginas em pastas diferentes); data-pagina diz qual item do menu marcar como atual -->
 <body data-raiz="../../" data-pagina="ongs">
-  <!-- Link para quem navega só pelo teclado pular o cabeçalho; fica escondido e aparece quando recebe o foco -->
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
-  <!-- Caixa vazia de propósito: o JavaScript (pagina.js e cabecalho.js) monta aqui o cabeçalho e o menu -->
   <header id="cabecalho"></header>
 
-  <!-- <main> é o conteúdo principal da página (só existe um por página); o id="conteudo" é o destino do link "Pular para o conteúdo" -->
   <main id="conteudo" class="conteudo pilha pilha-grande">
     <nav class="breadcrumb" aria-label="Você está em">
       <ol role="list">
-        <!-- data-link-inicio: o JS troca o endereço conforme quem está logado -->
         <li><a href="../../index.html" data-link-inicio>Início</a></li>
         <li><span aria-current="page">ONGs</span></li>
       </ol>
@@ -37,7 +26,6 @@
 
     <h1>ONGs cadastradas</h1>
 
-    <!-- role="search": região de busca. Os filtros funcionam sem recarregar a página -->
     <form class="filtros" id="formulario-filtros" role="search" aria-label="Filtrar ONGs">
       <div class="campo cresce">
         <label for="filtro-busca">Pesquisar ONG pelo nome</label>
@@ -62,7 +50,6 @@
       <button type="button" class="botao botao-discreto botao-pequeno" id="limpar-filtros">Limpar filtros</button>
     </div>
 
-    <!-- Grade de cartões criada pelo JS -->
     <section aria-labelledby="titulo-lista">
       <h2 id="titulo-lista" class="so-leitor">Lista de ONGs</h2>
       <div class="grade-cartoes" id="lista"></div>
@@ -70,9 +57,7 @@
     <div id="paginacao"></div>
   </main>
 
-  <!-- Caixa vazia de propósito: o JavaScript (rodape.js) monta aqui o rodapé -->
   <footer id="rodape"></footer>
-  <!-- type="module" permite que este JavaScript use import e export para trazer funções de outros arquivos -->
   <script type="module" src="../../js/paginas/publico/ongs.js"></script>
 </body>
 </html>
