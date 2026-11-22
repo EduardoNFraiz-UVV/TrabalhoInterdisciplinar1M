@@ -9,6 +9,7 @@
 
 import { tabela, buscar } from '../nucleo/armazenamento.js';
 import { chaveMes, ultimosMeses } from '../utilitarios/formatacao.js';
+import { recebido } from './necessidades.js';
 
 /* Categoria de uma doação: a da necessidade ou a da meta de campanha */
 function categoriaDaDoacao(doacao) {
@@ -48,13 +49,11 @@ export function demandaPorCategoria() {
       .forEach((n) => {
         const grupo = linha[n.prioridade];
         grupo.solicitado += n.quantidade;
-        grupo.recebido += tabela('doacao')
-          .filter((d) => d.id_necessidade === n.id_necessidade && d.status === 'recebida')
-          .reduce((soma, d) => soma + d.quantidade, 0);
+        grupo.recebido += recebido(n.id_necessidade);
       });
-    const solicitado = linha.urgente.solicitado + linha.normal.solicitado;
-    const recebido = linha.urgente.recebido + linha.normal.recebido;
-    linha.percentual = solicitado ? Math.round((recebido / solicitado) * 100) : 0;
+    const totalSolicitado = linha.urgente.solicitado + linha.normal.solicitado;
+    const totalRecebido = linha.urgente.recebido + linha.normal.recebido;
+    linha.percentual = totalSolicitado ? Math.round((totalRecebido / totalSolicitado) * 100) : 0;
     return linha;
   }).filter((linha) => linha.urgente.solicitado + linha.normal.solicitado > 0);
 }

@@ -8,22 +8,22 @@
 
 import { tabela, buscar, atualizar, remover, removerOnde } from '../nucleo/armazenamento.js';
 import { hojeISO } from '../utilitarios/formatacao.js';
+import { somarQuantidades } from '../utilitarios/listas.js';
 
 /* Status de doação que "prometem" itens: oferecida, aceita e recebida (RN-16) */
 const STATUS_QUE_PROMETEM = ['oferecida', 'aceita', 'recebida'];
 
 /* RN-16: Prometido = soma das quantidades das doações oferecidas, aceitas e recebidas da necessidade */
 export function prometido(idNecessidade) {
-  return tabela('doacao')
-    .filter((d) => d.id_necessidade === idNecessidade && STATUS_QUE_PROMETEM.includes(d.status))
-    .reduce((soma, d) => soma + d.quantidade, 0);
+  const doacoes = tabela('doacao')
+    .filter((d) => d.id_necessidade === idNecessidade && STATUS_QUE_PROMETEM.includes(d.status));
+  return somarQuantidades(doacoes);
 }
 
 /* Quantidade que já chegou (só doações recebidas) */
 export function recebido(idNecessidade) {
-  return tabela('doacao')
-    .filter((d) => d.id_necessidade === idNecessidade && d.status === 'recebida')
-    .reduce((soma, d) => soma + d.quantidade, 0);
+  const doacoes = tabela('doacao').filter((d) => d.id_necessidade === idNecessidade && d.status === 'recebida');
+  return somarQuantidades(doacoes);
 }
 
 /* RN-16: Faltam = quantidade pedida menos o prometido (nunca negativo) */
@@ -38,9 +38,9 @@ export function necessidadesDaOng(idOng) {
 
 /* Necessidades ativas (RN-14: concluída não recebe doação) de ONGs verificadas, em ordem: urgentes primeiro (RN-13) */
 export function necessidadesAtivas() {
-  const ongsVerificadas = new Set(tabela('ong').filter((o) => o.verificada).map((o) => o.id_ong));
+  const idsDasOngsVerificadas = tabela('ong').filter((o) => o.verificada).map((o) => o.id_ong);
   return tabela('necessidade')
-    .filter((n) => n.situacao === 'ativa' && ongsVerificadas.has(n.id_ong))
+    .filter((n) => n.situacao === 'ativa' && idsDasOngsVerificadas.includes(n.id_ong))
     .sort(ordemPorUrgencia);
 }
 

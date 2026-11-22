@@ -172,20 +172,20 @@ export function doacoesDoDoador(idDoador) {
 
 /* Doações que uma ONG recebe: nas suas necessidades e nas metas das campanhas que ela criou */
 export function doacoesDaOng(idOng) {
-  const necessidadesDaOng = new Set(tabela('necessidade').filter((n) => n.id_ong === idOng).map((n) => n.id_necessidade));
-  const campanhasDaOng = new Set(tabela('campanha').filter((c) => c.id_ong === idOng).map((c) => c.id_campanha));
-  const metasDaOng = new Set(tabela('campanha_meta').filter((m) => campanhasDaOng.has(m.id_campanha)).map((m) => m.id_meta));
+  const idsDasNecessidades = tabela('necessidade').filter((n) => n.id_ong === idOng).map((n) => n.id_necessidade);
+  const idsDasCampanhas = tabela('campanha').filter((c) => c.id_ong === idOng).map((c) => c.id_campanha);
+  const idsDasMetas = tabela('campanha_meta').filter((m) => idsDasCampanhas.includes(m.id_campanha)).map((m) => m.id_meta);
   return tabela('doacao')
-    .filter((d) => necessidadesDaOng.has(d.id_necessidade) || metasDaOng.has(d.id_meta))
+    .filter((d) => idsDasNecessidades.includes(d.id_necessidade) || idsDasMetas.includes(d.id_meta))
     .sort((a, b) => b.data_registro.localeCompare(a.data_registro) || b.id_doacao - a.id_doacao);
 }
 
 /* Doações às metas das campanhas criadas pela administração (tela "Doações das campanhas") */
 export function doacoesDasCampanhasDoAdmin() {
-  const campanhasDoAdmin = new Set(tabela('campanha').filter((c) => c.id_ong === null).map((c) => c.id_campanha));
-  const metas = new Set(tabela('campanha_meta').filter((m) => campanhasDoAdmin.has(m.id_campanha)).map((m) => m.id_meta));
+  const idsDasCampanhas = tabela('campanha').filter((c) => c.id_ong === null).map((c) => c.id_campanha);
+  const idsDasMetas = tabela('campanha_meta').filter((m) => idsDasCampanhas.includes(m.id_campanha)).map((m) => m.id_meta);
   return tabela('doacao')
-    .filter((d) => metas.has(d.id_meta))
+    .filter((d) => idsDasMetas.includes(d.id_meta))
     .sort((a, b) => b.data_registro.localeCompare(a.data_registro) || b.id_doacao - a.id_doacao);
 }
 

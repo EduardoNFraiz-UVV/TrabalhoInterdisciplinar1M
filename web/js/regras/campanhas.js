@@ -8,6 +8,8 @@
 
 import { tabela, buscar, inserir, atualizar, removerOnde } from '../nucleo/armazenamento.js';
 import { percentual } from '../utilitarios/formatacao.js';
+import { somarQuantidades, semRepetidos } from '../utilitarios/listas.js';
+import { recebido } from './necessidades.js';
 
 /* Metas gerais de uma campanha (campanha_meta) */
 export function metasDaCampanha(idCampanha) {
@@ -46,7 +48,7 @@ export function campanhasAtivas() {
 
 /* Categorias que a campanha pede (as categorias das suas metas) */
 export function categoriasDaCampanha(idCampanha) {
-  return [...new Set(metasDaCampanha(idCampanha).map((m) => m.id_categoria))];
+  return semRepetidos(metasDaCampanha(idCampanha).map((m) => m.id_categoria));
 }
 
 /* Vínculos aceitos da campanha: [{ vinculo, necessidade, ong }] */
@@ -62,36 +64,36 @@ export function vinculosAceitos(idCampanha) {
 
 /* RN-26: Meta total = soma das metas gerais + soma das necessidades aceitas com "aumenta a meta" */
 export function metaTotal(idCampanha) {
-  const gerais = metasDaCampanha(idCampanha).reduce((soma, m) => soma + m.quantidade, 0);
-  const aumentos = vinculosAceitos(idCampanha)
+  const gerais = somarQuantidades(metasDaCampanha(idCampanha));
+  const necessidadesQueAumentam = vinculosAceitos(idCampanha)
     .filter((item) => item.vinculo.aumenta_meta)
-    .reduce((soma, item) => soma + item.necessidade.quantidade, 0);
-  return gerais + aumentos;
+    .map((item) => item.necessidade);
+  return gerais + somarQuantidades(necessidadesQueAumentam);
 }
 
 /* Quantidade recebida por uma meta geral (doações recebidas com id_meta igual) */
 export function recebidoDaMeta(idMeta) {
-  return tabela('doacao')
-    .filter((d) => d.id_meta === idMeta && d.status === 'recebida')
-    .reduce((soma, d) => soma + d.quantidade, 0);
+  const recebidas = tabela('doacao').filter((d) => d.id_meta === idMeta && d.status === 'recebida');
+  return somarQuantidades(recebidas);
 }
 
 /* Quanto falta para uma meta geral, contando também o que já foi oferecido e aceito */
 export function faltamDaMeta(meta) {
-  const prometidoMeta = tabela('doacao')
-    .filter((d) => d.id_meta === meta.id_meta && ['oferecida', 'aceita', 'recebida'].includes(d.status))
-    .reduce((soma, d) => soma + d.quantidade, 0);
-  return Math.max(0, meta.quantidade - prometidoMeta);
+  const doacoesDaMeta = tabela('doacao')
+    .filter((d) => d.id_meta === meta.id_meta && ['oferecida', 'aceita', 'recebida'].includes(d.status));
+  return Math.max(0, meta.quantidade - somarQuantidades(doacoesDaMeta));
 }
 
 /* RN-27: quantidade recebida = metas gerais + necessidades vinculadas aceitas */
 export function recebidoDaCampanha(idCampanha) {
-  const nasMetas = metasDaCampanha(idCampanha).reduce((soma, m) => soma + recebidoDaMeta(m.id_meta), 0);
-  const nasNecessidades = vinculosAceitos(idCampanha).reduce((soma, item) => {
-    return soma + tabela('doacao')
-      .filter((d) => d.id_necessidade === item.necessidade.id_necessidade && d.status === 'recebida')
-      .reduce((s, d) => s + d.quantidade, 0);
-  }, 0);
+  let nasMetas = 0;
+  for (const meta of metasDaCampanha(idCampanha)) {
+    nasMetas += recebidoDaMeta(meta.id_meta);
+  }
+  let nasNecessidades = 0;
+  for (const item of vinculosAceitos(idCampanha)) {
+    nasNecessidades += recebido(item.necessidade.id_necessidade);
+  }
   return nasMetas + nasNecessidades;
 }
 
@@ -102,7 +104,7 @@ export function progressoDaCampanha(idCampanha) {
 
 /* Quantidade de ONGs diferentes que têm necessidades aceitas na campanha */
 export function quantidadeDeOngs(idCampanha) {
-  return new Set(vinculosAceitos(idCampanha).map((item) => item.ong?.id_ong)).size;
+  return semRepetidos(vinculosAceitos(idCampanha).map((item) => item.ong?.id_ong)).length;
 }
 
 /*
