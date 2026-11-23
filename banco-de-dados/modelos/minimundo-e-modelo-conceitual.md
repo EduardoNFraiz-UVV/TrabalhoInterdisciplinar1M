@@ -84,3 +84,7 @@ Os dois relacionamentos N:N viram tabelas: `campanha_cidade` (atinge) e `campanh
 1. Criar um diagrama novo para PostgreSQL.
 2. Usar a função de importar de SQL e colar o conteúdo de `banco-de-dados/sql/ddl.sql`.
 3. Ajustar a disposição das tabelas e exportar como imagem em `banco-de-dados/modelos/modelo-logico.png`.
+
+## Imagens atuais
+
+Os arquivos `modelo-conceitual.png` e `modelo-logico.png`, nesta pasta, já mostram o estado atual do banco, inclusive o atributo `unidade` na Meta (tabela `campanha_meta`). Foram desenhados a partir do `ddl.sql` e das tabelas deste documento. Se o grupo preferir usar as imagens exportadas do brModelo e do DrawSQL, basta salvá-las com os mesmos nomes.
