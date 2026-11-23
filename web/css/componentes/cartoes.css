@@ -1,12 +1,3 @@
-/*
-  cartoes.css
-  Para que serve: os "cards" do guia: card genérico, card de ONG, card de resumo (número grande),
-  resumo da doação (rótulo e valor), campanha emergencial e "Como funciona".
-  Cards se separam por BORDA (line), não por sombra.
-  Quem usa: quase todas as páginas, via <article class="cartao"> ou <section class="cartao">.
-*/
-
-/* Card genérico: fundo branco, borda leve, cantos arredondados */
 .cartao {
   display: flex;
   flex-direction: column;
@@ -17,14 +8,10 @@
   border-radius: var(--radius-lg);
 }
 
-/* Variante mais compacta */
 .cartao-compacto {
   padding: var(--space-4);
 }
 
-/* ---------- Card de ONG ---------- */
-
-/* Inicial da ONG em quadrado primary-soft */
 .inicial {
   flex: none;
   display: flex;
@@ -47,7 +34,6 @@
   border-radius: var(--radius-lg);
 }
 
-/* Cidade com ícone de pin, em texto de apoio */
 .meta-linha {
   display: flex;
   align-items: center;
@@ -56,7 +42,6 @@
   color: var(--ink-muted);
 }
 
-/* Itens urgentes (alerta vermelho no card da ONG) */
 .urgentes {
   display: flex;
   align-items: center;
@@ -66,12 +51,9 @@
   color: var(--danger);
 }
 
-/* O botão do card fica sempre no rodapé, mesmo se o texto for curto */
 .cartao-ong .botao {
   margin-top: auto;
 }
-
-/* ---------- Card de resumo do painel ---------- */
 
 .cartao-resumo {
   gap: var(--space-1);
@@ -88,11 +70,9 @@
   color: var(--ink-muted);
 }
 
-/* ---------- Resumo da doação (lista de rótulo e valor) ---------- */
-
 .resumo-lista {
   display: grid;
-  grid-template-columns: max-content 1fr;     /* rótulo se ajusta ao texto; valor ocupa o resto */
+  grid-template-columns: max-content 1fr;
   gap: var(--space-2) var(--space-4);
 }
 
@@ -103,10 +83,8 @@
 
 .resumo-lista dd {
   font-weight: 700;
-  overflow-wrap: anywhere;                   /* quebra endereços longos */
+  overflow-wrap: anywhere;
 }
-
-/* ---------- Campanha emergencial ---------- */
 
 .cartao-campanha {
   background: var(--accent-soft);
@@ -119,7 +97,6 @@
   color: var(--on-accent);
 }
 
-/* O botão "Ver campanha" tem o tamanho do texto, alinhado à esquerda (não estica na largura toda) */
 .cartao-campanha > .botao {
   align-self: flex-start;
 }
@@ -128,8 +105,6 @@
 .cartao-campanha .meta-linha {
   color: var(--on-accent);
 }
-
-/* ---------- Ajuda contextual "Como funciona" ---------- */
 
 .como-funciona {
   background: var(--surface-sunken);
@@ -143,20 +118,16 @@
   gap: var(--space-2);
 }
 
-/* Versão em faixa (Doações recebidas): a partir de 768px os passos ficam lado a lado, cada um com a mesma largura */
 @media (min-width: 768px) {
   .como-funciona-linha ol {
-    flex-direction: row;           /* a lista passa de coluna para linha */
-    gap: var(--space-6);           /* espaço maior, que também deixa o número de cada passo aparecer */
+    flex-direction: row;
+    gap: var(--space-6);
   }
 
   .como-funciona-linha li {
-    flex: 1 1 0;                   /* os 3 passos dividem a largura em partes iguais */
+    flex: 1 1 0;
   }
 }
-
-/* ---------- Lista de linhas (fila de análise do painel) ----------
-   Cada item tem o texto principal de um lado e uma ação do outro, separados por filetes. */
 
 .lista-linhas {
   display: flex;
@@ -178,14 +149,11 @@
   border-bottom: 0;
 }
 
-/* Título em cima, detalhe embaixo; min-width: 0 deixa o texto longo quebrar em vez de empurrar a ação */
 .lista-linhas .principal {
   display: flex;
   flex-direction: column;
   min-width: 0;
 }
-
-/* ---------- Informações de contato com ícones (perfil da ONG) ---------- */
 
 .lista-contato {
   display: flex;
