@@ -1,18 +1,9 @@
-/*
-  reset.css
-  Para que serve: apaga as diferenças de estilo "de fábrica" entre navegadores,
-  para o site ficar igual em qualquer um.
-  Quem usa: principal.css (importado em todas as páginas).
-*/
-
-/* box-sizing: border-box faz width/height incluírem borda e padding (cálculo de tamanho mais simples) */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* Remove margens padrão dos elementos mais comuns */
 body,
 h1, h2, h3, h4,
 p, ul, ol, figure, dl, dd, fieldset {
@@ -20,20 +11,17 @@ p, ul, ol, figure, dl, dd, fieldset {
   padding: 0;
 }
 
-/* Listas usadas só para estrutura (menus, breadcrumbs) ficam sem marcadores */
 ul[role="list"],
 ol[role="list"] {
   list-style: none;
 }
 
-/* Imagens e SVGs nunca ultrapassam o espaço onde estão */
 img,
 svg {
   max-width: 100%;
   display: block;
 }
 
-/* Campos e botões herdam a fonte do texto da página (por padrão o navegador usa outra) */
 input,
 button,
 select,
@@ -42,25 +30,21 @@ textarea {
   color: inherit;
 }
 
-/* Botões e links clicáveis mostram a "mãozinha" */
 button,
 [role="tab"],
 summary {
   cursor: pointer;
 }
 
-/* O atributo hidden deve sempre esconder, mesmo se outra regra definir display */
 [hidden] {
   display: none !important;
 }
 
-/* Tabelas sem espaço entre as células */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* Quem prefere menos movimento no sistema operacional não vê animações */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;

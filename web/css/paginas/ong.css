@@ -1,17 +1,7 @@
-/*
-  ong.css
-  Para que serve: ajustes de layout específicos das páginas do perfil ONG (painel, necessidades,
-  formulário de necessidade, doações recebidas, formulário de campanha, perfil da ONG).
-  Quem usa: as páginas em paginas/ong, junto com principal.css.
-  Os componentes (botões, campos, tabelas, cards) vêm de css/componentes.
-*/
-
-/* Formulários da ONG: mais espaço entre os blocos de campos */
 form.cartao.pilha-grande {
   gap: var(--space-5);
 }
 
-/* Pré-visualização "Como os doadores vão ver": o botão fica do tamanho do texto */
 #previa .botao {
   align-self: flex-start;
   margin-top: var(--space-2);
