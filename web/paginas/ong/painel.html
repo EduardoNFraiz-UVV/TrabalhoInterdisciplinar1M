@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  painel.html (tela 07 do Figma: Painel da ONG)
+  Para que serve: tela inicial da ONG. Resume necessidades, doações pendentes e recebidas, mostra ações
+  rápidas, as últimas doações, o andamento das necessidades, as campanhas solicitadas e os pedidos
+  de vínculo que outras ONGs fizeram às campanhas desta ONG (com Aceitar e Recusar).
+  Quem abre: representante de ONG. O conteúdo é montado por js/paginas/ong/painel.js.
+-->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -12,23 +19,31 @@
   <link rel="stylesheet" href="../../css/paginas/ong.css">
   <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
 </head>
+<!-- data-raiz diz ao JavaScript onde fica a raiz do site (para montar os links entre páginas em pastas diferentes); data-pagina diz qual item do menu marcar como atual -->
 <body data-raiz="../../" data-pagina="painel">
+  <!-- Link para quem navega só pelo teclado pular o cabeçalho; fica escondido e aparece quando recebe o foco -->
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <!-- Caixa vazia de propósito: o JavaScript (pagina.js e cabecalho.js) monta aqui o cabeçalho e o menu -->
   <header id="cabecalho"></header>
 
+  <!-- <main> é o conteúdo principal da página (só existe um por página); o id="conteudo" é o destino do link "Pular para o conteúdo" -->
   <main id="conteudo" class="conteudo pilha pilha-grande">
+    <!-- Saudação e andamento do perfil: o texto é preenchido pelo JS -->
     <div class="pilha pilha-pequena">
       <h1 id="saudacao">Painel da ONG</h1>
       <p class="texto-apoio" id="subtitulo"></p>
     </div>
 
+    <!-- Área de avisos: o JavaScript mostra aqui as mensagens de sucesso e erro; aria-live="polite" faz o leitor de tela anunciar quando o texto muda -->
     <div id="area-alerta" class="area-alerta" aria-live="polite"></div>
 
+    <!-- Três cartões de resumo (número grande, rótulo e link) -->
     <section aria-labelledby="titulo-resumo">
       <h2 id="titulo-resumo" class="so-leitor">Resumo</h2>
       <div class="grade-resumo" id="cartoes-resumo"></div>
     </section>
 
+    <!-- Ações rápidas: só um botão primário por área -->
     <section class="secao" aria-labelledby="titulo-acoes">
       <h2 id="titulo-acoes">Ações rápidas</h2>
       <div class="linha">
@@ -48,6 +63,7 @@
         </section>
       </div>
 
+      <!-- Coluna lateral com andamento e campanhas -->
       <aside class="pilha" aria-label="Andamento e campanhas">
         <section class="cartao" aria-labelledby="titulo-andamento">
           <h2 id="titulo-andamento">Andamento das necessidades</h2>
@@ -60,6 +76,7 @@
       </aside>
     </div>
 
+    <!-- Os pedidos de vínculo ocupam a largura toda, porque a tabela tem muitas colunas -->
     <section class="secao" aria-labelledby="titulo-pedidos">
       <h2 id="titulo-pedidos">Pedidos de vínculo às suas campanhas</h2>
       <p class="texto-apoio">Outras ONGs querem incluir necessidades nas campanhas que sua ONG criou. Você aceita e decide se a necessidade aumenta a meta.</p>
@@ -67,7 +84,9 @@
     </section>
   </main>
 
+  <!-- Caixa vazia de propósito: o JavaScript (rodape.js) monta aqui o rodapé -->
   <footer id="rodape"></footer>
+  <!-- type="module" permite que este JavaScript use import e export para trazer funções de outros arquivos -->
   <script type="module" src="../../js/paginas/ong/painel.js"></script>
 </body>
 </html>

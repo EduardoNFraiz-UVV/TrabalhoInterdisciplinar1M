@@ -1,18 +1,28 @@
+/*
+  grafico.css
+  Para que serve: cores e fontes do gráfico de barras em SVG (js/componentes/grafico.js).
+  Quem usa: principal.css (importado em todas as páginas).
+*/
+
+/* O gráfico ocupa a largura do cartão e mantém a proporção do desenho (viewBox) */
 .grafico {
   width: 100%;
   height: auto;
   max-height: 320px;
 }
 
+/* Barras na cor principal da marca */
 .grafico-barra {
   fill: var(--primary);
 }
 
+/* Linha de base cinza-esverdeada */
 .grafico-eixo {
   stroke: var(--line-strong);
   stroke-width: 1;
 }
 
+/* Número sobre a barra */
 .grafico-valor {
   fill: var(--ink);
   font-family: var(--fonte-texto);
@@ -20,6 +30,7 @@
   font-weight: 700;
 }
 
+/* Nome do mês */
 .grafico-rotulo {
   fill: var(--ink-muted);
   font-family: var(--fonte-texto);

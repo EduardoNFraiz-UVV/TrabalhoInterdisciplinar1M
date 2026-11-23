@@ -1,5 +1,14 @@
+/*
+  tabelas.css
+  Para que serve: tabelas de dados (necessidades, doações, usuários...).
+  No computador é uma tabela normal; abaixo de 640 px cada linha vira um bloco com o nome
+  da coluna antes de cada valor (usa o atributo data-rotulo escrito em cada <td>).
+  Quem usa: tabela.js cria <div class="tabela-rolagem"><table class="tabela">.
+*/
+
+/* Caixa com borda ao redor da tabela; rola na horizontal se a tabela for mais larga que a tela */
 .tabela-rolagem {
-  position: relative;
+  position: relative;     /* textos escondidos (.so-leitor) dentro da tabela ficam presos a esta caixa */
   overflow-x: auto;
   background: var(--surface-raised);
   border: 1px solid var(--line);
@@ -11,12 +20,14 @@
   font-size: 14px;
 }
 
+/* Legenda (caption) fica visível acima da tabela quando a página pedir; por padrão só para leitores de tela */
 .tabela caption {
   text-align: left;
   padding: var(--space-3) var(--space-4);
   font-weight: 700;
 }
 
+/* Cabeçalho da tabela */
 .tabela th {
   padding: var(--space-3) var(--space-4);
   background: var(--surface);
@@ -28,6 +39,7 @@
   white-space: nowrap;
 }
 
+/* Células */
 .tabela td {
   padding: var(--space-3) var(--space-4);
   border-bottom: 1px solid var(--line);
@@ -38,36 +50,46 @@
   border-bottom: 0;
 }
 
+/* Célula que traz o nome do item em negrito (a "primeira coluna" das listas): ganha largura mínima
+   para o nome não quebrar em duas linhas quando a tabela tem muitas colunas. */
 .tabela td:has(> strong:only-child) {
   min-width: 10rem;
 }
 
+/* Tabela dentro de um cartão: o cartão já tem borda, então a caixa da tabela fica sem borda
+   própria (evita "caixa dentro de caixa"). */
 .cartao .tabela-rolagem {
   border: 0;
   border-radius: 0;
   background: transparent;
 }
 
+/* Linha selecionada (ex.: doação aberta no detalhe) */
 .tabela tr.selecionada td {
   background: var(--primary-soft);
 }
 
+/* Colunas numéricas alinhadas à direita */
 .tabela .numerico {
   text-align: right;
 }
 
+/* Coluna de ações: botões em linha, sem quebrar */
 .tabela .acoes {
   white-space: nowrap;
 }
 
+/* Linha de tabela vazia ("Nenhum resultado") */
 .tabela-vazia {
   padding: var(--space-6) var(--space-4);
   text-align: center;
   color: var(--ink-muted);
 }
 
+/* ---------- Celular: a tabela vira uma lista de blocos ---------- */
 @media (max-width: 640px) {
   .tabela thead {
+    /* esconde o cabeçalho visualmente, mas leitores de tela ainda o encontram */
     position: absolute;
     width: 1px;
     height: 1px;
@@ -92,6 +114,7 @@
     border-bottom: 0;
   }
 
+  /* Cada célula mostra "Rótulo: valor", com o rótulo vindo do atributo data-rotulo */
   .tabela td {
     display: flex;
     justify-content: space-between;
