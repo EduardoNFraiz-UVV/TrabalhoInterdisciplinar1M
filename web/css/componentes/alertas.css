@@ -1,3 +1,11 @@
+/*
+  alertas.css
+  Para que serve: caixas de aviso (sucesso, erro, aviso e informação), cada uma com ícone,
+  título e detalhe.
+  Quem usa: alertas.js cria <div class="alerta alerta-sucesso" role="status">.
+*/
+
+/* Base: ícone à esquerda, textos à direita */
 .alerta {
   display: flex;
   align-items: flex-start;
@@ -12,6 +20,7 @@
   margin-top: 1px;
 }
 
+/* Título em negrito e detalhe em texto normal */
 .alerta-titulo {
   font-weight: 700;
 }
@@ -20,6 +29,7 @@
   font-size: 14px;
 }
 
+/* As quatro variações: cor do texto e da borda + fundo suave */
 .alerta-sucesso {
   background: var(--success-soft);
   border-color: var(--success);

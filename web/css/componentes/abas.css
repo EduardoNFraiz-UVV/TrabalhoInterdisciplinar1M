@@ -1,3 +1,10 @@
+/*
+  abas.css
+  Para que serve: abas (filtros por status) com contador, como "Todas (6)  Oferecidas (2)".
+  Quem usa: abas.js cria o HTML (role="tablist" com botões role="tab"); aqui só o visual.
+*/
+
+/* Faixa que agrupa as abas; no celular rola na horizontal em vez de quebrar */
 .abas {
   display: flex;
   gap: var(--space-1);
@@ -8,6 +15,7 @@
   max-width: 100%;
 }
 
+/* Cada aba é um botão sem borda */
 .aba {
   display: inline-flex;
   align-items: center;
@@ -24,6 +32,7 @@
   transition: background-color 150ms ease-out, color 150ms ease-out;
 }
 
+/* No celular a aba tem 44 px de altura (alvo de toque confortável) */
 @media (max-width: 640px) {
   .aba {
     min-height: 44px;
@@ -34,12 +43,14 @@
   color: var(--ink);
 }
 
+/* Aba selecionada (aria-selected="true"): fundo branco e texto escuro */
 .aba[aria-selected="true"] {
   background: var(--surface-raised);
   color: var(--ink);
   box-shadow: var(--sombra-card);
 }
 
+/* Contador dentro da aba: bolinha com o número */
 .aba-contador {
   min-width: 22px;
   padding: 0 var(--space-2);

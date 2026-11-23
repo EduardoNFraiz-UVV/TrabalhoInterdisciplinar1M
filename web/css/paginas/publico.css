@@ -1,3 +1,14 @@
+/*
+  publico.css
+  Para que serve: arranjos (layout) específicos das páginas abertas ao visitante: apresentação
+  (index), entrar, criar conta, esqueci a senha, ajuda, lista e perfil de ONGs, campanhas.
+  Quem usa: as páginas de js/paginas/publico e o index.html (junto com principal.css).
+  Os componentes (botões, campos, cards) vêm de css/componentes.
+*/
+
+/* ---------- Apresentação (index.html) ---------- */
+
+/* Faixa do início: fundo primary-soft com o título grande e os botões */
 .hero {
   background: var(--primary-soft);
   border-bottom: 1px solid var(--line);
@@ -12,16 +23,21 @@
   padding-bottom: var(--space-8);
 }
 
+/* Parágrafo do hero não passa de 60 caracteres por linha, para ler melhor */
 .hero-interno p {
   max-width: 62ch;
 }
 
+/* Ilustrações dos projetos sociais */
 .ilustracao {
   width: 96px;
   height: 96px;
   border-radius: var(--radius-lg);
 }
 
+/* "Como funciona": três passos numerados numa linha aberta.
+   Cada passo tem um fio no topo (border-top) e o número grande na fonte de títulos. No celular
+   os passos ficam um embaixo do outro. */
 .passos-abertos {
   display: grid;
   grid-template-columns: 1fr;
@@ -52,6 +68,7 @@
   color: var(--primary);
 }
 
+/* "Projetos sociais": linhas com a ilustração à esquerda e o texto à direita, separadas por filetes */
 .lista-projetos {
   display: flex;
   flex-direction: column;
@@ -71,16 +88,21 @@
 }
 
 @media (max-width: 480px) {
+  /* Em telas muito estreitas a ilustração fica em cima do texto */
   .projeto {
     grid-template-columns: 1fr;
     align-items: start;
   }
 }
 
+/* A seção ao redor das âncoras do menu não fica escondida atrás do cabeçalho ao rolar */
 section[id] {
   scroll-margin-top: var(--space-5);
 }
 
+/* ---------- Páginas de formulário centralizado (entrar, criar conta, esqueci a senha) ---------- */
+
+/* Caixa central estreita para formulários curtos */
 .pagina-formulario {
   display: flex;
   justify-content: center;
@@ -93,10 +115,12 @@ section[id] {
   gap: var(--space-4);
 }
 
+/* Cartão mais largo, usado no "Criar conta" */
 .cartao-formulario-largo {
   max-width: 620px;
 }
 
+/* Marca e frase de efeito no topo do formulário de entrada */
 .apresentacao-marca {
   display: flex;
   flex-direction: column;
@@ -116,6 +140,7 @@ section[id] {
   color: var(--on-primary);
 }
 
+/* Linha com "ou" entre o login e o criar conta */
 .separador {
   display: flex;
   align-items: center;
@@ -124,6 +149,8 @@ section[id] {
   font-size: 13px;
 }
 
+/* ::before e ::after criam dois elementos "de enfeite" antes e depois do texto "ou", sem mexer no HTML.
+   Sem conteúdo (content: ''), com 1 px de altura e flex: 1, viram as duas linhas dos lados */
 .separador::before,
 .separador::after {
   content: '';
@@ -132,6 +159,7 @@ section[id] {
   background: var(--line);
 }
 
+/* Perguntas da página de ajuda: o título (summary) é clicável e fica em negrito */
 .pergunta summary {
   font-weight: 700;
   cursor: pointer;
@@ -142,6 +170,7 @@ section[id] {
   color: var(--ink-muted);
 }
 
+/* Bloco "Contas de teste" (elemento <details>, que abre e fecha sozinho) */
 .contas-teste {
   padding: var(--space-3) var(--space-4);
   border: 1px dashed var(--line-strong);
