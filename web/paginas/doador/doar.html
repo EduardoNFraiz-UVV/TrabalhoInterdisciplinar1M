@@ -1,11 +1,4 @@
 <!DOCTYPE html>
-<!--
-  doar.html (tela 05 do Figma: Registrar doação para uma necessidade de ONG)
-  Para que serve: o doador registra a intenção de doar um item para uma ONG. Escolhe o item, a
-  quantidade (até o que falta), como entregar (levar ou retirada) e a data. A doação nasce "oferecida".
-  Aceita ?necessidade= (já escolhe o item) ou ?ong= (escolhe a ONG). Quem abre: doador.
-  Para doar a uma meta de campanha, veja doar-campanha.html.
--->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -19,14 +12,10 @@
   <link rel="stylesheet" href="../../css/paginas/doador.css">
   <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
 </head>
-<!-- data-raiz diz ao JavaScript onde fica a raiz do site (para montar os links entre páginas em pastas diferentes); data-pagina diz qual item do menu marcar como atual -->
 <body data-raiz="../../" data-pagina="ongs">
-  <!-- Link para quem navega só pelo teclado pular o cabeçalho; fica escondido e aparece quando recebe o foco -->
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
-  <!-- Caixa vazia de propósito: o JavaScript (pagina.js e cabecalho.js) monta aqui o cabeçalho e o menu -->
   <header id="cabecalho"></header>
 
-  <!-- <main> é o conteúdo principal da página (só existe um por página); o id="conteudo" é o destino do link "Pular para o conteúdo" -->
   <main id="conteudo" class="conteudo pilha pilha-grande">
     <nav class="breadcrumb" aria-label="Você está em">
       <ol role="list">
@@ -41,7 +30,6 @@
       <h1>Registrar intenção de doação</h1>
       <p class="texto-apoio">Passo 1 de 2: dados da doação → Passo 2: confirmação</p>
     </div>
-    <!-- Área de avisos: o JavaScript mostra aqui as mensagens de sucesso e erro; aria-live="polite" faz o leitor de tela anunciar quando o texto muda -->
     <div id="area-alerta" class="area-alerta" aria-live="polite"></div>
 
     <div class="grade-principal">
@@ -81,7 +69,6 @@
           </div>
         </fieldset>
 
-        <!-- Só aparece quando o doador escolhe "retirada" -->
         <div class="campo" id="campo-retirada" hidden>
           <label for="enderecoRetirada">Endereço para retirada <span class="obrigatorio" aria-hidden="true">*</span></label>
           <input type="text" id="enderecoRetirada" name="enderecoRetirada" maxlength="150" placeholder="Rua, número, bairro e cidade">
@@ -112,9 +99,7 @@
     </div>
   </main>
 
-  <!-- Caixa vazia de propósito: o JavaScript (rodape.js) monta aqui o rodapé -->
   <footer id="rodape"></footer>
-  <!-- type="module" permite que este JavaScript use import e export para trazer funções de outros arquivos -->
   <script type="module" src="../../js/paginas/doador/doar.js"></script>
 </body>
 </html>

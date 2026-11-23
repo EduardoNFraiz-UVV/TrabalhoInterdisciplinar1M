@@ -1,10 +1,4 @@
 <!DOCTYPE html>
-<!--
-  doacoes-campanhas.html (tela 19 do Figma: Doações das campanhas)
-  Para que serve: o administrador gerencia as doações dadas às METAS das campanhas que ele criou: aceita,
-  recusa (com mensagem) e confirma o recebimento (RN-38). Aceita ?campanha= para abrir já filtrada.
-  As doações das campanhas criadas por uma ONG ficam na tela "Doações recebidas" dela. Quem abre: administrador.
--->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -18,14 +12,10 @@
   <link rel="stylesheet" href="../../css/paginas/admin.css">
   <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
 </head>
-<!-- data-raiz diz ao JavaScript onde fica a raiz do site (para montar os links entre páginas em pastas diferentes); data-pagina diz qual item do menu marcar como atual -->
 <body data-raiz="../../" data-pagina="campanhas">
-  <!-- Link para quem navega só pelo teclado pular o cabeçalho; fica escondido e aparece quando recebe o foco -->
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
-  <!-- Caixa vazia de propósito: o JavaScript (pagina.js e cabecalho.js) monta aqui o cabeçalho e o menu -->
   <header id="cabecalho"></header>
 
-  <!-- <main> é o conteúdo principal da página (só existe um por página); o id="conteudo" é o destino do link "Pular para o conteúdo" -->
   <main id="conteudo" class="conteudo pilha pilha-grande">
     <nav class="breadcrumb" aria-label="Você está em">
       <ol role="list">
@@ -39,10 +29,8 @@
       <h1>Doações das campanhas</h1>
       <p class="texto-apoio">Doações para as metas das campanhas criadas pela administração. A entrega é no endereço de recebimento informado na criação.</p>
     </div>
-    <!-- Área de avisos: o JavaScript mostra aqui as mensagens de sucesso e erro; aria-live="polite" faz o leitor de tela anunciar quando o texto muda -->
     <div id="area-alerta" class="area-alerta" aria-live="polite"></div>
 
-    <!-- Ajuda em faixa, acima da tabela, para a tabela poder usar a largura toda (a classe como-funciona-linha, em cartoes.css, põe os 3 passos lado a lado em telas médias e grandes) -->
     <section class="cartao como-funciona como-funciona-linha" aria-labelledby="titulo-como">
       <h2 id="titulo-como" class="texto-rotulo">Como funciona</h2>
       <ol>
@@ -54,7 +42,6 @@
     </section>
 
     <div class="pilha pilha-grande">
-      <!-- Caixa vazia de propósito: o JavaScript (abas.js) coloca aqui o grupo de abas. Clicar numa aba não muda de página, só troca o conteúdo da lista -->
       <div id="abas"></div>
 
       <form class="filtros" id="formulario-filtros" role="search" aria-label="Filtrar doações das campanhas">
@@ -68,16 +55,12 @@
         </div>
       </form>
 
-      <!-- Caixa vazia de propósito: o JavaScript desenha aqui a tabela, e redesenha quando o filtro ou a aba mudam -->
       <div id="lista"></div>
-      <!-- Caixa vazia de propósito: o JavaScript desenha aqui os botões da paginação (o detalhe da doação abre em um modal criado pelo JS, não existe aqui) -->
       <div id="paginacao"></div>
     </div>
   </main>
 
-  <!-- Caixa vazia de propósito: o JavaScript (rodape.js) monta aqui o rodapé -->
   <footer id="rodape"></footer>
-  <!-- type="module" permite que este JavaScript use import e export para trazer funções de outros arquivos -->
   <script type="module" src="../../js/paginas/admin/doacoes-campanhas.js"></script>
 </body>
 </html>

@@ -1,11 +1,3 @@
-/*
-  selos.css
-  Para que serve: etiquetas coloridas ("selos") de status da doação, prioridade, situação da
-  campanha e "ONG verificada". Sempre têm palavra + ícone (nunca só cor), por acessibilidade.
-  Quem usa: selos.js monta o HTML <span class="selo selo-...">.
-*/
-
-/* Base: pílula pequena com ícone e texto */
 .selo {
   display: inline-flex;
   align-items: center;
@@ -18,7 +10,6 @@
   white-space: nowrap;
 }
 
-/* Status da doação (tabela de cores do guia) */
 .selo-oferecida {
   background: var(--info-soft);
   color: var(--info);
@@ -40,7 +31,6 @@
   color: var(--danger);
 }
 
-/* Prioridade normal e doação cancelada: neutro */
 .selo-normal,
 .selo-cancelada,
 .selo-encerrada {
@@ -48,7 +38,6 @@
   color: var(--ink-muted);
 }
 
-/* Campanha ativa: verde; pendente: amarelo (mesmo visual de "aceita") */
 .selo-ativa {
   background: var(--success-soft);
   color: var(--success);
@@ -59,7 +48,6 @@
   color: var(--warning);
 }
 
-/* Vínculo aceito, bloqueio e usuário ativo/bloqueado */
 .selo-aceito {
   background: var(--success-soft);
   color: var(--success);
@@ -71,13 +59,11 @@
   color: var(--danger);
 }
 
-/* "ONG verificada": azul de informação */
 .selo-verificada {
   background: var(--info-soft);
   color: var(--info);
 }
 
-/* EMERGÊNCIA: amarelo de destaque com texto escuro */
 .selo-emergencia {
   background: var(--accent);
   color: var(--on-accent);

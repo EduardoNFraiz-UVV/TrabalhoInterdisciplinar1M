@@ -1,17 +1,9 @@
-/*
-  rodape.css
-  Para que serve: rodapé simples com nome do projeto, perfis de teste e o botão
-  "Restaurar dados de exemplo".
-  Quem usa: rodape.js monta o HTML dentro de <footer id="rodape">.
-*/
-
-/* Como o cabeçalho, o rodapé é montado pelo JS: reservar a altura evita um "pulo" no fim da página */
 #rodape {
   min-height: 71px;
 }
 
 .rodape {
-  margin-top: auto;               /* encosta o rodapé no fim da página */
+  margin-top: auto;
   background: var(--surface-raised);
   border-top: 1px solid var(--line);
 }
@@ -34,8 +26,6 @@
   color: var(--ink);
 }
 
-/* Botão com cara de link pequeno: sem borda nem fundo, sublinhado ao passar o mouse.
-   É uma ferramenta de demonstração, então não deve chamar atenção. A cor ink-muted mantém o contraste. */
 .link-discreto {
   padding: var(--space-1) 0;
   border: 0;
