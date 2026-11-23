@@ -29,7 +29,7 @@ A coluna **Onde** diz quem garante a regra: **Banco** (restrição, chave ou `CH
 |---|---|---|
 | RN-10 | Toda necessidade pertence a uma ONG e a uma categoria. | Banco |
 | RN-11 | As categorias são uma lista fixa de 8 (Alimentos, Roupas, Calçados, Higiene, Cobertores, Material escolar, Móveis e Água), carregada pelo banco. Ninguém cria categoria pela plataforma. | Banco |
-| RN-12 | A quantidade é maior que zero e a unidade é um texto curto escolhido de uma lista (un., pct., L, latas, kg...). A unidade diz o que a quantidade mede. | Banco e Site |
+| RN-12 | A quantidade é maior que zero e a unidade é um texto curto escolhido de uma lista (un., pct., L, latas, kg...). A unidade diz o que a quantidade mede. Vale para as necessidades e para as metas gerais das campanhas. | Banco e Site |
 | RN-13 | A prioridade é normal ou urgente. Itens urgentes aparecem no topo das buscas e na tela inicial dos doadores. | Banco e Site |
 | RN-14 | A situação é ativa ou concluída. "Concluir" marca a necessidade como concluída direto na linha. Necessidade concluída não recebe doação nova. | Banco e Site |
 | RN-15 | Ao excluir uma necessidade com doações prometidas (oferecidas ou aceitas), os doadores são avisados e o sistema oferece "Marcar concluída" como alternativa. | Site |
@@ -52,10 +52,10 @@ A coluna **Onde** diz quem garante a regra: **Banco** (restrição, chave ou `CH
 
 | Nº | Regra | Onde |
 |---|---|---|
-| RN-25 | Uma meta geral é um par de quantidade e item em texto, com uma categoria. Pertence à campanha e não tem ONG dona. | Banco |
+| RN-25 | Uma meta geral segue o padrão de uma necessidade, mas sem ONG dona: tem categoria, item em texto, quantidade e unidade (RN-12). Pertence à campanha. | Banco |
 | RN-26 | **Meta total** = soma das metas gerais + soma das quantidades das necessidades vinculadas **aceitas** com "aumenta a meta" marcado. | Derivado |
 | RN-27 | **Progresso** = quantidade recebida ÷ meta total, em que a quantidade recebida soma as doações recebidas para as metas gerais da campanha e para as necessidades vinculadas aceitas. Aparece limitado a 100%. Sem meta total, o progresso é 0%. | Derivado |
-| RN-28 | As somas tratam as quantidades como "itens", sem converter unidades (litro, pacote, unidade). | Site |
+| RN-28 | As somas (meta total, recebido e progresso) tratam as quantidades como "itens", sem converter unidades (litro, pacote, unidade), tanto nas metas gerais quanto nas necessidades. Cada meta e cada necessidade continua mostrando a própria unidade. | Site |
 
 ## 6. Vínculos entre necessidades e campanhas
 

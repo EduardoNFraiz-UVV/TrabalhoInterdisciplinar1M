@@ -14,7 +14,7 @@ A ONG cadastra suas **necessidades**: itens de que precisa em certa quantidade e
 
 As **campanhas emergenciais**, relacionadas a enchentes, deslizamentos, secas, incêndios e outros desastres, podem ser solicitadas por uma ONG ou criadas diretamente pelo administrador. A campanha solicitada por uma ONG nasce pendente e só aparece para os doadores depois de aprovada pelo administrador. A campanha tem título, descrição, tipo, período, status (pendente, ativa ou encerrada) e um endereço de recebimento, com horário, informado por quem a criou. Ela pode atingir **uma ou mais cidades**.
 
-Cada campanha define **metas gerais**: pares de quantidade e item em texto (por exemplo, 1.500 itens de higiene), cada um com uma categoria. A meta não pertence a uma ONG. Além das metas, a campanha reúne **necessidades** de ONGs. Uma necessidade pode participar de várias campanhas, e uma campanha reúne várias necessidades. A ONG pede o vínculo de uma necessidade dela e só pode fazê-lo se a categoria for a mesma de alguma meta da campanha. Quem criou a campanha aceita ou recusa o pedido e decide se a necessidade **aumenta a meta**. O administrador modera os vínculos. A meta total é a soma das metas gerais mais as necessidades vinculadas que aumentam a meta, e o andamento é quanto já foi recebido.
+Cada campanha define **metas gerais**, que seguem o padrão de uma necessidade, mas sem ONG dona: cada meta tem categoria, item em texto, quantidade e unidade (por exemplo, 1.500 un. de itens de higiene). Além das metas, a campanha reúne **necessidades** de ONGs. Uma necessidade pode participar de várias campanhas, e uma campanha reúne várias necessidades. A ONG pede o vínculo de uma necessidade dela e só pode fazê-lo se a categoria for a mesma de alguma meta da campanha. Quem criou a campanha aceita ou recusa o pedido e decide se a necessidade **aumenta a meta**. O administrador modera os vínculos. A meta total é a soma das metas gerais mais as necessidades vinculadas que aumentam a meta, e o andamento é quanto já foi recebido.
 
 O doador pesquisa as necessidades e registra uma **doação**. A doação tem um único destino: uma necessidade de ONG, com entrega no endereço da ONG, ou uma meta geral de campanha, com entrega no endereço de recebimento da campanha. O doador informa a quantidade, uma observação, a forma de entrega (levar ou, nas necessidades de ONGs que aceitam, solicitar retirada informando o endereço) e a data prevista. Quem recebe (a ONG, ou quem criou a campanha) aceita ou recusa a doação e, quando o item chega, confirma o recebimento. O doador pode cancelar enquanto ela está oferecida. O status da doação segue Oferecida, Aceita e Recebida, e também pode ser Recusada ou Cancelada.
 
@@ -27,7 +27,7 @@ O doador pesquisa as necessidades e registra uma **doação**. A doação tem um
 | Usuário | **id_usuario**, nome, email, senha_hash, telefone, perfil, data_cadastro, ativo |
 | ONG | **id_ong**, nome, cnpj, descricao, endereco, horario_atendimento, telefone, email_contato, aceita_retirada, verificada, data_cadastro |
 | Campanha | **id_campanha**, titulo, descricao, tipo, data_inicio, data_fim, status, endereco_recebimento, horario_recebimento |
-| Meta | **id_meta**, item, quantidade |
+| Meta | **id_meta**, item, quantidade, unidade |
 | Necessidade | **id_necessidade**, item, descricao, quantidade, unidade, prioridade, precisa_ate, situacao, data_cadastro, data_atualizacao |
 | Doação | **id_doacao**, quantidade, observacao, forma_entrega, endereco_retirada, data_prevista, data_registro, data_recebimento, status, mensagem_ong |
 
