@@ -14,7 +14,7 @@ import { normalizar } from '../../utilitarios/formatacao.js';
 import { semRepetidos } from '../../utilitarios/listas.js';
 import { necessidadesDaOng, itensUrgentes } from '../../regras/necessidades.js';
 import { cartaoOng } from '../../componentes/cartoes.js';
-import { criarPaginacao, fatiar } from '../../componentes/paginacao.js';
+import { criarPaginacao, fatiar, preencherPagina } from '../../componentes/paginacao.js';
 import { preencherSelect } from '../../componentes/formulario.js';
 import { icone } from '../../componentes/icones.js';
 
@@ -67,10 +67,12 @@ function montar() {
     /* Volta para a primeira página se a atual deixou de existir (filtro ficou mais restrito) */
     if ((pagina - 1) * POR_PAGINA >= lista.length) pagina = 1;
 
-    /* Mostra os cartões da página atual (ou uma frase, se nenhuma ONG passou nos filtros) */
-    preencher($('#lista'), lista.length === 0
+    /* O que aparece em uma página: os cartões dela (ou uma frase, se nenhuma ONG passou nos filtros) */
+    const cartoesDaPagina = (numero) => (lista.length === 0
       ? el('p', { class: 'texto-apoio' }, 'Nenhuma ONG encontrada com esses filtros. Tente limpar os filtros.')
-      : fatiar(lista, pagina, POR_PAGINA).map((ong) => cartaoOng(ong, 'h3')));
+      : fatiar(lista, numero, POR_PAGINA).map((ong) => cartaoOng(ong, 'h3')));
+    /* Mostra a página atual com a altura da página mais alta, para a paginação não mudar de lugar */
+    preencherPagina($('#lista'), { total: lista.length, porPagina: POR_PAGINA, pagina, conteudo: cartoesDaPagina });
 
     /* Desenha os botões da paginação; ao escolher outra página, guarda o número e desenha de novo */
     preencher($('#paginacao'), criarPaginacao({ total: lista.length, porPagina: POR_PAGINA, pagina, aoMudar: (nova) => { pagina = nova; desenhar(); } }));

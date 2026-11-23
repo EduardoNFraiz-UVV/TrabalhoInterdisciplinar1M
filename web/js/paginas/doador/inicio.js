@@ -16,7 +16,7 @@ import { necessidadesAtivas, faltam, itensUrgentes } from '../../regras/necessid
 import { campanhasAtivas, quantidadeDeOngs } from '../../regras/campanhas.js';
 import { criarAbas } from '../../componentes/abas.js';
 import { criarTabela } from '../../componentes/tabela.js';
-import { criarPaginacao, fatiar } from '../../componentes/paginacao.js';
+import { criarPaginacao, fatiar, preencherPagina } from '../../componentes/paginacao.js';
 import { cartaoOng, cartaoCampanha } from '../../componentes/cartoes.js';
 import { seloPrioridade } from '../../componentes/selos.js';
 import { botaoDoar } from '../../componentes/acoes-doacao.js';
@@ -91,10 +91,10 @@ function montar(usuario) {
     /* Volta para a página 1 se a atual deixou de existir */
     if ((pagina - 1) * POR_PAGINA >= lista.length) pagina = 1;
 
-    /* Tabela com só os itens da página atual */
-    preencher($('#lista'), criarTabela({
+    /* A tabela de uma página: recebe o número da página e mostra só os itens dela */
+    const tabelaDaPagina = (numero) => criarTabela({
       legenda: 'Necessidades das ONGs',
-      linhas: fatiar(lista, pagina, POR_PAGINA),
+      linhas: fatiar(lista, numero, POR_PAGINA),
       vazio: 'Nenhuma necessidade encontrada. Tente outra palavra ou outra categoria.',
       colunas: [
         { titulo: 'Item', render: (n) => el('strong', {}, n.item) },
@@ -104,7 +104,9 @@ function montar(usuario) {
         { titulo: 'Prioridade', render: (n) => seloPrioridade(n.prioridade) },
         { titulo: 'Ação', classe: 'acoes', render: (n) => botaoDoar(usuario, 'doar', { necessidade: n.id_necessidade }, { rotuloAcessivel: `Quero doar ${n.item}` }) }
       ]
-    }));
+    });
+    /* Mostra a página atual com a altura da página mais alta, para a paginação não mudar de lugar */
+    preencherPagina($('#lista'), { total: lista.length, porPagina: POR_PAGINA, pagina, conteudo: tabelaDaPagina });
     /* Botões da paginação; ao escolher outra página, guarda o número e redesenha */
     preencher($('#paginacao'), criarPaginacao({ total: lista.length, porPagina: POR_PAGINA, pagina, aoMudar: (nova) => { pagina = nova; desenhar(); } }));
   }

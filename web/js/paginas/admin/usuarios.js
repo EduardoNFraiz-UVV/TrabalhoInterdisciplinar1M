@@ -15,7 +15,7 @@ import { formatarData, normalizar } from '../../utilitarios/formatacao.js';
 import { definirBloqueio } from '../../regras/contas.js';
 import { criarAbas } from '../../componentes/abas.js';
 import { criarTabela } from '../../componentes/tabela.js';
-import { criarPaginacao, fatiar } from '../../componentes/paginacao.js';
+import { criarPaginacao, fatiar, preencherPagina } from '../../componentes/paginacao.js';
 import { seloUsuario } from '../../componentes/selos.js';
 import { confirmar } from '../../componentes/dialogo.js';
 import { mostrarAlerta } from '../../componentes/alertas.js';
@@ -76,9 +76,10 @@ function montar() {
     const linhas = base.filter((u) => abaAtual === 'todos' || u.perfil === abaAtual);
     if ((pagina - 1) * POR_PAGINA >= linhas.length) pagina = 1;
 
-    preencher($('#lista'), criarTabela({
+    /* A tabela de uma página: recebe o número da página e mostra só os usuários dela */
+    const tabelaDaPagina = (numero) => criarTabela({
       legenda: 'Usuários da plataforma',
-      linhas: fatiar(linhas, pagina, POR_PAGINA),
+      linhas: fatiar(linhas, numero, POR_PAGINA),
       vazio: 'Nenhum usuário encontrado.',
       colunas: [
         { titulo: 'Nome', render: (u) => el('strong', {}, u.nome) },
@@ -100,7 +101,9 @@ function montar() {
           }
         }
       ]
-    }));
+    });
+    /* Mostra a página atual com a altura da página mais alta, para a paginação não mudar de lugar */
+    preencherPagina($('#lista'), { total: linhas.length, porPagina: POR_PAGINA, pagina, conteudo: tabelaDaPagina });
     /* Botões da paginação; ao escolher outra página, guarda o número e redesenha */
     preencher($('#paginacao'), criarPaginacao({ total: linhas.length, porPagina: POR_PAGINA, pagina, aoMudar: (nova) => { pagina = nova; desenhar(); } }));
   }

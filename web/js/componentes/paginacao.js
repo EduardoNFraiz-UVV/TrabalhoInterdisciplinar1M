@@ -1,12 +1,12 @@
 /*
   paginacao.js
   Para que serve: divide uma lista longa em páginas e cria os botões "Anterior 1 2 3 Próxima".
-  Quem usa: ONGs, Usuários e outras listas grandes.
+  Quem usa: Início do doador, ONGs, Usuários e outras listas grandes.
   Depende de: dom.js. O visual está em css/componentes/cabecalho.css (seção Paginação).
 */
 
-/* Traz a função que cria elementos HTML */
-import { el } from '../utilitarios/dom.js';
+/* Traz as funções que criam elementos HTML (el) e trocam o conteúdo de uma área (preencher) */
+import { el, preencher } from '../utilitarios/dom.js';
 
 /* Devolve só os itens da página pedida. Exemplo: fatiar(lista, 2, 6) devolve os itens 7 a 12 */
 export function fatiar(lista, pagina, porPagina) {
@@ -20,6 +20,39 @@ export function fatiar(lista, pagina, porPagina) {
 export function totalDePaginas(total, porPagina) {
   /* Math.ceil arredonda para cima (13 itens, 6 por página = 3 páginas); Math.max garante pelo menos 1 */
   return Math.max(1, Math.ceil(total / porPagina));
+}
+
+/*
+  Mostra a página atual dentro de "area" SEM deixar a paginação mudar de lugar.
+  O problema: cada página tem uma altura (linhas que quebram em duas, última página com menos itens),
+  e os botões da paginação ficam logo abaixo, então subiam e desciam a cada clique.
+  A solução: medir a página mais alta e reservar essa altura na área.
+  conteudo: função que recebe o número de uma página e devolve o que desenhar nela.
+*/
+export function preencherPagina(area, { total, porPagina, pagina, conteudo }) {
+  /* Cópia vazia da área (mesma classe e mesma largura) só para medir; fica invisível e fora do fluxo da página */
+  const medidor = area.cloneNode(false);
+  /* Tira o id da cópia para não existirem dois elementos com o mesmo id */
+  medidor.removeAttribute('id');
+  /* cssText troca todo o estilo da cópia (inclusive uma altura mínima antiga que ela herdou) */
+  medidor.style.cssText = `position:absolute;visibility:hidden;width:${area.offsetWidth}px`;
+  /* after() coloca a cópia logo depois da área, no mesmo lugar da página */
+  area.after(medidor);
+
+  /* Desenha cada página na cópia e guarda a maior altura encontrada */
+  let maisAlta = 0;
+  for (let numero = 1; numero <= totalDePaginas(total, porPagina); numero++) {
+    preencher(medidor, conteudo(numero));
+    /* offsetHeight = altura do elemento em pixels (o navegador calcula o layout ao ler esse valor) */
+    maisAlta = Math.max(maisAlta, medidor.offsetHeight);
+  }
+  /* A medição acabou: remove a cópia */
+  medidor.remove();
+
+  /* A área nunca fica mais baixa que a página mais alta; assim a paginação fica sempre no mesmo lugar */
+  area.style.minHeight = `${maisAlta}px`;
+  /* Agora sim desenha a página atual na área de verdade */
+  preencher(area, conteudo(pagina));
 }
 
 /*
