@@ -1,7 +1,28 @@
+/*
+  dados-iniciais.js
+  Para que serve: cria os "dados de exemplo" do site, ou seja, o conteúdo inicial de cada
+  tabela do banco (cidade, categoria, usuario, ong, campanha, campanha_cidade, campanha_meta,
+  necessidade, campanha_necessidade e doacao), com os MESMOS nomes de tabelas e colunas do
+  banco de dados PostgreSQL. Assim o site "conversa" com o modelo de dados do projeto.
+  Quem usa: armazenamento.js, quando o navegador ainda não tem dados salvos (ou quando alguém
+  clica em "Restaurar dados de exemplo").
+  Depende de: formatacao.js (função slug).
+
+  Os registros que aparecem nos wireframes (Lar Esperança, Casa da Criança, "Enchente em Vila
+  Velha"...) são escritos à mão. O restante (outros doadores, outras necessidades e as doações
+  que alimentam o gráfico do painel) é gerado por regras fixas, sem sorteio verdadeiro: o
+  gerador de números abaixo sempre produz a mesma sequência, então os dados são sempre iguais.
+*/
+
 import { slug } from '../utilitarios/formatacao.js';
 
+/* Número da versão da carga inicial. Se mudarmos os dados no código, aumentamos este número
+   e o navegador de quem já abriu o site descarta os dados antigos e carrega os novos.
+   Versão 2: as metas das campanhas ganharam a coluna unidade (L, kg, un....), como a necessidade. */
 export const VERSAO_DADOS = 2;
 
+/* Unidade de cada item de meta dos dados de exemplo: água em litros, alimentos em quilos e o resto em unidades.
+   A chave é o texto do item; o valor é uma das unidades da lista UNIDADES (formatacao.js). */
 const UNIDADE_DA_META = {
   'água potável': 'L',
   'alimentos não perecíveis': 'kg',
@@ -12,6 +33,8 @@ const UNIDADE_DA_META = {
   'móveis básicos': 'un.'
 };
 
+/* Senhas guardadas como SHA-256 (hash), como a coluna senha_hash do banco. Nunca guardamos a senha pura.
+   doador = doa#2026, entidade = ent!2026, admin = adm@2026; "padrao" é a senha dos demais usuários de exemplo */
 const SENHAS = {
   doador: '13479ab6051d7d9af96701224e0e48d1a45bd82c335e2815d2bd6745e5964b52',
   entidade: '38327555793eacb9a7d82cc54649fdd0efa15d67ffa5e420c6175105efe61a89',
@@ -19,6 +42,7 @@ const SENHAS = {
   padrao: '24d68a7eb5a4a2dd890639d794c137bdad0eb88aab8cd2669ddb608c288cf71b'
 };
 
+/* As 30 cidades do banco (mesma ordem do gerador de dados do banco: o número é o id_cidade) */
 const CIDADES = [
   ['Vila Velha', 'ES'], ['Vitória', 'ES'], ['Serra', 'ES'], ['Cariacica', 'ES'], ['Viana', 'ES'],
   ['Guarapari', 'ES'], ['Linhares', 'ES'], ['Colatina', 'ES'], ['Cachoeiro de Itapemirim', 'ES'],
@@ -30,12 +54,16 @@ const CIDADES = [
   ['Belo Horizonte', 'MG'], ['Teófilo Otoni', 'MG'], ['Governador Valadares', 'MG']
 ];
 
+/* As 8 categorias fixas (a posição + 1 é o id_categoria) */
 const CATEGORIAS = ['Alimentos', 'Roupas', 'Calçados', 'Higiene', 'Cobertores', 'Material escolar', 'Móveis', 'Água'];
 
+/* Nomes dos ids para o código ficar legível: CAT.agua em vez de 8 */
 const CAT = { alimentos: 1, roupas: 2, calcados: 3, higiene: 4, cobertores: 5, escolar: 6, moveis: 7, agua: 8 };
 
+/* Cidades que usamos nos exemplos (id_cidade) */
 const CID = { vilaVelha: 1, vitoria: 2, serra: 3, cariacica: 4, viana: 5, guarapari: 6, linhares: 7, colatina: 8, cachoeiro: 9, saoMateus: 10, aracruz: 11, novaVenecia: 12, marataizes: 15 };
 
+/* Itens de exemplo por categoria, usados para gerar necessidades de outras ONGs: [item, unidade] */
 const CATALOGO = {
   1: [['Arroz 5 kg', 'pct.'], ['Feijão 1 kg', 'pct.'], ['Macarrão', 'pct.'], ['Óleo de soja', 'un.'], ['Açúcar', 'kg'], ['Farinha de trigo', 'kg'], ['Café', 'pct.']],
   2: [['Camisetas infantis', 'un.'], ['Calças jeans', 'un.'], ['Roupas de cama', 'un.'], ['Meias', 'pct.'], ['Jaquetas', 'un.']],
@@ -47,74 +75,114 @@ const CATALOGO = {
   8: [['Água mineral 1,5 L', 'pct.'], ['Galões de água 20 L', 'un.'], ['Água potável', 'L']]
 };
 
+/* Nomes para gerar doadores e representantes de ONG */
 const NOMES = ['Rafael', 'Beatriz', 'Marcos', 'Juliana', 'Fernando', 'Camila', 'Diego', 'Patrícia', 'Gustavo', 'Larissa', 'Thiago', 'Renata', 'Bruno', 'Aline', 'Felipe', 'Vanessa', 'Rodrigo', 'Letícia', 'André', 'Priscila', 'Leandro', 'Mônica', 'Vinícius', 'Tatiane', 'Henrique', 'Débora', 'Caio', 'Simone', 'Otávio', 'Elaine'];
 const SOBRENOMES = ['Alves', 'Barbosa', 'Cardoso', 'Dias', 'Esteves', 'Ferreira', 'Gomes', 'Lopes', 'Martins', 'Nunes', 'Oliveira', 'Rocha', 'Santos', 'Teixeira', 'Vieira'];
 
+/* Doações recebidas por mês que o gráfico do painel do administrador deve mostrar (Jun a Nov de 2026) */
 const DOACOES_RECEBIDAS_POR_MES = { '2026-06': 31, '2026-07': 36, '2026-08': 29, '2026-09': 41, '2026-10': 44, '2026-11': 48 };
 
+/*
+  Gerador de números "aleatórios" que sempre repete a mesma sequência (algoritmo mulberry32).
+  Recebe uma semente (um número) e devolve uma função que, a cada chamada, dá um número entre 0 e 1.
+  Usamos isso para os dados de exemplo serem sempre idênticos.
+*/
 function criarGerador(semente) {
+  /* "estado" guarda onde estamos na sequência; começa na semente */
   let estado = semente;
+  /* Devolve a função que gera o próximo número */
   return function proximo() {
+    /* As linhas abaixo misturam os bits do número (operações matemáticas do algoritmo mulberry32).
+       Não é preciso decorar: o importante é que a mesma semente dá sempre a mesma sequência */
     estado = (estado + 0x6D2B79F5) | 0;
     let t = Math.imul(estado ^ (estado >>> 15), 1 | estado);
     t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    /* Divide por 4294967296 (2 elevado a 32) para o resultado ficar entre 0 e 1 */
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
 
+/* Monta uma data 'AAAA-MM-DD' a partir do mês e do dia de 2026 */
 function dt(mes, dia) {
+  /* padStart(2, '0') completa com zero à esquerda: 5 vira '05' */
   return `2026-${String(mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
 }
 
+/* Função principal: devolve um objeto com todas as tabelas preenchidas */
 export function gerarDadosIniciais() {
+  /* O gerador de números com semente fixa (2026): os dados ficam sempre iguais */
   const proximo = criarGerador(2026);
+  /* entre(1, 6): número inteiro entre 1 e 6, incluindo os dois */
   const entre = (min, max) => min + Math.floor(proximo() * (max - min + 1));
+  /* escolher(lista): um item da lista, sempre o mesmo para a mesma ordem de chamadas */
   const escolher = (lista) => lista[Math.floor(proximo() * lista.length)];
 
+  /* ---------- Tabelas de referência: cidade e categoria ---------- */
+  /* map cria um registro para cada item da lista; "i" é a posição (0, 1, 2...), então o id é i + 1 */
   const cidade = CIDADES.map(([nome, uf], i) => ({ id_cidade: i + 1, nome, uf }));
   const categoria = CATEGORIAS.map((nome, i) => ({ id_categoria: i + 1, nome }));
 
+  /* ---------- Usuários ---------- */
+  /* A tabela usuario começa vazia; novoUsuario vai preenchendo */
   const usuario = [];
 
+  /* Cria um usuário, guarda na tabela e devolve o id gerado */
   const novoUsuario = (nome, email, perfil, idCidade, senhaHash, cadastro) => {
+    /* O id é a quantidade de usuários já criados + 1 (1, 2, 3...) */
     const id = usuario.length + 1;
     usuario.push({
       id_usuario: id,
       nome,
       email,
       senha_hash: senhaHash,
+      /* Telefone inventado a partir do id, só para cada usuário ter um número diferente */
       telefone: `(27) 9${String(8000 + id * 37).padStart(4, '0')}-${String(1000 + id * 91).padStart(4, '0')}`,
       perfil,
       id_cidade: idCidade,
       data_cadastro: cadastro,
       ativo: true
     });
+    /* Devolve o id, para quem criou poder guardar (ex.: const MARIANA = novoUsuario(...)) */
     return id;
   };
 
+  /* As três contas de teste do enunciado. O "usuário" de login é a parte do e-mail antes do @ */
   novoUsuario('Administrador', 'admin@exemplo.com', 'admin', CID.vitoria, SENHAS.admin, dt(1, 5));
   const MARIANA = novoUsuario('Mariana Costa', 'entidade@exemplo.com', 'ong', CID.vilaVelha, SENHAS.entidade, dt(2, 10));
   const LUCAS = novoUsuario('Lucas Souza', 'doador@exemplo.com', 'doador', CID.vilaVelha, SENHAS.doador, dt(3, 2));
 
+  /* Doadores que aparecem nos wireframes */
   const ANA = novoUsuario('Ana Pereira', 'ana.pereira@exemplo.com', 'doador', CID.vitoria, SENHAS.padrao, dt(3, 15));
   const JOAO = novoUsuario('João Mendes', 'joao.mendes@exemplo.com', 'doador', CID.serra, SENHAS.padrao, dt(4, 1));
   const CARLA = novoUsuario('Carla Ribeiro', 'carla.ribeiro@exemplo.com', 'doador', CID.vilaVelha, SENHAS.padrao, dt(4, 20));
   const PAULO = novoUsuario('Paulo Lima', 'paulo.lima@exemplo.com', 'doador', CID.cariacica, SENHAS.padrao, dt(5, 8));
 
+  /* Outros 30 doadores gerados a partir das listas de nomes */
+  /* Lista com os ids dos doadores gerados e as cidades onde eles moram (usadas em rodízio) */
   const doadores = [];
   const cidadesDoadores = [CID.vilaVelha, CID.vitoria, CID.serra, CID.cariacica, CID.guarapari, CID.linhares, CID.colatina, CID.cachoeiro];
+  /* Um doador para cada nome da lista NOMES */
   for (let i = 0; i < NOMES.length; i++) {
+    /* Sobrenome escolhido por posição (o % volta ao começo da lista quando ela acaba) */
     const nome = `${NOMES[i]} ${SOBRENOMES[(i * 7) % SOBRENOMES.length]}`;
+    /* O e-mail vem do nome sem acentos (slug); a cidade e a data de cadastro variam com a posição */
     doadores.push(novoUsuario(nome, `${slug(nome)}@exemplo.com`, 'doador', cidadesDoadores[i % cidadesDoadores.length], SENHAS.padrao, dt(1 + (i % 9), 3 + (i % 20))));
   }
 
+  /* Cada doação gerada usa um doador diferente, em rodízio */
   let contadorDoador = 0;
+  /* contadorDoador++ usa o valor atual e depois soma 1; o % volta ao primeiro doador no fim da lista */
   const proximoDoador = () => doadores[contadorDoador++ % doadores.length];
 
+  /* ---------- ONGs ---------- */
+  /* A tabela ong começa vazia; novaOng vai preenchendo */
   const ong = [];
 
+  /* Cria uma ONG e o usuário que a representa. Devolve o id da ONG */
   const novaOng = (dados, idUsuarioExistente = null) => {
+    /* O id é a quantidade de ONGs já criadas + 1 */
     const id = ong.length + 1;
+    /* Usa o usuário já existente (caso da Mariana) ou cria um novo para representar a ONG */
     const idUsuario = idUsuarioExistente ?? novoUsuario(
       dados.representante,
       `${slug(dados.nome)}@exemplo.com`,
@@ -128,6 +196,7 @@ export function gerarDadosIniciais() {
       id_usuario: idUsuario,
       id_cidade: dados.cidade,
       nome: dados.nome,
+      /* CNPJ inventado a partir do id, no formato 00.000.000/0001-00 (cada ONG fica com um diferente) */
       cnpj: `${String(11 + id * 3).padStart(2, '0')}.${String(100 + id * 37).padStart(3, '0')}.${String(200 + id * 53).padStart(3, '0')}/0001-${String(10 + id * 5).padStart(2, '0')}`,
       descricao: dados.descricao,
       endereco: dados.endereco,
@@ -138,11 +207,14 @@ export function gerarDadosIniciais() {
       verificada: dados.verificada,
       data_cadastro: dt(2, 1 + id)
     });
+    /* Devolve o id da ONG, para as necessidades e campanhas poderem apontar para ela */
     return id;
   };
 
+  /* Nome do contato de cada ONG (usuário que a representa), exceto a primeira, que é a Mariana */
   const REPRESENTANTES = ['Carlos Andrade', 'Sônia Batista', 'Roberto Câmara', 'Helena Duarte', 'Marcelo Freitas', 'Paula Guedes', 'Ricardo Horta', 'Cláudia Ivo', 'Sérgio Jardim', 'Tânia Klein', 'Eduardo Leal', 'Fátima Moura', 'Jorge Neves', 'Luciana Prado', 'Márcio Quintela', 'Vera Ramos'];
 
+  /* ONGs verificadas (as seis primeiras são as dos wireframes) */
   const OL = novaOng({
     nome: 'Lar Esperança', cidade: CID.vilaVelha, verificada: true, retirada: true,
     endereco: 'Rua das Flores, 120 - Centro, Vila Velha', horario: 'Seg a sex, 8h às 17h · Sáb, 8h às 12h',
@@ -216,6 +288,7 @@ export function gerarDadosIniciais() {
     descricao: 'Ações sociais no sul do estado, com foco em emergências e reforço escolar.'
   });
 
+  /* ONGs ainda não verificadas (aparecem em "ONGs pendentes" do administrador) */
   novaOng({
     nome: 'Projeto Recomeço', cidade: CID.viana, verificada: false, retirada: true, representante: REPRESENTANTES[11],
     endereco: 'Rua Dois, 30 - Marcílio de Noronha, Viana', horario: 'Seg a sex, 8h às 16h',
@@ -247,14 +320,18 @@ export function gerarDadosIniciais() {
     descricao: 'Abrigo para idosos e pessoas com deficiência no norte do estado.'
   });
 
+  /* Dois administradores a mais, só para a lista de usuários ficar realista */
   novoUsuario('Equipe Conecta 1', 'equipe1@exemplo.com', 'admin', CID.vitoria, SENHAS.padrao, dt(1, 6));
   novoUsuario('Equipe Conecta 2', 'equipe2@exemplo.com', 'admin', CID.vitoria, SENHAS.padrao, dt(1, 7));
 
+  /* ---------- Campanhas, cidades atingidas e metas gerais ---------- */
   const campanha = [];
   const campanha_cidade = [];
   const campanha_meta = [];
 
+  /* Cria uma campanha com suas cidades e metas. Devolve o id da campanha e os ids das metas */
   const novaCampanha = (dados) => {
+    /* O id é a quantidade de campanhas já criadas + 1 */
     const id = campanha.length + 1;
     campanha.push({
       id_campanha: id,
@@ -268,18 +345,24 @@ export function gerarDadosIniciais() {
       endereco_recebimento: dados.endereco,
       horario_recebimento: dados.horario
     });
+    /* Uma linha na tabela campanha_cidade para cada cidade atingida */
     dados.cidades.forEach((idCidade) => campanha_cidade.push({ id_campanha: id, id_cidade: idCidade }));
+    /* Cada meta chega como [categoria, item, quantidade]; a unidade vem de UNIDADE_DA_META (pelo texto do item);
+       vira uma linha em campanha_meta, e guardamos o id dela */
     const metas = dados.metas.map(([idCategoria, item, quantidade]) => {
       const idMeta = campanha_meta.length + 1;
       campanha_meta.push({ id_meta: idMeta, id_campanha: id, id_categoria: idCategoria, item, quantidade, unidade: UNIDADE_DA_META[item] });
       return idMeta;
     });
+    /* Devolve o id da campanha e a lista de ids das metas (usados mais abaixo para criar doações) */
     return { id, metas };
   };
 
+  /* Endereço que o administrador recebeu para as campanhas criadas por ele */
   const ENDERECO_ADMIN = 'Avenida Jerônimo Monteiro, 1000 - Centro, Vitória';
   const HORARIO_ADMIN = 'Seg a sex, 8h às 17h';
 
+  /* Campanha 1: a campanha em destaque dos wireframes, criada pelo Lar Esperança */
   const C1 = novaCampanha({
     ong: OL, titulo: 'Enchente em Vila Velha', tipo: 'enchente', status: 'ativa',
     descricao: '12 entidades precisam de água potável, alimentos, roupas e produtos de higiene.',
@@ -288,6 +371,7 @@ export function gerarDadosIniciais() {
     cidades: [CID.vilaVelha, CID.cariacica],
     metas: [[CAT.agua, 'água potável', 1500], [CAT.alimentos, 'alimentos não perecíveis', 800], [CAT.higiene, 'itens de higiene', 700]]
   });
+  /* Campanha 2: solicitada pelo Lar Esperança, ainda pendente de aprovação */
   const C2 = novaCampanha({
     ong: OL, titulo: 'Seca em Linhares', tipo: 'seca', status: 'pendente',
     descricao: 'A seca prolongada deixou famílias sem água para consumo. Precisamos de água potável e alimentos.',
@@ -296,6 +380,7 @@ export function gerarDadosIniciais() {
     cidades: [CID.linhares, CID.colatina, CID.novaVenecia],
     metas: [[CAT.agua, 'água potável', 1000], [CAT.alimentos, 'alimentos não perecíveis', 500]]
   });
+  /* Campanha 3: criada pelo Abrigo Sol */
   const C3 = novaCampanha({
     ong: OA, titulo: 'Deslizamento em Cariacica', tipo: 'deslizamento', status: 'ativa',
     descricao: 'Famílias do morro perderam a casa e precisam de colchões, alimentos e cobertores.',
@@ -304,6 +389,7 @@ export function gerarDadosIniciais() {
     cidades: [CID.cariacica, CID.viana],
     metas: [[CAT.moveis, 'colchões e camas', 120], [CAT.alimentos, 'alimentos não perecíveis', 400], [CAT.cobertores, 'cobertores', 300]]
   });
+  /* Campanha 4: criada pelo administrador (id_ong nulo) e já ativa */
   const C4 = novaCampanha({
     ong: null, titulo: 'Incêndio no Morro da Fonte', tipo: 'incendio', status: 'ativa',
     descricao: 'Um incêndio atingiu casas no Morro da Fonte. As famílias precisam de roupas, móveis e itens de higiene.',
@@ -312,6 +398,7 @@ export function gerarDadosIniciais() {
     cidades: [CID.vitoria],
     metas: [[CAT.roupas, 'roupas e agasalhos', 300], [CAT.moveis, 'móveis básicos', 80], [CAT.higiene, 'itens de higiene', 250]]
   });
+  /* Campanha 5: solicitada pela Fundação Semear, pendente */
   novaCampanha({
     ong: O7, titulo: 'Enchente em Guarapari', tipo: 'enchente', status: 'pendente',
     descricao: 'As chuvas alagaram bairros de Guarapari. Pedimos água, alimentos e itens de higiene.',
@@ -320,6 +407,7 @@ export function gerarDadosIniciais() {
     cidades: [CID.guarapari],
     metas: [[CAT.agua, 'água potável', 600], [CAT.alimentos, 'alimentos não perecíveis', 400], [CAT.higiene, 'itens de higiene', 200]]
   });
+  /* Campanha 6: criada pela Obra da Fraternidade, ativa */
   const C6 = novaCampanha({
     ong: O8, titulo: 'Incêndio em Linhares', tipo: 'incendio', status: 'ativa',
     descricao: 'Um incêndio atingiu um conjunto de casas em Linhares. Famílias precisam de roupas e móveis.',
@@ -328,6 +416,7 @@ export function gerarDadosIniciais() {
     cidades: [CID.linhares],
     metas: [[CAT.roupas, 'roupas e agasalhos', 200], [CAT.moveis, 'móveis básicos', 50], [CAT.higiene, 'itens de higiene', 150]]
   });
+  /* Campanha 7: criada pelo administrador, ativa */
   const C7 = novaCampanha({
     ong: null, titulo: 'Seca em São Mateus', tipo: 'seca', status: 'ativa',
     descricao: 'Famílias do interior de São Mateus estão sem água. A campanha recebe água potável e alimentos.',
@@ -336,6 +425,7 @@ export function gerarDadosIniciais() {
     cidades: [CID.saoMateus, CID.novaVenecia],
     metas: [[CAT.agua, 'água potável', 600], [CAT.alimentos, 'alimentos não perecíveis', 400]]
   });
+  /* Campanha 8: criada pela Fundação Semear, ativa */
   const C8 = novaCampanha({
     ong: O7, titulo: 'Enchente em Marataízes', tipo: 'enchente', status: 'ativa',
     descricao: 'Moradores do litoral sul precisam de água, alimentos e itens de higiene.',
@@ -345,6 +435,7 @@ export function gerarDadosIniciais() {
     metas: [[CAT.agua, 'água potável', 500], [CAT.alimentos, 'alimentos não perecíveis', 300], [CAT.higiene, 'itens de higiene', 200]]
   });
 
+  /* Campanhas encerradas (o histórico da plataforma). Aqui só descrevemos cada uma; a criação acontece no map() depois da lista */
   const encerradas = [
     { ong: O12, titulo: 'Enchente em Cachoeiro de Itapemirim', tipo: 'enchente', inicio: dt(1, 10), fim: dt(3, 10), cidades: [CID.cachoeiro], metas: [[CAT.agua, 'água potável', 800], [CAT.alimentos, 'alimentos não perecíveis', 500]] },
     { ong: O9, titulo: 'Seca em Colatina', tipo: 'seca', inicio: dt(2, 1), fim: dt(4, 30), cidades: [CID.colatina, CID.aracruz], metas: [[CAT.agua, 'água potável', 600], [CAT.alimentos, 'alimentos não perecíveis', 400]] },
@@ -353,16 +444,23 @@ export function gerarDadosIniciais() {
     { ong: O8, titulo: 'Enchente em Linhares', tipo: 'enchente', inicio: dt(5, 2), fim: dt(7, 2), cidades: [CID.linhares], metas: [[CAT.agua, 'água potável', 700], [CAT.higiene, 'itens de higiene', 300], [CAT.alimentos, 'alimentos não perecíveis', 500]] },
     { ong: O11, titulo: 'Seca em Nova Venécia', tipo: 'seca', inicio: dt(6, 15), fim: dt(9, 15), cidades: [CID.novaVenecia, CID.saoMateus], metas: [[CAT.agua, 'água potável', 500], [CAT.alimentos, 'alimentos não perecíveis', 350]] }
   ].map((dados) => novaCampanha({
+    /* {...dados} copia os campos acima e o resto acrescenta os que faltam */
     ...dados,
     status: 'encerrada',
     descricao: `Campanha encerrada: ${dados.titulo}. As doações recebidas foram entregues às famílias atendidas.`,
+    /* Campanha de ONG usa o endereço da ONG; campanha do administrador usa o endereço do administrador */
     endereco: dados.ong ? ong[dados.ong - 1].endereco : ENDERECO_ADMIN,
     horario: dados.ong ? ong[dados.ong - 1].horario_atendimento : HORARIO_ADMIN
   }));
 
+  /* ---------- Necessidades ---------- */
+  /* A tabela necessidade começa vazia; novaNecessidade vai preenchendo */
   const necessidade = [];
 
+  /* Cria uma necessidade e devolve o id */
+  /* "extra = {}" é um parâmetro opcional: descricao, precisaAte, cadastro e atualizacao */
   const novaNecessidade = (idOng, idCategoria, item, quantidade, unidade, prioridade, extra = {}) => {
+    /* O id é a quantidade de necessidades já criadas + 1 */
     const id = necessidade.length + 1;
     necessidade.push({
       id_necessidade: id,
@@ -381,43 +479,59 @@ export function gerarDadosIniciais() {
     return id;
   };
 
+  /* Necessidades do Lar Esperança (tela 08 do wireframe) */
   const N1 = novaNecessidade(OL, CAT.cobertores, 'Cobertores de casal', 50, 'un.', 'urgente', { descricao: 'Cobertores de casal para o inverno, de preferência novos.' });
   const N2 = novaNecessidade(OL, CAT.higiene, 'Fraldas geriátricas G', 40, 'pct.', 'urgente');
   const N3 = novaNecessidade(OL, CAT.alimentos, 'Leite integral', 60, 'L', 'urgente');
   const N4 = novaNecessidade(OL, CAT.higiene, 'Sabonete', 100, 'un.', 'normal');
   const N5 = novaNecessidade(OL, CAT.roupas, 'Agasalhos tam. M/G', 30, 'un.', 'normal');
   const N6 = novaNecessidade(OL, CAT.alimentos, 'Arroz 5 kg', 20, 'pct.', 'normal');
+  /* Casa da Criança */
   const N7 = novaNecessidade(OC, CAT.alimentos, 'Leite em pó', 20, 'latas', 'urgente');
   const N11 = novaNecessidade(OC, CAT.alimentos, 'Cestas básicas', 80, 'un.', 'normal');
   const N12 = novaNecessidade(OC, CAT.higiene, 'Fraldas infantis M', 60, 'pct.', 'normal');
   novaNecessidade(OC, CAT.cobertores, 'Cobertores de solteiro', 25, 'un.', 'normal');
+  /* Abrigo Sol */
   const N8 = novaNecessidade(OA, CAT.higiene, 'Fraldas G', 40, 'pct.', 'normal');
   const N9 = novaNecessidade(OA, CAT.agua, 'Água mineral 1,5 L', 60, 'pct.', 'normal');
   const N10 = novaNecessidade(OA, CAT.agua, 'Água potável', 200, 'L', 'urgente');
   const N15 = novaNecessidade(OA, CAT.agua, 'Galões de água 20 L', 30, 'un.', 'normal');
+  /* Instituto Saber */
   const N13 = novaNecessidade(OI, CAT.escolar, 'Cadernos', 60, 'un.', 'normal');
 
-  const livres = [];
-  const ligadasC1 = [];
+  /* Necessidades geradas para as demais ONGs verificadas: "ligadas" entram na campanha 1; "livres" recebem doações aleatórias */
+  const livres = [];                 /* ids das necessidades que não estão ligadas à campanha 1 */
+  const ligadasC1 = [];              /* ids das necessidades ligadas à campanha 1 */
   const geradasPorOng = { [OI]: 1, [OB]: 2, [OP]: 1, [O7]: 1, [O8]: 2, [O9]: 1, [O10]: 1, [O11]: 1, [O12]: 1 };
   const categoriasLigaveis = [CAT.alimentos, CAT.higiene, CAT.agua];
   let girar = 0;
 
+  /* Para cada ONG verificada de 4 a 12: algumas necessidades compatíveis com a campanha 1 e três livres */
+  /* Percorre os ids das ONGs de OI até O12 */
   for (let idOng = OI; idOng <= O12; idOng++) {
+    /* Necessidades "ligadas": a quantidade vem de geradasPorOng (zero se a ONG não está na lista) */
     for (let i = 0; i < (geradasPorOng[idOng] ?? 0); i++) {
+      /* Categoria em rodízio entre alimentos, higiene e água (as que a campanha 1 pede) */
       const idCat = categoriasLigaveis[girar++ % categoriasLigaveis.length];
+      /* Sorteia um item do catálogo da categoria; os colchetes separam [item, unidade] em duas variáveis */
       const [item, unidade] = escolher(CATALOGO[idCat]);
+      /* Cria a necessidade (quantidade entre 40 e 120) e guarda o id na lista das ligadas */
       ligadasC1.push(novaNecessidade(idOng, idCat, item, entre(40, 120), unidade, 'normal'));
     }
+    /* Três necessidades "livres" por ONG, de qualquer categoria */
     for (let i = 0; i < 3; i++) {
       const idCat = escolher([CAT.alimentos, CAT.roupas, CAT.calcados, CAT.higiene, CAT.cobertores, CAT.escolar, CAT.moveis]);
       const [item, unidade] = escolher(CATALOGO[idCat]);
+      /* Cerca de 25% delas saem urgentes (proximo() dá um número entre 0 e 1) */
       livres.push(novaNecessidade(idOng, idCat, item, entre(30, 150), unidade, proximo() < 0.25 ? 'urgente' : 'normal'));
     }
   }
 
+  /* ---------- Vínculos entre necessidades e campanhas ---------- */
+  /* A tabela campanha_necessidade (tabela de ligação) começa vazia; ligar vai preenchendo */
   const campanha_necessidade = [];
 
+  /* Cria um vínculo (pedido) entre uma necessidade e uma campanha */
   const ligar = (idCampanha, idNecessidade, status, aumentaMeta, dataPedido) => {
     campanha_necessidade.push({
       id_campanha: idCampanha,
@@ -428,17 +542,25 @@ export function gerarDadosIniciais() {
     });
   };
 
+  /* Campanha 1: necessidades aceitas (a ONG criadora é o Lar Esperança, então os dela entram direto) */
   [N2, N4, N7, N8, N9, N10, N11].forEach((id) => ligar(C1.id, id, 'aceito', false, dt(10, 2)));
   ligadasC1.forEach((id) => ligar(C1.id, id, 'aceito', false, dt(10, 3)));
+  /* Pedidos de outras ONGs esperando o aceite do Lar Esperança (tela 07) */
   ligar(C1.id, N12, 'pendente', false, dt(10, 4));
   ligar(C1.id, N15, 'pendente', false, dt(10, 3));
+  /* Leite integral do Lar Esperança aguardando o aceite do Abrigo Sol na campanha 3 (tela 08) */
   ligar(C3.id, N3, 'pendente', false, dt(11, 15));
 
+  /* Campanhas 3, 4, 6, 7 e 8: vínculos usando as necessidades livres de categoria compatível */
+  /* Categorias das metas de uma campanha */
   const categoriasDaCampanha = (idCampanha) => campanha_meta.filter((m) => m.id_campanha === idCampanha).map((m) => m.id_categoria);
+  /* Liga necessidades livres a uma campanha: uma para cada status da lista (aceito, pendente, recusado) */
   const ligarLivres = (idCampanha, statuses, aumentaMeta) => {
     const aceitas = categoriasDaCampanha(idCampanha);
+    /* Candidatas: livres cuja categoria a campanha pede e que ainda não estão ligadas a ela */
     const candidatas = livres.filter((id) => aceitas.includes(necessidade[id - 1].id_categoria)
       && !campanha_necessidade.some((v) => v.id_campanha === idCampanha && v.id_necessidade === id));
+    /* Para cada status, usa a candidata da mesma posição (se existir). "aumentaMeta && i % 2 === 0" faz uma sim, outra não */
     statuses.forEach((status, i) => {
       if (candidatas[i] !== undefined) ligar(idCampanha, candidatas[i], status, aumentaMeta && i % 2 === 0, dt(11, 8 + i));
     });
@@ -449,12 +571,20 @@ export function gerarDadosIniciais() {
   ligarLivres(C7.id, ['aceito', 'pendente'], true);
   ligarLivres(C8.id, ['aceito', 'aceito'], false);
 
+  /* ---------- Doações ---------- */
+  /* A tabela doacao começa vazia; doar vai preenchendo */
   const doacao = [];
 
+  /*
+    Registra uma doação.
+    destino: { necessidade: id } ou { meta: id } (a doação tem sempre UM destino só, como no banco).
+    extra: observacao, forma ('levar' ou 'retirada'), retirada (endereço), recebimento, mensagem.
+  */
   const doar = (idDoador, destino, quantidade, status, registro, previsto, extra = {}) => {
     doacao.push({
       id_doacao: doacao.length + 1,
       id_doador: idDoador,
+      /* O campo que não é o destino fica null (?? null) */
       id_necessidade: destino.necessidade ?? null,
       id_meta: destino.meta ?? null,
       quantidade,
@@ -463,19 +593,23 @@ export function gerarDadosIniciais() {
       endereco_retirada: extra.retirada ?? null,
       data_prevista: previsto,
       data_registro: registro,
+      /* A data de recebimento só existe se a doação já foi recebida */
       data_recebimento: status === 'recebida' ? (extra.recebimento ?? previsto) : null,
       status,
       mensagem_ong: extra.mensagem ?? null
     });
   };
 
+  /* Doações recebidas para uma meta de campanha: uma doação para cada quantidade da lista */
   const receberMeta = (idMeta, quantidades, mes, diaInicial) => {
     quantidades.forEach((quantidade, i) => {
+      /* Cada doação cai 2 dias depois da anterior, sem passar do dia 28 */
       const dia = Math.min(28, diaInicial + i * 2);
       doar(proximoDoador(), { meta: idMeta }, quantidade, 'recebida', dt(mes, Math.max(1, dia - 2)), dt(mes, dia));
     });
   };
 
+  /* --- As 6 doações do Lucas (tela "Minhas doações") --- */
   doar(LUCAS, { necessidade: N1 }, 5, 'oferecida', dt(10, 5), dt(10, 15), { observacao: 'cobertores novos, ainda na embalagem' });
   doar(LUCAS, { necessidade: N7 }, 4, 'aceita', dt(10, 1), dt(10, 10));
   doar(LUCAS, { meta: C1.metas[0] }, 6, 'recebida', dt(9, 28), dt(9, 30));
@@ -483,6 +617,7 @@ export function gerarDadosIniciais() {
   doar(LUCAS, { necessidade: N13 }, 10, 'recebida', dt(9, 8), dt(9, 10));
   doar(LUCAS, { necessidade: N4 }, 12, 'oferecida', dt(9, 2), dt(9, 10));
 
+  /* --- Doações às necessidades do Lar Esperança (tela "Doações recebidas" da ONG) --- */
   doar(ANA, { necessidade: N2 }, 6, 'oferecida', dt(10, 4), dt(10, 12), { forma: 'retirada', retirada: 'Rua Bela Vista, 45 - Itapuã, Vila Velha' });
   doar(PAULO, { meta: C1.metas[0] }, 10, 'oferecida', dt(10, 2), dt(10, 9));
   doar(JOAO, { necessidade: N3 }, 12, 'aceita', dt(10, 3), dt(10, 8));
@@ -495,21 +630,25 @@ export function gerarDadosIniciais() {
   doar(proximoDoador(), { necessidade: N5 }, 5, 'recebida', dt(11, 10), dt(11, 12));
   [4, 4, 4, 3, 3].forEach((q, i) => doar(proximoDoador(), { necessidade: N6 }, q, 'recebida', dt(11, 3 + i * 3), dt(11, 5 + i * 3)));
 
+  /* --- Doações às necessidades de outras ONGs, para fechar os números dos wireframes --- */
   [20, 20, 12].forEach((q, i) => doar(proximoDoador(), { necessidade: N11 }, q, 'recebida', dt(10, 6 + i * 6), dt(10, 8 + i * 6)));
   doar(proximoDoador(), { necessidade: N8 }, 12, 'recebida', dt(10, 8), dt(10, 10));
   doar(proximoDoador(), { necessidade: N8 }, 10, 'aceita', dt(11, 12), dt(11, 22));
   [15, 15].forEach((q, i) => doar(proximoDoador(), { necessidade: N9 }, q, 'recebida', dt(10, 9 + i * 5), dt(10, 11 + i * 5)));
   [40, 40, 40].forEach((q, i) => doar(proximoDoador(), { necessidade: N10 }, q, 'recebida', dt(10, 5 + i * 4), dt(10, 7 + i * 4)));
 
+  /* --- Doações às metas da campanha 1: 1.000 de água, 450 de alimentos e 238 de higiene recebidos --- */
   receberMeta(C1.metas[0], [200, 200, 200, 194, 200], 10, 2);
   receberMeta(C1.metas[1], [100, 100, 100, 100, 50], 10, 3);
   receberMeta(C1.metas[2], [60, 60, 60, 58], 10, 4);
 
+  /* --- Doações às metas das outras campanhas --- */
   receberMeta(C3.metas[0], [20, 20], 11, 3);
   receberMeta(C3.metas[1], [75, 75], 11, 4);
   receberMeta(C3.metas[2], [45, 45], 11, 5);
   doar(proximoDoador(), { meta: C3.metas[2] }, 30, 'oferecida', dt(11, 19), dt(11, 25));
 
+  /* Campanha 4 (administrador): doações para a tela "Doações das campanhas" */
   receberMeta(C4.metas[0], [30, 30, 40, 25, 25, 30], 11, 6);
   receberMeta(C4.metas[1], [10, 10, 15], 11, 7);
   receberMeta(C4.metas[2], [40, 40, 30, 30], 11, 8);
@@ -518,48 +657,64 @@ export function gerarDadosIniciais() {
   doar(proximoDoador(), { meta: C4.metas[1] }, 10, 'aceita', dt(11, 17), dt(11, 23));
   doar(proximoDoador(), { meta: C4.metas[0] }, 5, 'recusada', dt(11, 12), dt(11, 15), { mensagem: 'No momento só recebemos roupas de adulto.' });
 
+  /* Campanha 7 (administrador) e campanhas 6 e 8 */
   receberMeta(C7.metas[0], [60, 60, 50], 11, 4);
   receberMeta(C7.metas[1], [40, 40], 11, 5);
   doar(proximoDoador(), { meta: C7.metas[0] }, 40, 'oferecida', dt(11, 20), dt(11, 27));
   receberMeta(C6.metas[0], [40, 30], 11, 12);
   receberMeta(C8.metas[0], [50, 50], 11, 14);
 
+  /* Campanhas encerradas: algumas doações recebidas dentro do período de cada uma */
   encerradas.forEach((c) => {
+    /* Mês de início da campanha (caracteres 5 e 6 da data 'AAAA-MM-DD') */
     const mes = Number(campanha[c.id - 1].data_inicio.slice(5, 7));
+    /* Para cada meta da campanha, duas doações recebidas (as quantidades dependem da posição i) */
     c.metas.forEach((idMeta, i) => receberMeta(idMeta, [30 + i * 10, 40 + i * 10], mes, 8 + i * 3));
   });
 
+  /* --- Doações geradas para completar o número de doações recebidas por mês (gráfico do painel) --- */
+  /* Conta quantas doações recebidas já existem em cada mês: { '2026-06': 4, ... } */
   const contagemPorMes = {};
   doacao.filter((d) => d.status === 'recebida').forEach((d) => {
     const mes = d.data_recebimento.slice(0, 7);
+    /* ?? 0 começa a conta em zero na primeira vez que o mês aparece */
     contagemPorMes[mes] = (contagemPorMes[mes] ?? 0) + 1;
   });
+  /* Para cada mês do gráfico, cria as doações que faltam para chegar no número desejado */
   for (const [mes, alvo] of Object.entries(DOACOES_RECEBIDAS_POR_MES)) {
     const faltam = alvo - (contagemPorMes[mes] ?? 0);
+    /* Último dia em que a doação pode cair: dia 20 em novembro e dia 28 nos outros meses */
     const ultimoDia = mes === '2026-11' ? 20 : 28;
     for (let i = 0; i < faltam; i++) {
+      /* Dia sorteado, uma necessidade livre qualquer e quantidade entre 1 e 12 */
       const dia = entre(2, ultimoDia);
       const idNec = escolher(livres);
       doar(proximoDoador(), { necessidade: idNec }, entre(1, 12), 'recebida', `${mes}-${String(dia - 1).padStart(2, '0')}`, `${mes}-${String(dia).padStart(2, '0')}`);
     }
   }
 
+  /* --- Doações em andamento (oferecidas, aceitas, recusadas e canceladas) nas necessidades livres --- */
+  /* A lista de status se repete em ordem (o % volta ao começo), gerando 24 doações */
   const andamento = ['oferecida', 'oferecida', 'aceita', 'recusada', 'cancelada', 'aceita'];
   for (let i = 0; i < 24; i++) {
     const dia = 2 + (i % 18);
     doar(proximoDoador(), { necessidade: escolher(livres) }, entre(1, 10), andamento[i % andamento.length], dt(11, dia), dt(11, Math.min(28, dia + 8)));
   }
 
+  /* Ajusta a quantidade pedida das necessidades livres para nunca ficar menor que o que já foi prometido */
+  /* Soma, por necessidade, as quantidades das doações oferecidas, aceitas e recebidas: { idNecessidade: total } */
   const prometidoPorNecessidade = {};
   doacao.forEach((d) => {
     if (d.id_necessidade && ['oferecida', 'aceita', 'recebida'].includes(d.status)) {
       prometidoPorNecessidade[d.id_necessidade] = (prometidoPorNecessidade[d.id_necessidade] ?? 0) + d.quantidade;
     }
   });
+  /* A quantidade pedida passa a ser a maior entre a atual e (prometido + um acréscimo de 15 a 60) */
   livres.forEach((id) => {
     const n = necessidade[id - 1];
     n.quantidade = Math.max(n.quantidade, (prometidoPorNecessidade[id] ?? 0) + entre(15, 60));
   });
 
+  /* Devolve todas as tabelas juntas num objeto: é esse objeto que o armazenamento.js salva no localStorage */
   return { cidade, categoria, usuario, ong, campanha, campanha_cidade, campanha_meta, necessidade, campanha_necessidade, doacao };
 }

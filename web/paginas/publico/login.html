@@ -1,23 +1,37 @@
 <!DOCTYPE html>
+<!--
+  login.html (tela 01 do Figma: Entrar)
+  Para que serve: formulário de entrada. O login é validado em JavaScript (js/paginas/publico/login.js).
+  Quem abre: qualquer pessoa. Depois de entrar, cada perfil vai para a sua tela inicial.
+-->
+<!-- lang="pt-BR" diz ao navegador e aos leitores de tela que o texto é em português do Brasil -->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <!-- viewport: faz a página se ajustar à largura do celular (responsividade) -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Entre no Conecta Doações como doador, ONG ou administrador.">
   <title>Entrar · Conecta Doações</title>
+  <!-- Fontes do guia de estilo (Google Fonts) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+  <!-- CSS compartilhado e CSS das páginas públicas -->
   <link rel="stylesheet" href="../../css/principal.css">
   <link rel="stylesheet" href="../../css/paginas/publico.css">
   <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
 </head>
+<!-- data-raiz: onde fica a raiz do site, a partir desta pasta. data-pagina: id do item de menu atual -->
 <body data-raiz="../../" data-pagina="login">
+  <!-- Link para quem usa teclado pular direto ao conteúdo (acessibilidade) -->
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
 
+  <!-- <header>: o JS (cabecalho.js) preenche com a marca, o menu e o botão Entrar -->
   <header id="cabecalho"></header>
 
+  <!-- <main>: o conteúdo principal da página (só existe um por página) -->
   <main id="conteudo" class="conteudo pagina-formulario">
+    <!-- <section> com título: um bloco de conteúdo com assunto próprio -->
     <section class="cartao cartao-formulario" aria-labelledby="titulo-pagina">
       <div class="apresentacao-marca">
         <span class="logo-quadrado" id="logo-login"></span>
@@ -25,9 +39,12 @@
         <p class="texto-apoio">Conectando quem quer doar a quem precisa</p>
       </div>
 
+      <!-- Área onde o JS mostra o alerta de erro de login -->
       <div id="area-alerta" class="area-alerta"></div>
 
+      <!-- <form>: novalidate desliga as mensagens do navegador para usarmos as nossas -->
       <form id="formulario-login" class="pilha" novalidate>
+        <!-- Cada campo: <label for="..."> ligado ao <input id="...">, para leitores de tela e clique no texto -->
         <div class="campo">
           <label for="identificador">E-mail ou usuário <span class="obrigatorio" aria-hidden="true">*</span></label>
           <input type="text" id="identificador" name="identificador" autocomplete="username" required>
@@ -46,6 +63,7 @@
         <button type="submit" class="botao botao-primario botao-grande botao-bloco">Entrar</button>
       </form>
 
+      <!-- <details>: caixa que abre e fecha sozinha, com as contas de teste do enunciado -->
       <details class="contas-teste">
         <summary>Contas de teste</summary>
         <dl>
@@ -57,6 +75,7 @@
 
       <div class="separador"><span>ou</span></div>
 
+      <!-- <fieldset> + <legend>: agrupa os radios com um título para leitores de tela -->
       <form id="formulario-conta" class="pilha">
         <fieldset class="pilha pilha-pequena">
           <legend>Ainda não tem conta? Crie como:</legend>
@@ -76,8 +95,10 @@
     </section>
   </main>
 
+  <!-- <footer>: o JS (rodape.js) preenche com o nome do projeto e o botão de restaurar dados -->
   <footer id="rodape"></footer>
 
+  <!-- type="module": o arquivo pode usar import/export para buscar funções de outros arquivos -->
   <script type="module" src="../../js/paginas/publico/login.js"></script>
 </body>
 </html>

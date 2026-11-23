@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  ajuda.html (tela extra, sem quadro no Figma: Ajuda)
+  Para que serve: responde as dúvidas mais comuns (como doar, como a ONG recebe, o que é meta da campanha,
+  como solicitar campanha, como ter o selo de ONG verificada) em perguntas que abrem e fecham (<details>).
+  É aberta pelo link "Ajuda" do cabeçalho. Conteúdo estático.
+-->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -12,16 +18,21 @@
   <link rel="stylesheet" href="../../css/paginas/publico.css">
   <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
 </head>
+<!-- data-raiz diz ao JavaScript onde fica a raiz do site (para montar os links entre páginas em pastas diferentes); data-pagina diz qual item do menu marcar como atual -->
 <body data-raiz="../../" data-pagina="ajuda">
+  <!-- Link para quem navega só pelo teclado pular o cabeçalho; fica escondido e aparece quando recebe o foco -->
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <!-- Caixa vazia de propósito: o JavaScript (pagina.js e cabecalho.js) monta aqui o cabeçalho e o menu -->
   <header id="cabecalho"></header>
 
+  <!-- <main> é o conteúdo principal da página (só existe um por página); o id="conteudo" é o destino do link "Pular para o conteúdo" -->
   <main id="conteudo" class="conteudo pilha pilha-grande">
     <div class="pilha pilha-pequena">
       <h1>Ajuda</h1>
       <p class="texto-apoio">Respostas rápidas para as dúvidas mais comuns sobre o Conecta Doações.</p>
     </div>
 
+    <!-- Cada <details> é uma pergunta que abre e fecha sozinha, sem JavaScript -->
     <section class="pilha" aria-labelledby="titulo-doador">
       <h2 id="titulo-doador">Para quem quer doar</h2>
       <details class="pergunta cartao cartao-compacto" open>
@@ -84,7 +95,9 @@
     </section>
   </main>
 
+  <!-- Caixa vazia de propósito: o JavaScript (rodape.js) monta aqui o rodapé -->
   <footer id="rodape"></footer>
+  <!-- type="module" permite que este JavaScript use import e export para trazer funções de outros arquivos -->
   <script type="module" src="../../js/paginas/publico/ajuda.js"></script>
 </body>
 </html>
