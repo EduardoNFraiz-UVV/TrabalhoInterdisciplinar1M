@@ -111,6 +111,15 @@ METAS_POR_TIPO = {
     "seca": [("Água", "água potável"), ("Alimentos", "alimentos não perecíveis")],
     "incendio": [("Roupas", "roupas e agasalhos"), ("Móveis", "móveis básicos"), ("Higiene", "itens de higiene")],
 }
+UNIDADE_DA_META = {
+    "água potável": "L",
+    "alimentos não perecíveis": "kg",
+    "itens de higiene": "un.",
+    "colchões e camas": "un.",
+    "cobertores": "un.",
+    "roupas e agasalhos": "un.",
+    "móveis básicos": "un.",
+}
 CIDADES_EXTRAS = {"enchente": 2, "seca": 3, "deslizamento": 1, "incendio": 0}
 LOCAL_ADMIN = ("Avenida Jerônimo Monteiro, 1000 - Centro, Vitória", "Seg a sex, 8h às 17h")
 
@@ -272,7 +281,7 @@ def gerar_campanhas(ongs):
         campanhas.append(linha)
         ligacoes_cidade.extend([linha[0], c] for c in cidades)
         for categoria, item, quantidade in itens_meta:
-            metas.append([len(metas) + 1, linha[0], categoria, item, quantidade])
+            metas.append([len(metas) + 1, linha[0], categoria, item, quantidade, UNIDADE_DA_META[item]])
 
     def local(id_ong):
         if id_ong is None:
@@ -483,7 +492,7 @@ def main():
                                     "status", "endereco_recebimento", "horario_recebimento"],
                 [[c[0]] + c[2:] for c in campanhas])
         inserir(saida, "campanha_cidade", ["id_campanha", "id_cidade"], ligacoes_cidade)
-        inserir(saida, "campanha_meta", ["id_meta", "id_campanha", "id_categoria", "item", "quantidade"], metas)
+        inserir(saida, "campanha_meta", ["id_meta", "id_campanha", "id_categoria", "item", "quantidade", "unidade"], metas)
         inserir(saida, "necessidade", ["id_necessidade", "id_ong", "id_categoria", "item",
                                        "descricao", "quantidade", "unidade", "prioridade", "precisa_ate",
                                        "situacao", "data_cadastro", "data_atualizacao"],

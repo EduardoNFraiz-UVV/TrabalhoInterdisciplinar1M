@@ -78,6 +78,7 @@ CREATE TABLE campanha_meta (
     id_categoria  INTEGER      NOT NULL REFERENCES categoria (id_categoria),
     item          VARCHAR(100) NOT NULL,
     quantidade    INTEGER      NOT NULL,
+    unidade       VARCHAR(10)  NOT NULL,
     CONSTRAINT ck_meta_qtd CHECK (quantidade > 0)
 );
 
