@@ -1,10 +1,4 @@
 <!DOCTYPE html>
-<!--
-  criar-conta.html (tela extra, sem quadro no Figma: Criar conta)
-  Para que serve: cadastro de uma conta nova como DOADOR (entra na hora) ou como representante de uma ONG
-  (a ONG nasce NÃO VERIFICADA e espera a aprovação do administrador). Aceita ?tipo=doador|ong.
-  Os dados vão para as tabelas usuario e ong, guardadas no navegador. O JS está em js/paginas/publico/criar-conta.js.
--->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -18,21 +12,16 @@
   <link rel="stylesheet" href="../../css/paginas/publico.css">
   <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
 </head>
-<!-- data-raiz diz ao JavaScript onde fica a raiz do site (para montar os links entre páginas em pastas diferentes); data-pagina diz qual item do menu marcar como atual -->
 <body data-raiz="../../" data-pagina="criar-conta">
-  <!-- Link para quem navega só pelo teclado pular o cabeçalho; fica escondido e aparece quando recebe o foco -->
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
-  <!-- Caixa vazia de propósito: o JavaScript (pagina.js e cabecalho.js) monta aqui o cabeçalho e o menu -->
   <header id="cabecalho"></header>
 
-  <!-- <main> é o conteúdo principal da página (só existe um por página); o id="conteudo" é o destino do link "Pular para o conteúdo" -->
   <main id="conteudo" class="conteudo pagina-formulario">
     <section class="cartao cartao-formulario cartao-formulario-largo" aria-labelledby="titulo-pagina">
       <div class="pilha pilha-pequena">
         <h1 id="titulo-pagina">Criar conta</h1>
         <p class="texto-apoio">Cadastre-se para doar ou para divulgar as necessidades da sua ONG.</p>
       </div>
-      <!-- Área de avisos: o JavaScript mostra aqui as mensagens de sucesso e erro; aria-live="polite" faz o leitor de tela anunciar quando o texto muda -->
       <div id="area-alerta" class="area-alerta" aria-live="polite"></div>
 
       <form id="formulario-conta" class="pilha-grande" novalidate>
@@ -44,7 +33,6 @@
           </div>
         </fieldset>
 
-        <!-- Dados de quem cria a conta -->
         <div class="pilha">
           <h2 class="texto-sobretitulo" id="titulo-pessoa">Seus dados</h2>
           <div class="campo">
@@ -78,7 +66,6 @@
           </div>
         </div>
 
-        <!-- Dados da ONG: só aparecem para "Represento uma ONG" -->
         <div class="pilha" id="bloco-ong" hidden>
           <h2 class="texto-sobretitulo" id="titulo-ong">Dados da ONG</h2>
           <div class="campo">
@@ -127,9 +114,7 @@
     </section>
   </main>
 
-  <!-- Caixa vazia de propósito: o JavaScript (rodape.js) monta aqui o rodapé -->
   <footer id="rodape"></footer>
-  <!-- type="module" permite que este JavaScript use import e export para trazer funções de outros arquivos -->
   <script type="module" src="../../js/paginas/publico/criar-conta.js"></script>
 </body>
 </html>

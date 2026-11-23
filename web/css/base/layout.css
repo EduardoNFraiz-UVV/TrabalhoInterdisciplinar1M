@@ -1,15 +1,7 @@
-/*
-  layout.css
-  Para que serve: define as "caixas" de organização da página (container central, pilhas,
-  linhas e grades) usando Flexbox e CSS Grid.
-  Quem usa: principal.css. As classes são aplicadas direto no HTML (ex.: class="pilha").
-*/
-
-/* Link "Pular para o conteúdo": fica escondido e aparece só quando recebe foco pelo teclado */
 .pular-conteudo {
   position: absolute;
   left: var(--space-4);
-  top: -100px;               /* fora da tela */
+  top: -100px;
   z-index: 100;
   padding: var(--space-2) var(--space-4);
   background: var(--primary);
@@ -18,11 +10,10 @@
 }
 
 .pular-conteudo:focus {
-  top: var(--space-2);       /* entra na tela quando focado */
+  top: var(--space-2);
   color: var(--on-primary);
 }
 
-/* Container central: limita a largura do conteúdo e dá respiro nas laterais */
 .conteudo {
   width: 100%;
   max-width: var(--largura-conteudo);
@@ -30,10 +21,6 @@
   padding: var(--space-5) var(--space-5) var(--space-8);
 }
 
-/* Cabeçalho, conteúdo e rodapé são montados pelo JavaScript. Para a página não "pular" enquanto
-   isso acontece, eles ficam invisíveis até o JS terminar (pagina.js coloca a classe "pronto" no <body>
-   no quadro seguinte). Como a visibilidade só muda uma vez, nada visível se desloca na tela.
-   Saída de segurança: se o JS falhar, a animação abaixo revela a página depois de 1,5 s. */
 body:not(.pronto) > header,
 body:not(.pronto) > main,
 body:not(.pronto) > footer {
@@ -47,7 +34,6 @@ body:not(.pronto) > footer {
   }
 }
 
-/* A tag <main> ocupa o espaço que sobrar, empurrando o rodapé para baixo da tela */
 body {
   min-height: 100vh;
   display: flex;
@@ -58,7 +44,6 @@ main {
   flex: 1;
 }
 
-/* Pilha: itens um embaixo do outro com espaço entre eles (flex em coluna) */
 .pilha {
   display: flex;
   flex-direction: column;
@@ -69,10 +54,6 @@ main {
   gap: var(--space-2);
 }
 
-/* Ritmo vertical em três níveis, para a página não ter tudo à mesma distância:
-   - dentro de um bloco (título + conteúdo, campo + ajuda): 8 a 16 px (.pilha-pequena e .pilha);
-   - entre blocos de uma coluna (.pilha-grande): 32 px;
-   - entre as seções principais da página (<main class="conteudo pilha-grande">): 48 px. */
 .pilha-grande {
   gap: var(--space-6);
 }
@@ -81,7 +62,6 @@ main.conteudo.pilha-grande {
   gap: calc(var(--space-6) + var(--space-3));
 }
 
-/* Linha: itens lado a lado, quebrando para a linha de baixo se faltar espaço */
 .linha {
   display: flex;
   flex-wrap: wrap;
@@ -89,24 +69,19 @@ main.conteudo.pilha-grande {
   gap: var(--space-3);
 }
 
-/* Linha com um item em cada ponta (ex.: título à esquerda e botão à direita) */
 .linha-entre {
   justify-content: space-between;
 }
 
-/* Alinha os itens da linha ao final (ex.: botões do rodapé de formulário) */
 .linha-fim {
   justify-content: flex-end;
 }
 
-/* Faz um filho da linha ocupar todo o espaço que sobrar */
 .cresce {
   flex: 1 1 0;
   min-width: 0;
 }
 
-/* Grade principal: coluna do conteúdo + coluna lateral (aside).
-   No celular e no tablet, vira uma coluna só; a partir de 1024 px fica com duas. */
 .grade-principal {
   display: grid;
   grid-template-columns: 1fr;
@@ -116,28 +91,21 @@ main.conteudo.pilha-grande {
 
 @media (min-width: 1024px) {
   .grade-principal {
-    /* Duas colunas: a primeira pega todo o espaço que sobra (1fr, podendo encolher até 0) e a lateral tem 340 px fixos */
     grid-template-columns: minmax(0, 1fr) 340px;
   }
 }
 
-/* Sem isto, um filho largo (como a faixa de abas) estica a coluna além da tela no celular.
-   min-width: 0 permite que o filho encolha e use a rolagem própria dele. */
 .grade-principal > *,
 .pilha {
   min-width: 0;
 }
 
-/* Grade de cards: cria quantas colunas couberem, cada uma com no mínimo 280 px */
 .grade-cartoes {
   display: grid;
-  /* repeat(auto-fill, ...) cria quantas colunas couberem; minmax(280px, 1fr) = cada coluna tem no mínimo 280 px
-     e divide igualmente o espaço que sobrar */
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: var(--space-4);
 }
 
-/* Grade de duas colunas iguais (ex.: formulários e detalhes lado a lado) */
 .grade-duas {
   display: grid;
   grid-template-columns: 1fr;
@@ -150,7 +118,6 @@ main.conteudo.pilha-grande {
   }
 }
 
-/* Grade de cards de resumo (números grandes do painel) */
 .grade-resumo {
   display: grid;
   grid-template-columns: 1fr;
@@ -173,7 +140,6 @@ main.conteudo.pilha-grande {
   }
 }
 
-/* Cabeçalho da página: h1 e, ao lado, o botão principal */
 .cabecalho-pagina {
   display: flex;
   flex-wrap: wrap;
@@ -182,39 +148,30 @@ main.conteudo.pilha-grande {
   gap: var(--space-3);
 }
 
-/* Seção com título: espaço entre o título e o conteúdo */
 .secao {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
 }
 
-/* Texto centralizado */
 .centro {
   text-align: center;
 }
 
-/* Lista sem marcadores e sem recuo (usada dentro de células de tabela e cards) */
 .lista-simples {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Área onde os avisos (sucesso, erro...) aparecem. Quando está vazia ela não pode ocupar espaço:
-   com display: contents a caixa "some" do layout, então o gap do .pilha não cria uma lacuna
-   fantasma. Quando um aviso entra, ele passa a ser o item da pilha. O aria-live continua valendo,
-   por isso leitores de tela ainda anunciam o aviso. */
 .area-alerta {
   display: contents;
 }
 
-/* Mensagem de "lista vazia" dentro das caixas de seleção */
 .lista-vazia {
   padding: var(--space-3) var(--space-4);
 }
 
-/* Esconde um elemento da tela, mas mantém para leitores de tela (acessibilidade) */
 .so-leitor {
   position: absolute;
   width: 1px;
@@ -224,7 +181,6 @@ main.conteudo.pilha-grande {
   white-space: nowrap;
 }
 
-/* No celular, o container usa menos espaço nas laterais */
 @media (max-width: 640px) {
   .conteudo {
     padding: var(--space-4) var(--space-4) var(--space-7);
