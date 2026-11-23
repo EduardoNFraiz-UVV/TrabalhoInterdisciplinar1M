@@ -17,8 +17,21 @@
 import { slug } from '../utilitarios/formatacao.js';
 
 /* Número da versão da carga inicial. Se mudarmos os dados no código, aumentamos este número
-   e o navegador de quem já abriu o site descarta os dados antigos e carrega os novos. */
-export const VERSAO_DADOS = 1;
+   e o navegador de quem já abriu o site descarta os dados antigos e carrega os novos.
+   Versão 2: as metas das campanhas ganharam a coluna unidade (L, kg, un....), como a necessidade. */
+export const VERSAO_DADOS = 2;
+
+/* Unidade de cada item de meta dos dados de exemplo: água em litros, alimentos em quilos e o resto em unidades.
+   A chave é o texto do item; o valor é uma das unidades da lista UNIDADES (formatacao.js). */
+const UNIDADE_DA_META = {
+  'água potável': 'L',
+  'alimentos não perecíveis': 'kg',
+  'itens de higiene': 'un.',
+  'colchões e camas': 'un.',
+  'cobertores': 'un.',
+  'roupas e agasalhos': 'un.',
+  'móveis básicos': 'un.'
+};
 
 /* Senhas guardadas como SHA-256 (hash), como a coluna senha_hash do banco. Nunca guardamos a senha pura.
    doador = doa#2026, entidade = ent!2026, admin = adm@2026; "padrao" é a senha dos demais usuários de exemplo */
@@ -334,10 +347,11 @@ export function gerarDadosIniciais() {
     });
     /* Uma linha na tabela campanha_cidade para cada cidade atingida */
     dados.cidades.forEach((idCidade) => campanha_cidade.push({ id_campanha: id, id_cidade: idCidade }));
-    /* Cada meta chega como [categoria, item, quantidade]; vira uma linha em campanha_meta, e guardamos o id dela */
+    /* Cada meta chega como [categoria, item, quantidade]; a unidade vem de UNIDADE_DA_META (pelo texto do item);
+       vira uma linha em campanha_meta, e guardamos o id dela */
     const metas = dados.metas.map(([idCategoria, item, quantidade]) => {
       const idMeta = campanha_meta.length + 1;
-      campanha_meta.push({ id_meta: idMeta, id_campanha: id, id_categoria: idCategoria, item, quantidade });
+      campanha_meta.push({ id_meta: idMeta, id_campanha: id, id_categoria: idCategoria, item, quantidade, unidade: UNIDADE_DA_META[item] });
       return idMeta;
     });
     /* Devolve o id da campanha e a lista de ids das metas (usados mais abaixo para criar doações) */

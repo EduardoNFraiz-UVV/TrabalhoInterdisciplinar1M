@@ -155,12 +155,12 @@ export function salvarCampanha(dados) {
   removerOnde('campanha_meta', (m) => m.id_campanha === campanha.id_campanha
     && !idsMantidos.includes(m.id_meta)
     && !tabela('doacao').some((d) => d.id_meta === m.id_meta));
-  /* Para cada meta da tela: atualiza se já existia, insere se é nova */
+  /* Para cada meta da tela: atualiza se já existia, insere se é nova (categoria, item, quantidade e unidade) */
   metas.forEach((meta) => {
     if (meta.id_meta) {
-      atualizar('campanha_meta', meta.id_meta, { id_categoria: meta.id_categoria, item: meta.item, quantidade: meta.quantidade });
+      atualizar('campanha_meta', meta.id_meta, { id_categoria: meta.id_categoria, item: meta.item, quantidade: meta.quantidade, unidade: meta.unidade });
     } else {
-      inserir('campanha_meta', { id_campanha: campanha.id_campanha, id_categoria: meta.id_categoria, item: meta.item, quantidade: meta.quantidade });
+      inserir('campanha_meta', { id_campanha: campanha.id_campanha, id_categoria: meta.id_categoria, item: meta.item, quantidade: meta.quantidade, unidade: meta.unidade });
     }
   });
   return campanha;

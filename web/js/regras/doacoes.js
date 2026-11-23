@@ -47,7 +47,8 @@ export function detalharDoacao(doacao) {
     return {
       tipo: 'meta',
       item: `${capitalizar(meta.item)} (meta)`,
-      unidade: 'itens',
+      /* A meta também tem unidade própria (L, kg, un....), como a necessidade */
+      unidade: meta.unidade,
       idCategoria: meta.id_categoria,
       meta,
       campanha,

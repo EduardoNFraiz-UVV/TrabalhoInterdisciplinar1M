@@ -17,7 +17,7 @@
 import { tabela, buscar } from '../../nucleo/armazenamento.js';
 import { ir, parametro } from '../../nucleo/caminhos.js';
 import { el, $, preencher } from '../../utilitarios/dom.js';
-import { formatarNumero, formatarQuantidade, normalizar } from '../../utilitarios/formatacao.js';
+import { formatarNumero, formatarQuantidade, normalizar, UNIDADES } from '../../utilitarios/formatacao.js';
 import { somarQuantidades, semRepetidos } from '../../utilitarios/listas.js';
 import { necessidadesAtivas } from '../../regras/necessidades.js';
 import { metasDaCampanha, cidadesDaCampanha, vinculosAceitos, salvarCampanha } from '../../regras/campanhas.js';
@@ -145,6 +145,8 @@ export function iniciarFormularioCampanha({ modo, ong }) {
   }
 
   /* ---------- Metas gerais ---------- */
+  /* Lista de unidades do campo "unidade da meta": a mesma lista da necessidade (un., pct., L, latas, kg, cx.) */
+  preencherSelect($('#meta-unidade'), UNIDADES, { valor: (u) => u, rotulo: (u) => u });
   /* Lista de categorias do campo "categoria da meta" */
   preencherSelect($('#meta-categoria'), tabela('categoria'), { valor: (c) => c.id_categoria, rotulo: (c) => c.nome, primeira: 'Selecione' });
 
@@ -153,7 +155,7 @@ export function iniciarFormularioCampanha({ modo, ong }) {
     preencher($('#metas-lista'), metas.length === 0
       ? el('li', { class: 'texto-apoio' }, 'Nenhuma meta adicionada ainda.')
       : metas.map((meta, indice) => el('li', {},
-        el('span', {}, `${formatarNumero(meta.quantidade)} · ${nomeCategoria(meta.id_categoria)} · ${meta.item}`),
+        el('span', {}, `${formatarQuantidade(meta.quantidade, meta.unidade)} · ${nomeCategoria(meta.id_categoria)} · ${meta.item}`),
         el('button', { type: 'button', class: 'acao acao-perigo', 'aria-label': `Remover a meta ${meta.item}`, onclick: () => removerMeta(indice) }, 'Remover'))));
     /* As metas definem as categorias do buscador, então ele também é atualizado */
     ajustarSelecaoAsCategorias();
@@ -177,19 +179,21 @@ export function iniciarFormularioCampanha({ modo, ong }) {
 
   /* Botão "+ Adicionar meta" */
   $('#adicionar-meta').addEventListener('click', () => {
-    /* Valores digitados nos três campos da meta */
+    /* Valores digitados nos quatro campos da meta */
     const quantidade = $('#meta-quantidade').value;
+    const unidade = $('#meta-unidade').value;
     const categoria = $('#meta-categoria').value;
     const item = $('#meta-item').value.trim();
-    /* Os três são obrigatórios e a quantidade precisa ser inteira maior que zero */
-    if (!inteiroPositivo(quantidade) || !categoria || !item) {
-      preencher($('#erro-metas'), alerta('erro', 'Meta incompleta.', 'Informe a quantidade (maior que zero), escolha a categoria e escreva o item. Exemplo: 1500, Higiene, itens de higiene.'));
+    /* Os quatro são obrigatórios e a quantidade precisa ser inteira maior que zero */
+    if (!inteiroPositivo(quantidade) || !unidade || !categoria || !item) {
+      preencher($('#erro-metas'), alerta('erro', 'Meta incompleta.', 'Informe a quantidade (maior que zero) e a unidade, escolha a categoria e escreva o item. Exemplo: 1500 un., Higiene, itens de higiene.'));
       return;
     }
-    /* Acrescenta a meta na lista, limpa os campos e redesenha */
-    metas.push({ id_categoria: Number(categoria), item, quantidade: Number(quantidade) });
+    /* Acrescenta a meta na lista, limpa os campos (a unidade volta para a primeira, "un.") e redesenha */
+    metas.push({ id_categoria: Number(categoria), item, quantidade: Number(quantidade), unidade });
     preencher($('#erro-metas'));
     $('#meta-quantidade').value = '';
+    $('#meta-unidade').value = UNIDADES[0];
     $('#meta-categoria').value = '';
     $('#meta-item').value = '';
     desenharMetas();

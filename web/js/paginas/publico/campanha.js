@@ -68,9 +68,9 @@ function montar(usuario, ong) {
     /* Um item de lista por meta: título, botão e barra de progresso */
     return el('li', { class: 'cartao cartao-compacto' },
       el('div', { class: 'linha linha-entre' },
-        el('h3', {}, `${formatarNumero(meta.quantidade)} · ${meta.item}`),
+        el('h3', {}, `${formatarQuantidade(meta.quantidade, meta.unidade)} · ${meta.item}`),
         botao ?? ''),
-      barraProgresso(buscar('categoria', meta.id_categoria).nome, `${formatarNumero(recebidoMeta)} de ${formatarNumero(meta.quantidade)}`, percentual(recebidoMeta, meta.quantidade)));
+      barraProgresso(buscar('categoria', meta.id_categoria).nome, `${formatarNumero(recebidoMeta)} de ${formatarQuantidade(meta.quantidade, meta.unidade)}`, percentual(recebidoMeta, meta.quantidade)));
   }));
 
   /* Necessidades vinculadas aceitas */

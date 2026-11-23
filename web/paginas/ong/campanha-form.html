@@ -85,16 +85,21 @@
           </div>
         </section>
 
-        <!-- Seção 2: metas gerais (quantidade + categoria + item em texto), sem ONG dona (RN-25) -->
+        <!-- Seção 2: metas gerais (quantidade + unidade + categoria + item em texto, como uma necessidade), sem ONG dona (RN-25) -->
         <section class="secao-formulario pilha" aria-labelledby="s-metas">
           <h2 id="s-metas" class="texto-sobretitulo">Metas da campanha</h2>
-          <p class="campo-ajuda">Informe o que a campanha quer arrecadar. Cada meta tem quantidade, categoria e o item em texto. A meta não pertence a uma ONG e recebe doações diretas.</p>
+          <p class="campo-ajuda">Informe o que a campanha quer arrecadar. Cada meta tem quantidade, unidade, categoria e o item em texto, como uma necessidade. A meta não pertence a uma ONG e recebe doações diretas.</p>
           <ul id="metas-lista" class="metas-lista" role="list"></ul>
           <div id="erro-metas"></div>
           <div class="nova-meta">
             <div class="campo">
               <label for="meta-quantidade">Quantidade</label>
               <input type="number" id="meta-quantidade" min="1" step="1" inputmode="numeric" placeholder="1500">
+            </div>
+            <div class="campo">
+              <label for="meta-unidade">Unidade</label>
+              <!-- Caixa vazia de propósito: o JavaScript (campanha-form.js) coloca aqui as unidades (un., pct., L, latas, kg, cx.) -->
+              <select id="meta-unidade"></select>
             </div>
             <div class="campo">
               <label for="meta-categoria">Categoria</label>

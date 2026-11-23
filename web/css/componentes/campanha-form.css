@@ -27,8 +27,8 @@
   background: var(--surface-raised);
 }
 
-/* Linha para digitar uma meta nova: quantidade, categoria e item; o botão fica na linha de baixo.
-   No celular vira uma coluna; a partir de 640 px, três colunas (grid). */
+/* Linha para digitar uma meta nova: quantidade, unidade, categoria e item; o botão fica na linha de baixo.
+   No celular vira uma coluna; a partir de 640 px, quatro colunas (grid). */
 .nova-meta {
   display: grid;
   grid-template-columns: 1fr;
@@ -42,8 +42,8 @@
 
 @media (min-width: 640px) {
   .nova-meta {
-    /* Três colunas: quantidade (120 px), categoria (180 px) e item (o resto, com no mínimo 160 px) */
-    grid-template-columns: 120px 180px minmax(160px, 1fr);
+    /* Quatro colunas: quantidade (110 px), unidade (100 px), categoria (170 px) e item (o resto, com no mínimo 120 px) */
+    grid-template-columns: 110px 100px 170px minmax(120px, 1fr);
   }
 
   .nova-meta .botao {

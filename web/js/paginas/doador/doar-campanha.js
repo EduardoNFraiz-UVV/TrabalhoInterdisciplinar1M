@@ -11,7 +11,7 @@ import { iniciarPagina } from '../../nucleo/pagina.js';
 import { buscar } from '../../nucleo/armazenamento.js';
 import { ir, parametro } from '../../nucleo/caminhos.js';
 import { el, $, preencher } from '../../utilitarios/dom.js';
-import { hojeISO, formatarData, formatarNumero } from '../../utilitarios/formatacao.js';
+import { hojeISO, formatarData, formatarQuantidade } from '../../utilitarios/formatacao.js';
 import { metasDaCampanha, faltamDaMeta, textoCidades, nomeCriador } from '../../regras/campanhas.js';
 import { validarDoacao, registrarDoacao } from '../../regras/doacoes.js';
 import { mostrarErros, limparErros, lerFormulario, preencherSelect } from '../../componentes/formulario.js';
@@ -56,11 +56,12 @@ function montar(usuario) {
     /* Lê o que está digitado e acha a meta escolhida (null se nenhuma) */
     const dados = lerFormulario(formulario);
     const meta = dados.idMeta ? buscar('campanha_meta', dados.idMeta) : null;
-    $('#ajuda-quantidade').textContent = meta ? `Faltam ${formatarNumero(faltamDaMeta(meta))}` : 'Escolha a meta para ver quanto falta.';
+    /* "Faltam 490 L": quanto falta já com a unidade da meta */
+    $('#ajuda-quantidade').textContent = meta ? `Faltam ${formatarQuantidade(faltamDaMeta(meta), meta.unidade)}` : 'Escolha a meta para ver quanto falta.';
     /* Resumo ao lado do formulário (<dl>: pares nome/valor) */
     preencher($('#resumo'),
       el('dt', {}, 'Campanha'), el('dd', {}, campanha.titulo),
-      el('dt', {}, 'Meta'), el('dd', {}, meta ? `${meta.item}${dados.quantidade ? ` · ${formatarNumero(dados.quantidade)}` : ''}` : '—'),
+      el('dt', {}, 'Meta'), el('dd', {}, meta ? `${meta.item}${dados.quantidade ? ` · ${formatarQuantidade(dados.quantidade, meta.unidade)}` : ''}` : '—'),
       el('dt', {}, 'Entrega'), el('dd', {}, `No endereço da campanha${dados.dataPrevista ? ` em ${formatarData(dados.dataPrevista)}` : ''}`),
       el('dt', {}, 'Endereço'), el('dd', {}, campanha.endereco_recebimento),
       el('dt', {}, 'Quem recebe'), el('dd', {}, nomeCriador(campanha)));
