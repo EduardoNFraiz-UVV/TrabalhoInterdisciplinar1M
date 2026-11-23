@@ -3,7 +3,8 @@
   Página: paginas/ong/doacoes-recebidas.html (tela 09: Doações recebidas).
   Para que serve: a ONG filtra as doações por status (abas), por origem e por texto, e muda o status
   seguindo o fluxo oferecida -> aceita -> recebida (RN-40 e RN-41). Pode recusar com mensagem (RN-42).
-  Depende de: pagina.js, regras de doações, componentes de abas, tabela, selos e alertas.
+  A tabela tem paginação (10 por página) e o botão "Detalhes" abre um modal com os dados da doação.
+  Depende de: pagina.js, regras de doações, componentes de abas, tabela, paginação, diálogo, selos e alertas.
 */
 
 /* Funções de outros arquivos que usamos aqui */
@@ -15,9 +16,14 @@ import { formatarData, formatarDiaMes, nomeAbreviado, normalizar, ROTULO_ENTREGA
 import { doacoesDaOng, detalharDoacao, quantidadeComUnidade, contarPorStatus, mudarStatus } from '../../regras/doacoes.js';
 import { criarAbas } from '../../componentes/abas.js';
 import { criarTabela } from '../../componentes/tabela.js';
+import { criarPaginacao, fatiar, preencherPagina } from '../../componentes/paginacao.js';
+import { abrirDialogo } from '../../componentes/dialogo.js';
 import { seloStatusDoacao } from '../../componentes/selos.js';
 import { mostrarAlerta } from '../../componentes/alertas.js';
 import { icone } from '../../componentes/icones.js';
+
+/* Quantas doações aparecem em cada página da tabela */
+const POR_PAGINA = 10;
 
 /* As quatro abas: o id é o status da doação; "oferecida" aparece como "Pendentes" */
 const ABAS = [
@@ -32,8 +38,8 @@ function montar(ong) {
   /* Área de avisos da página */
   const areaAlerta = $('#area-alerta');
 
-  /* Estado da tela: aba aberta e doação selecionada para o detalhe */
-  let selecionada = null;
+  /* Estado da tela: página atual da tabela (começa na 1) */
+  let pagina = 1;
   /* A URL pode pedir uma aba (?aba=aceita); se o valor não existe na lista, usa "oferecida" */
   const abaDaUrl = parametro('aba');
   let abaAtual = ABAS.some((a) => a.id === abaDaUrl) ? abaDaUrl : 'oferecida';
@@ -47,8 +53,8 @@ function montar(ong) {
     rotulo: 'Filtrar doações por status',
     abas: ABAS.map((a) => ({ ...a, contador: 0 })),
     ativa: abaAtual,
-    /* Ao trocar de aba: guarda a aba, limpa a doação selecionada e redesenha */
-    aoMudar: (id) => { abaAtual = id; selecionada = null; desenhar(); }
+    /* Ao trocar de aba: guarda a aba, volta para a página 1 e redesenha */
+    aoMudar: (id) => { abaAtual = id; pagina = 1; desenhar(); }
   });
   $('#abas').append(abas.elemento);
 
@@ -64,7 +70,7 @@ function montar(ong) {
       .filter((d) => !termo || normalizar(buscar('usuario', d.id_doador).nome).includes(termo) || normalizar(detalharDoacao(d).item).includes(termo));
   }
 
-  /* Desenha os contadores, a tabela e o detalhe */
+  /* Desenha os contadores, a tabela e a paginação */
   function desenhar() {
     /* Doações que passam nos filtros e quantas há em cada status (para os números das abas) */
     const doacoes = filtradas();
@@ -73,18 +79,17 @@ function montar(ong) {
 
     /* Linhas da tabela: só as da aba atual */
     const linhas = doacoes.filter((d) => d.status === abaAtual);
-    /* Mantém o detalhe aberto só se a doação ainda está na aba; senão, mostra a primeira da lista */
-    if (!selecionada || !linhas.some((d) => d.id_doacao === selecionada)) selecionada = linhas[0]?.id_doacao ?? null;
+    /* Volta para a primeira página se a atual deixou de existir (ex.: a última doação da página foi aceita) */
+    if ((pagina - 1) * POR_PAGINA >= linhas.length) pagina = 1;
 
-    preencher($('#lista'), criarTabela({
+    /* A tabela de uma página: recebe o número da página e mostra só as doações dela */
+    const tabelaDaPagina = (numero) => criarTabela({
       legenda: 'Doações oferecidas à ONG',
-      linhas,
+      linhas: fatiar(linhas, numero, POR_PAGINA),
       /* Na aba de pendentes, o vazio explica quando as doações aparecem */
       vazio: abaAtual === 'oferecida'
         ? 'Nenhuma doação esperando resposta. Quando um doador registrar uma doação para suas necessidades ou campanhas, ela aparece aqui.'
         : 'Nenhuma doação nesta situação.',
-      /* A linha da doação selecionada fica destacada */
-      selecionada: (d) => d.id_doacao === selecionada,
       colunas: [
         { titulo: 'Data', render: (d) => formatarDiaMes(d.data_registro) },
         { titulo: 'Doador', render: (d) => nomeAbreviado(buscar('usuario', d.id_doador).nome) },
@@ -96,18 +101,19 @@ function montar(ong) {
         { titulo: 'Status', render: (d) => seloStatusDoacao(d.status) },
         { titulo: 'Ações', classe: 'acoes', render: (d) => acoesDaLinha(d) }
       ]
-    }));
-
-    /* Atualiza também a área de detalhe */
-    desenharDetalhe();
+    });
+    /* Mostra a página atual com a altura da página mais alta, para a paginação não mudar de lugar */
+    preencherPagina($('#lista'), { total: linhas.length, porPagina: POR_PAGINA, pagina, conteudo: tabelaDaPagina });
+    /* Botões da paginação; ao escolher outra página, guarda o número e redesenha */
+    preencher($('#paginacao'), criarPaginacao({ total: linhas.length, porPagina: POR_PAGINA, pagina, aoMudar: (nova) => { pagina = nova; desenhar(); } }));
   }
 
   /* Ações da linha: Aceitar e Recusar (oferecida), Confirmar recebimento (aceita) e Detalhes (sempre) */
   function acoesDaLinha(d) {
     /* Nome do item, usado nos textos para leitores de tela */
     const nome = detalharDoacao(d).item;
-    /* O botão "Detalhes" existe em toda linha: seleciona a doação e redesenha */
-    const botoes = [el('button', { type: 'button', class: 'acao', 'aria-label': `Ver detalhes de ${nome}`, onclick: () => { selecionada = d.id_doacao; desenhar(); } }, 'Detalhes')];
+    /* O botão "Detalhes" existe em toda linha: abre o modal com os dados da doação */
+    const botoes = [el('button', { type: 'button', class: 'acao', 'aria-label': `Ver detalhes de ${nome}`, onclick: () => abrirDetalhe(d) }, 'Detalhes')];
     /* Doação oferecida: pode ser aceita ou recusada */
     if (d.status === 'oferecida') {
       botoes.push(el('button', { type: 'button', class: 'acao acao-sucesso', onclick: () => alterar(d.id_doacao, 'aceita') }, 'Aceitar'));
@@ -131,15 +137,11 @@ function montar(ong) {
     desenhar();
   }
 
-  /* Detalhe da doação selecionada, com mensagem ao doador e botões conforme o status */
-  function desenharDetalhe() {
-    /* Seção do detalhe e a doação selecionada (null se nenhuma) */
-    const secao = $('#secao-detalhe');
-    const doacao = selecionada ? buscar('doacao', selecionada) : null;
-    /* Sem doação selecionada, a seção fica escondida e paramos aqui */
-    secao.hidden = !doacao;
-    if (!doacao) return;
-
+  /*
+    Abre o modal com o detalhe da doação, a mensagem ao doador e os botões conforme o status.
+    É "async" porque espera o doador responder: o await abaixo só termina quando o modal fecha.
+  */
+  async function abrirDetalhe(doacao) {
     /* Dados prontos sobre o destino e o doador */
     const info = detalharDoacao(doacao);
     const doador = buscar('usuario', doacao.id_doador);
@@ -152,28 +154,46 @@ function montar(ong) {
     const campoMensagem = el('textarea', { id: 'mensagem', rows: 3, maxlength: 200, placeholder: 'Ex.: Obrigado! Pode entregar na portaria.' });
     const acionavel = doacao.status === 'oferecida' || doacao.status === 'aceita';
 
-    preencher($('#detalhe'),
-      el('p', {}, el('strong', {}, `${info.item}`), ` · de ${doador.nome}`),
-      el('p', {}, `Quantidade: ${quantidadeComUnidade(doacao)} · ${entrega}`),
-      /* Linhas opcionais: só entram na tela se o dado existe (senão entra texto vazio) */
-      doacao.forma_entrega === 'retirada' ? el('p', {}, `Endereço de retirada: ${doacao.endereco_retirada}`) : '',
-      doacao.observacao ? el('p', { class: 'texto-apoio' }, `Observação do doador: “${doacao.observacao}”`) : '',
-      el('p', { class: 'texto-apoio' }, `Contato: ${doador.email} · ${doador.telefone}`),
-      doacao.mensagem_ong ? el('p', { class: 'texto-apoio' }, `Mensagem enviada: “${doacao.mensagem_ong}”`) : '',
-      /* Campo de mensagem e botões só aparecem enquanto a doação aceita ações */
-      acionavel ? el('div', { class: 'campo' }, el('label', { for: 'mensagem' }, 'Mensagem ao doador (opcional)'), campoMensagem) : '',
-      acionavel ? el('div', { class: 'linha linha-fim botoes-formulario' },
-        el('button', { type: 'button', class: 'botao botao-secundario', onclick: () => alterar(doacao.id_doacao, 'recusada', campoMensagem.value) }, 'Recusar'),
-        doacao.status === 'oferecida'
-          ? el('button', { type: 'button', class: 'botao botao-primario', onclick: () => alterar(doacao.id_doacao, 'aceita', campoMensagem.value) }, 'Aceitar doação')
-          : el('button', { type: 'button', class: 'botao botao-primario', onclick: () => alterar(doacao.id_doacao, 'recebida', campoMensagem.value) }, 'Confirmar recebimento')) : '');
+    /* Botões do modal. "valor" é o que abrirDialogo devolve quando o botão é clicado (null = só fechar) */
+    const botoes = [{ rotulo: 'Fechar', tipo: 'discreto', valor: null }];
+    if (acionavel) {
+      botoes.push({ rotulo: 'Recusar', tipo: 'secundario', valor: 'recusada' });
+      /* O botão principal depende do status: aceitar (oferecida) ou confirmar o recebimento (aceita) */
+      if (doacao.status === 'oferecida') botoes.push({ rotulo: 'Aceitar doação', tipo: 'primario', valor: 'aceita' });
+      else botoes.push({ rotulo: 'Confirmar recebimento', tipo: 'primario', valor: 'recebida' });
+    }
+
+    /* Abre o modal (um <dialog>) e espera: "resposta" é o botão clicado, ou null se foi Fechar ou Esc */
+    const resposta = await abrirDialogo({
+      titulo: 'Detalhe da doação',
+      corpo: el('div', { class: 'pilha' },
+        /* Lista de rótulo e valor (dl = lista de descrição, dt = rótulo, dd = valor) */
+        el('dl', { class: 'resumo-lista' },
+          el('dt', {}, 'Item'), el('dd', {}, info.item),
+          el('dt', {}, 'Doador'), el('dd', {}, doador.nome),
+          el('dt', {}, 'Quantidade'), el('dd', {}, quantidadeComUnidade(doacao)),
+          el('dt', {}, 'Entrega'), el('dd', {}, entrega),
+          /* Linhas opcionais: só entram na tela se o dado existe (senão entra texto vazio) */
+          doacao.forma_entrega === 'retirada' ? el('dt', {}, 'Endereço de retirada') : '', doacao.forma_entrega === 'retirada' ? el('dd', {}, doacao.endereco_retirada) : '',
+          el('dt', {}, 'E-mail'), el('dd', {}, doador.email),
+          el('dt', {}, 'Telefone'), el('dd', {}, doador.telefone),
+          doacao.observacao ? el('dt', {}, 'Observação do doador') : '', doacao.observacao ? el('dd', {}, `“${doacao.observacao}”`) : '',
+          doacao.mensagem_ong ? el('dt', {}, 'Mensagem enviada') : '', doacao.mensagem_ong ? el('dd', {}, `“${doacao.mensagem_ong}”`) : ''),
+        /* O campo de mensagem só aparece enquanto a doação aceita ações */
+        acionavel ? el('div', { class: 'campo' }, el('label', { for: 'mensagem' }, 'Mensagem ao doador (opcional)'), campoMensagem) : ''),
+      botoes,
+      /* Chamada quando um botão com valor é clicado: devolve o texto digitado (vem em resposta.dados) */
+      ler: () => campoMensagem.value
+    });
+    /* Se o doador escolheu uma ação (não foi Fechar nem Esc), muda o status com a mensagem digitada */
+    if (resposta) alterar(doacao.id_doacao, resposta.valor, resposta.dados);
   }
 
   /* O formulário de filtros não deve recarregar a página ao ser enviado */
   $('#formulario-filtros').addEventListener('submit', (evento) => evento.preventDefault());
-  /* Redesenha ao digitar na busca ou mudar a origem */
-  campoBusca.addEventListener('input', desenhar);
-  $('#filtro-origem').addEventListener('change', desenhar);
+  /* Ao digitar na busca ou mudar a origem, volta para a página 1 e redesenha */
+  campoBusca.addEventListener('input', () => { pagina = 1; desenhar(); });
+  $('#filtro-origem').addEventListener('change', () => { pagina = 1; desenhar(); });
   /* Primeira pintura da página */
   desenhar();
 }

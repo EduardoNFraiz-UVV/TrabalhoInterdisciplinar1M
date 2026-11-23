@@ -143,6 +143,18 @@
   gap: var(--space-2);
 }
 
+/* Versão em faixa (Doações recebidas): a partir de 768px os passos ficam lado a lado, cada um com a mesma largura */
+@media (min-width: 768px) {
+  .como-funciona-linha ol {
+    flex-direction: row;           /* a lista passa de coluna para linha */
+    gap: var(--space-6);           /* espaço maior, que também deixa o número de cada passo aparecer */
+  }
+
+  .como-funciona-linha li {
+    flex: 1 1 0;                   /* os 3 passos dividem a largura em partes iguais */
+  }
+}
+
 /* ---------- Lista de linhas (fila de análise do painel) ----------
    Cada item tem o texto principal de um lado e uma ação do outro, separados por filetes. */
 

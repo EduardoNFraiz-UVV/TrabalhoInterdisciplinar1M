@@ -39,47 +39,40 @@
     <!-- Área de avisos: o JavaScript mostra aqui as mensagens de sucesso e erro; aria-live="polite" faz o leitor de tela anunciar quando o texto muda -->
     <div id="area-alerta" class="area-alerta" aria-live="polite"></div>
 
-    <div class="grade-principal">
-      <div class="pilha pilha-grande">
-        <!-- Abas por status (criadas pelo JS) e filtros -->
-        <div id="abas"></div>
+    <!-- Ajuda em faixa, acima da tabela, para a tabela poder usar a largura toda (a classe como-funciona-linha põe os 3 passos lado a lado em telas médias e grandes) -->
+    <section class="cartao como-funciona como-funciona-linha" aria-labelledby="titulo-como">
+      <h2 id="titulo-como" class="texto-rotulo">Como funciona</h2>
+      <ol>
+        <li>Aceite a doação para avisar o doador.</li>
+        <li>Quando o item chegar, clique em Confirmar recebimento.</li>
+        <li>A quantidade da necessidade é atualizada automaticamente.</li>
+      </ol>
+      <p class="texto-legenda">Ao confirmar, o doador recebe uma notificação.</p>
+    </section>
 
-        <form class="filtros" id="formulario-filtros" role="search" aria-label="Filtrar doações">
-          <div class="campo">
-            <label for="filtro-origem">Origem</label>
-            <select id="filtro-origem">
-              <option value="">Todas</option>
-              <option value="necessidades">Minhas necessidades</option>
-              <option value="campanhas">Campanhas criadas pela ONG</option>
-            </select>
-          </div>
-          <div class="campo cresce">
-            <label for="filtro-busca">Buscar doador ou item</label>
-            <div class="busca-campo" id="campo-busca"></div>
-          </div>
-        </form>
+    <div class="pilha pilha-grande">
+      <!-- Abas por status (criadas pelo JS) e filtros -->
+      <div id="abas"></div>
 
-        <!-- Caixa vazia de propósito: o JavaScript desenha aqui a tabela, e redesenha quando o filtro ou a aba mudam -->
-        <div id="lista"></div>
+      <form class="filtros" id="formulario-filtros" role="search" aria-label="Filtrar doações">
+        <div class="campo">
+          <label for="filtro-origem">Origem</label>
+          <select id="filtro-origem">
+            <option value="">Todas</option>
+            <option value="necessidades">Minhas necessidades</option>
+            <option value="campanhas">Campanhas criadas pela ONG</option>
+          </select>
+        </div>
+        <div class="campo cresce">
+          <label for="filtro-busca">Buscar doador ou item</label>
+          <div class="busca-campo" id="campo-busca"></div>
+        </div>
+      </form>
 
-        <!-- Detalhe da doação selecionada (preenchido pelo JS) -->
-        <section class="cartao" aria-labelledby="titulo-detalhe" id="secao-detalhe" hidden>
-          <h2 id="titulo-detalhe">Detalhe da doação</h2>
-          <div id="detalhe" class="pilha"></div>
-        </section>
-      </div>
-
-      <aside class="pilha" aria-label="Ajuda">
-        <section class="cartao como-funciona" aria-labelledby="titulo-como">
-          <h2 id="titulo-como" class="texto-rotulo">Como funciona</h2>
-          <ol>
-            <li>Aceite a doação para avisar o doador.</li>
-            <li>Quando o item chegar, clique em Confirmar recebimento.</li>
-            <li>A quantidade da necessidade é atualizada automaticamente.</li>
-          </ol>
-          <p class="texto-legenda">Ao confirmar, o doador recebe uma notificação.</p>
-        </section>
-      </aside>
+      <!-- Caixa vazia de propósito: o JavaScript desenha aqui a tabela, e redesenha quando o filtro ou a aba mudam -->
+      <div id="lista"></div>
+      <!-- Caixa vazia de propósito: o JavaScript desenha aqui os botões da paginação (o detalhe da doação abre em um modal criado pelo JS, não existe aqui) -->
+      <div id="paginacao"></div>
     </div>
   </main>
 
