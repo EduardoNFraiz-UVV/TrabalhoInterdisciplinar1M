@@ -162,9 +162,11 @@ As telas 11 a 14, 17 e 19 são novas e seguem os mesmos componentes das demais. 
 
 ### 19. Doações das campanhas, nova
 - Aberta por "Ver doações", na tela 13. Cabeçalho do administrador. Breadcrumb "Painel > Campanhas > Doações", título "Doações das campanhas" e "Doações para as metas das campanhas criadas pela administração. A entrega é no endereço de recebimento informado na criação."
+- Card "Como funciona" (surface-sunken) em faixa de largura total, logo abaixo do título e acima das abas, com os 3 passos lado a lado (empilhados no celular) e a nota de que as doações das campanhas criadas por uma ONG ficam na tela 09 dela. Sem coluna lateral, como na tela 09.
 - Abas: Pendentes (2), Aceitas (1), Recebidas (38), Recusadas (1); busca "Buscar doador ou item" e seletor "Campanha: Todas".
-- Tabela: Data, Campanha, Doador, Meta, Qtd., Data prevista, Status e Ações ("Aceitar", "Recusar", "Confirmar recebimento").
-- Detalhe da doação selecionada (Meta, Quantidade, Endereço, Contato), campo "Mensagem ao doador (opcional)" e botões "Recusar" e "Aceitar doação". Card "Como funciona" com 3 passos e a nota de que as doações das campanhas criadas por uma ONG ficam na tela 09 dela.
+- Tabela: Data, Campanha, Doador, Meta, Qtd., Data prevista, Status e Ações ("Detalhes", "Aceitar", "Recusar", "Confirmar recebimento").
+- Paginação de 10 em 10 linhas abaixo da tabela, com posição fixa (a lista reserva a altura da página mais alta). Trocar de aba ou de filtro volta para a página 1.
+- "Detalhes" abre o diálogo "Detalhe da doação" (o mesmo da tela 09): Meta (com a campanha), Doador, Quantidade, Endereço de recebimento, Entrega, E-mail, Telefone, Observação do doador e Mensagem enviada (os dois últimos só quando existem). Quando a doação ainda pode ser respondida, traz o campo "Mensagem ao doador (opcional)" e os botões Fechar, "Recusar" e "Aceitar doação" (na aba Aceitas, "Confirmar recebimento"). Nas abas Recebidas e Recusadas só existe "Fechar".
 
 ## Telas extras (20 a 25)
 
