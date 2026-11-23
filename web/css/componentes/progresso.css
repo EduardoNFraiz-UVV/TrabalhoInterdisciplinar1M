@@ -1,9 +1,17 @@
+/*
+  progresso.css
+  Para que serve: barra de progresso (8 px, trilha surface-sunken, preenchimento primary),
+  com rótulo à esquerda e valor à direita, e o acompanhamento da doação em 3 passos.
+  Quem usa: progresso.js (barra) e a tela Minhas doações (passos).
+*/
+
 .progresso {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
 }
 
+/* Linha de cima: rótulo à esquerda e valor à direita */
 .progresso-textos {
   display: flex;
   justify-content: space-between;
@@ -15,6 +23,7 @@
   color: var(--ink-muted);
 }
 
+/* Trilha: o fundo cinza-esverdeado da barra */
 .progresso-trilha {
   height: 8px;
   border-radius: var(--radius-pill);
@@ -22,11 +31,14 @@
   overflow: hidden;
 }
 
+/* Preenchimento: a largura é definida pelo JS (style="width: 65%") */
 .progresso-preenchimento {
   height: 100%;
   border-radius: var(--radius-pill);
   background: var(--primary);
 }
+
+/* ---------- Acompanhamento da doação em 3 passos ---------- */
 
 .passos {
   display: flex;
@@ -44,6 +56,7 @@
   color: var(--ink-muted);
 }
 
+/* Círculo numerado do passo */
 .passo-marca {
   display: flex;
   align-items: center;
@@ -56,12 +69,14 @@
   font-weight: 700;
 }
 
+/* Passo concluído: círculo preenchido com marca de "feito" */
 .passo-feito .passo-marca {
   background: var(--primary);
   border-color: var(--primary);
   color: var(--on-primary);
 }
 
+/* Passo atual: texto em negrito e círculo destacado */
 .passo-atual {
   color: var(--ink);
   font-weight: 700;
@@ -76,6 +91,7 @@
   color: var(--on-primary);
 }
 
+/* Traço que liga um passo ao outro (some no celular, onde os passos quebram de linha) */
 .passo + .passo::before {
   content: '';
   width: 32px;

@@ -1,37 +1,53 @@
+/*
+  tokens.css
+  Para que serve: guarda TODAS as cores, fontes, espaçamentos, raios e alturas do guia de estilo
+  (uiux/tokens-do-guia-de-estilo.md) como "variáveis CSS".
+  Quem usa: todos os outros arquivos CSS, escrevendo var(--nome) no lugar do valor.
+  Vantagem: se uma cor mudar, mudamos aqui uma única vez e o site inteiro acompanha.
+*/
+
+/* :root é o elemento <html>; variáveis declaradas aqui valem para a página toda */
 :root {
-  --primary: #0D6B65;
-  --primary-hover: #0A5450;
-  --primary-soft: #D9EEEB;
-  --on-primary: #FFFFFF;
-  --accent: #F4B740;
-  --accent-soft: #FCEFD3;
-  --on-accent: #2B1D00;
+  /* ---------- Cores da marca ---------- */
+  --primary: #0D6B65;          /* verde-azulado principal: botões primários, links, ícones */
+  --primary-hover: #0A5450;    /* versão mais escura, usada quando o mouse passa por cima */
+  --primary-soft: #D9EEEB;     /* versão bem clara: fundo do item de menu atual e de realces */
+  --on-primary: #FFFFFF;       /* cor do texto escrito SOBRE o fundo primary */
+  --accent: #F4B740;           /* amarelo de destaque (selo EMERGÊNCIA) */
+  --accent-soft: #FCEFD3;      /* amarelo claro: fundo do card de campanha */
+  --on-accent: #2B1D00;        /* texto escrito sobre o amarelo */
 
-  --ink: #13201E;
-  --ink-muted: #4A5C59;
-  --line: #CCDAD7;
-  --line-strong: #71857F;
-  --focus: #2F5BD3;
+  /* ---------- Texto e bordas ---------- */
+  --ink: #13201E;              /* cor do texto principal */
+  --ink-muted: #4A5C59;        /* texto secundário (legendas, apoio) */
+  --line: #CCDAD7;             /* borda leve dos cards e tabelas */
+  --line-strong: #71857F;      /* borda dos campos de formulário */
+  --focus: #2F5BD3;            /* contorno azul que aparece ao navegar pelo teclado */
 
-  --surface: #F5F8F7;
-  --surface-raised: #FFFFFF;
-  --surface-sunken: #E6EFED;
+  /* ---------- Superfícies (fundos) ---------- */
+  --surface: #F5F8F7;          /* fundo geral da página */
+  --surface-raised: #FFFFFF;   /* fundo dos cards (branco) */
+  --surface-sunken: #E6EFED;   /* fundo "afundado": campos bloqueados, trilha da barra, selo Normal */
 
+  /* ---------- Estados (informação, aviso, sucesso, perigo) ---------- */
   --info: #2457B5;
   --info-soft: #E3EBFA;
   --warning: #7F4D00;
   --warning-soft: #FCEFD6;
   --success: #1C6B3A;
   --success-soft: #DFF1E5;
-  --success-action: #2E7D32;
+  --success-action: #2E7D32;   /* verde mais vivo, só no link "Concluir" da tela de necessidades */
   --danger: #B3261E;
   --danger-soft: #FBE4E1;
   --danger-hover: #8F1E18;
   --on-danger: #FFFFFF;
 
+  /* ---------- Fontes ---------- */
+  /* Títulos usam Bricolage Grotesque; textos usam Atkinson Hyperlegible; a última opção é a fonte do sistema */
   --fonte-titulo: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
   --fonte-texto: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
 
+  /* ---------- Espaçamentos (grade de 4 px) ---------- */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -41,17 +57,21 @@
   --space-7: 40px;
   --space-8: 64px;
 
+  /* ---------- Raios de borda (cantos arredondados) ---------- */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
-  --radius-pill: 999px;
+  --radius-pill: 999px;        /* pílula: cantos totalmente redondos */
 
+  /* ---------- Alturas de controles (botões e campos) ---------- */
   --control-sm: 32px;
   --control-md: 40px;
   --control-lg: 48px;
 
+  /* ---------- Sombras (suaves) ---------- */
   --sombra-card: 0 1px 2px rgba(19, 32, 30, .08);
   --sombra-dialog: 0 8px 24px rgba(19, 32, 30, .16);
 
+  /* ---------- Largura máxima do conteúdo ---------- */
   --largura-conteudo: 1200px;
 }

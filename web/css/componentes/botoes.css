@@ -1,9 +1,17 @@
+/*
+  botoes.css
+  Para que serve: os 4 tipos de botão do guia (primário, secundário, discreto e perigo),
+  com estados de hover (mouse em cima) e desabilitado, e os 3 tamanhos.
+  Quem usa: qualquer <button> ou <a> com class="botao ...". Um botão primário por área.
+*/
+
+/* Base: vale para todos os botões. Uso inline-flex para alinhar ícone e texto lado a lado */
 .botao {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: var(--control-md);
+  min-height: var(--control-md);   /* 40 px de altura */
   padding: 0 var(--space-4);
   border: 1px solid transparent;
   border-radius: var(--radius-md);
@@ -11,15 +19,18 @@
   font-size: 14px;
   font-weight: 700;
   line-height: 20px;
-  text-decoration: none;
+  text-decoration: none;           /* links com aparência de botão não têm sublinhado */
   white-space: nowrap;
+  /* 150 ms com saída suave: rápido o bastante para quem está em fluxo de tarefa não esperar */
   transition: background-color 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out, transform 150ms ease-out;
 }
 
+/* Estado "pressionado": o botão desce 1 px, confirmando o clique (ver também prefers-reduced-motion no reset.css) */
 .botao:active:not(:disabled):not([aria-disabled="true"]) {
   transform: translateY(1px);
 }
 
+/* Primário: fundo primary e texto branco */
 .botao-primario {
   background: var(--primary);
   color: var(--on-primary);
@@ -30,6 +41,7 @@
   color: var(--on-primary);
 }
 
+/* Secundário: fundo branco, borda forte e texto primary; no hover, fundo suave */
 .botao-secundario {
   background: var(--surface-raised);
   border-color: var(--line-strong);
@@ -42,6 +54,7 @@
   color: var(--primary);
 }
 
+/* Discreto: sem fundo nem borda (usado em "Cancelar") */
 .botao-discreto {
   background: transparent;
   color: var(--primary);
@@ -52,6 +65,7 @@
   color: var(--primary);
 }
 
+/* Perigo: fundo vermelho, só em ações destrutivas dentro de diálogos de confirmação */
 .botao-perigo {
   background: var(--danger);
   color: var(--on-danger);
@@ -62,6 +76,7 @@
   color: var(--on-danger);
 }
 
+/* Desabilitado: vale para qualquer tipo; o atributo disabled ou aria-disabled ativa o visual */
 .botao:disabled,
 .botao[aria-disabled="true"] {
   background: var(--surface-sunken);
@@ -70,6 +85,7 @@
   cursor: not-allowed;
 }
 
+/* Tamanhos: sm = 32 px, lg = 48 px (o padrão md = 40 px já está na base) */
 .botao-pequeno {
   min-height: var(--control-sm);
   padding: 0 var(--space-3);
@@ -82,10 +98,12 @@
   font-size: 15px;
 }
 
+/* Botão que ocupa toda a largura (ex.: "Entrar" na tela de login) */
 .botao-bloco {
   width: 100%;
 }
 
+/* Links de ação dentro de tabelas ("Editar", "Concluir", "Excluir"): texto sem ícone, cada um com sua cor */
 .acao {
   display: inline-block;
   padding: var(--space-1) var(--space-2);
@@ -104,7 +122,7 @@
 }
 
 .acao-sucesso {
-  color: var(--success-action);
+  color: var(--success-action);   /* verde mais vivo, só para "Concluir" */
 }
 
 .acao-sucesso:hover {
@@ -119,6 +137,8 @@
   background: var(--danger-soft);
 }
 
+/* No celular, botões de rodapé de formulário ocupam a largura toda e todo alvo de toque
+   (botões pequenos e links de ação das tabelas) chega a 44 px, o tamanho confortável para o dedo */
 @media (max-width: 640px) {
   .botoes-formulario .botao {
     flex: 1 1 auto;
